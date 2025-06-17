@@ -11,5 +11,5 @@ PresetManager:
       m_ManagedTypeFallback: 
     second:
     - m_Preset: {fileID: 2655988077585873504, guid: f78b5e83303562242a050f33b67c7c97, type: 2}
-      m_Filter: 
+      m_Filter: glob:"*/Arts/**/*.png"
       m_Disabled: 0
