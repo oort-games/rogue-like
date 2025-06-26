@@ -9,6 +9,7 @@ public class UISoundVolumeSlider : MonoBehaviour
 {
     public SoundData.Type soundType;
     public TextMeshProUGUI valueText;
+    public UISoundMuteToggle muteToggle;    
 
     Slider _slider;
 
@@ -36,7 +37,7 @@ public class UISoundVolumeSlider : MonoBehaviour
                 break;
         }
         _slider.SetValueWithoutNotify(volume);
-        _slider.interactable = !mute;
+        Mute(mute);
 
         if (valueText != null)
         {
@@ -50,9 +51,21 @@ public class UISoundVolumeSlider : MonoBehaviour
         {
             case SoundData.Type.BGM:
                 SoundManager.Instance.VolumeBGM = value;
+                if (muteToggle != null && SoundManager.Instance.MuteBGM)
+                {
+                    SoundManager.Instance.MuteBGM = false;
+                    Mute(false);
+                    muteToggle.WakeUp();
+                }
                 break;
             case SoundData.Type.SFX:
                 SoundManager.Instance.VolumeSFX = value;
+                if (muteToggle != null && SoundManager.Instance.MuteSFX)
+                {
+                    SoundManager.Instance.MuteSFX = false;
+                    Mute(false);
+                    muteToggle.WakeUp();
+                }
                 break;
         }
 
@@ -60,5 +73,10 @@ public class UISoundVolumeSlider : MonoBehaviour
         {
             valueText.text = ((int)value).ToString();
         }
+    }
+
+    public void Mute(bool mute)
+    {
+        _slider.handleRect.GetComponent<Image>().color = mute ? Color.red : Color.green;
     }
 }

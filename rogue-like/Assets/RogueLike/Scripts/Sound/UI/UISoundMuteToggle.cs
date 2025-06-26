@@ -46,7 +46,12 @@ public class UISoundMuteToggle : MonoBehaviour
 
         if (volumeSlider != null)
         {
-            volumeSlider.GetComponent<Slider>().interactable = !value;
+            volumeSlider.Mute(value);
         }
+    }
+
+    public void WakeUp()
+    {
+        _toggle.SetIsOnWithoutNotify(false);
     }
 }

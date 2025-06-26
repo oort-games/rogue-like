@@ -150,6 +150,10 @@ public class SoundManager : Manager<SoundManager>
     void SetMuteBGM(bool value)
     {
         _muteBGM = value;
+        if (_isInitialized)
+        {
+            SaveMuteBGM();
+        }
         if (_muteBGM)
         {
             _audioMixer.SetFloat(BGM, MIN_VOLUME);
@@ -158,16 +162,15 @@ public class SoundManager : Manager<SoundManager>
         {
             _audioMixer.SetFloat(BGM, GetVolume(_volumeBGM));
         }
-        if (_isInitialized == false)
-        {
-            return;
-        }
-        SaveMuteBGM();
     }
 
     void SetMuteSFX(bool value)
     {
         _muteSFX = value;
+        if (_isInitialized)
+        {
+            SaveMuteSFX();
+        }
         if (_muteSFX)
         {
             _audioMixer.SetFloat(SFX, MIN_VOLUME);
@@ -176,41 +179,34 @@ public class SoundManager : Manager<SoundManager>
         {
             _audioMixer.SetFloat(SFX, GetVolume(_volumeSFX));
         }
-        if (_isInitialized == false)
-        {
-            return;
-        }
-        SaveMuteSFX();
     }
 
     void SetVolumeBGM(float value)
     {
         _volumeBGM = value;
+        if (_isInitialized)
+        {
+            SaveVolumeBGM();
+        }
         if (_muteBGM)
         {
             return;
         }
         _audioMixer.SetFloat(BGM, GetVolume(_volumeBGM));
-        if (_isInitialized == false)
-        {
-            return;
-        }
-        SaveVolumeBGM();
     }
 
     void SetVolumeSFX(float value)
     {
         _volumeSFX = value;
+        if (_isInitialized)
+        {
+            SaveVolumeSFX();
+        }
         if (_muteSFX)
         {
             return;
         }
         _audioMixer.SetFloat(SFX, GetVolume(_volumeSFX));
-        if (_isInitialized == false)
-        {
-            return;
-        }
-        SaveVolumeSFX();
     }
 
     float GetVolume(float value)
