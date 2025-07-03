@@ -569,7 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610a92935bed54f498009a2df6920df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundType: 0
+  type: 0
   volumeSlider: {fileID: 1816064722}
 --- !u!114 &655809219
 MonoBehaviour:
@@ -806,6 +806,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076376558}
   m_CullTransparentMesh: 1
+--- !u!1 &1158742072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1158742073}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1158742073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158742072}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1122.7662, y: 219.71194, z: 1.2392396}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1363326011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,7 +1250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b079c3999848644ab9052f315bdf7b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundType: 0
+  type: 0
   valueText: {fileID: 0}
   muteToggle: {fileID: 655809218}
 --- !u!114 &1816064723
@@ -1568,3 +1599,4 @@ SceneRoots:
   - {fileID: 1808490596}
   - {fileID: 119372659}
   - {fileID: 5542870341817180517}
+  - {fileID: 1158742073}

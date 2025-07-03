@@ -6,140 +6,47 @@ using UnityEngine.Audio;
 
 public class SoundManager : Manager<SoundManager>
 {
-    const float MAX_VOLUME = 0f;
-    const float MIN_VOLUME = -80f;
-
-    const string BGM = "BGM";
-    const string SFX = "SFX";
-
-    const string KEY_MUTE_BGM = "SOUND_MUTE_BGM";
-    const string KEY_MUTE_SFX = "SOUND_MUTE_SFX";
-    const string KEY_VOLUME_BGM = "SOUND_VOLUME_BGM";
-    const string KEY_VOLUME_SFX = "SOUND_VOLUME_SFX";
-
     public const float MAX_VALUE = 100f;
 
-    float _volumeBGM;
-    public float VolumeBGM
-    {
-        get { return _volumeBGM; }
-        set
-        {
-            SetVolumeBGM(value);
-        }
-    }
-
-    float _volumeSFX;
-    public float VolumeSFX
-    {
-        get { return _volumeSFX; }
-        set
-        {
-            SetVolumeSFX(value);
-        }
-    }
-
-    bool _muteBGM;
-    public bool MuteBGM
-    {
-        get { return _muteBGM; }
-        set
-        {
-            SetMuteBGM(value);
-        }
-    }
-
-    bool _muteSFX;
-    public bool MuteSFX
-    {
-        get { return _muteSFX; }
-        set
-        {
-            SetMuteSFX(value);
-        }
-    }
+    const float MAX_DB = 0f;
+    const float MIN_DB = -80f;
 
     [Header("Audio Mixer")]
     [SerializeField] AudioMixer _audioMixer;
 
-    AudioMixerGroup _bgmAudioMixerGroup;
-    AudioMixerGroup _sfxAudioMixerGroup;
-
-    SoundBGM _soundBGM;
-    SoundSFX _soundSFX;
-
-    Dictionary<string, AudioClip> _audioClips = new();
-
-    bool _isInitialized = false;
-
+    Dictionary<SoundType, SoundChannel> _channels = new();
+    Dictionary<string, AudioClip> _clips = new();
+    
     public override void Initialize()
     {
-        if (_audioMixer == null)
+        if (_audioMixer == null) _audioMixer = GetAudioMixer();
+ 
+        _channels[SoundType.BGM] = CreateChannel(SoundType.BGM, "Master/BGM", "BGM", new GameObject("Sound BGM").AddComponent<SoundBGM>());
+        _channels[SoundType.SFX] = CreateChannel(SoundType.SFX, "Master/SFX", "SFX", new GameObject("Sound SFX").AddComponent<SoundSFX>());
+
+        foreach(var (type, ch) in _channels)
         {
-            _audioMixer = GetAudioMixer();
+            ch.volume = PlayerPrefs.GetInt(ch.GetVolumeSaveKey(), 100);
+            ch.mute = PlayerPrefs.GetInt(ch.GetVolumeMuteKey(), 0) == 1;
+            ApplyVolume(type);
+            ApplyMute(type);
         }
-       
-        _bgmAudioMixerGroup = _audioMixer.FindMatchingGroups("Master/BGM")[0];
-        _sfxAudioMixerGroup = _audioMixer.FindMatchingGroups("Master/SFX")[0];
-
-        GameObject bgmGameObject = new("Sound BGM");
-        bgmGameObject.transform.SetParent(transform);
-        _soundBGM = bgmGameObject.AddComponent<SoundBGM>();
-        _soundBGM.Initialize(_bgmAudioMixerGroup);
-
-        GameObject sfxGameObject = new("Sound SFX");
-        sfxGameObject.transform.SetParent(transform);
-        _soundSFX = sfxGameObject.AddComponent<SoundSFX>();
-        _soundSFX.Initialize(_sfxAudioMixerGroup);
-
-        MuteBGM = LoadMuteBGM();
-        MuteSFX = LoadMuteSFX();
-        VolumeBGM = LoadVolumeBGM();
-        VolumeSFX = LoadVolumeSFX();
-
-        _isInitialized = true;
     }
 
-    public void PlayBGM(string clipName)
+    SoundChannel CreateChannel(SoundType type, string mixerPath, string mixerParam, SoundBase player)
     {
-        _soundBGM.Play(GetClip(SoundData.Type.BGM, clipName));
-    }
-
-    public void PlayBGM(AudioClip clip)
-    {
-        _soundBGM.Play(clip);
-    }
-
-    public void StopBGM()
-    {
-        _soundBGM.Stop();
-    }
-
-    public void PlaySFX(string clipName)
-    {
-        _soundSFX.Play(GetClip(SoundData.Type.SFX, clipName));
-    }
-
-    public void PlaySFX(AudioClip clip)
-    {
-        _soundSFX.Play(clip);
-    }
-
-    string GetClipPath(SoundData.Type type, string clipName)
-    {
-        return $"Sound/{type}/{clipName}";
-    }
-
-    AudioClip GetClip(SoundData.Type type, string clipName)
-    {
-        if (_audioClips.TryGetValue(clipName, out AudioClip clip))
+        SoundChannel channel = new()
         {
-            return clip;
-        }
-        else
-        {
-            return Resources.Load<AudioClip>(GetClipPath(type, clipName));
-        }
+            type = type,
+            mixerGroup = _audioMixer.FindMatchingGroups(mixerPath)[0],
+            mixerParam = mixerParam,
+            player = player,
+        };
+
+        player.transform.SetParent(transform);
+        player.Initialize(channel.mixerGroup);
+
+        return channel;
     }
 
     AudioMixer GetAudioMixer()
@@ -147,114 +54,76 @@ public class SoundManager : Manager<SoundManager>
         return Resources.Load<AudioMixer>("Sound/AudioMixer");
     }
 
-    void SetMuteBGM(bool value)
+    AudioClip GetClip(SoundType type, string clipName)
     {
-        _muteBGM = value;
-        if (_isInitialized)
-        {
-            SaveMuteBGM();
-        }
-        if (_muteBGM)
-        {
-            _audioMixer.SetFloat(BGM, MIN_VOLUME);
-        }
-        else
-        {
-            _audioMixer.SetFloat(BGM, GetVolume(_volumeBGM));
-        }
+        if (_clips.TryGetValue(clipName, out AudioClip clip))
+            return clip;
+
+        return Resources.Load<AudioClip>($"Sound/{type}/{clipName}");
     }
 
-    void SetMuteSFX(bool value)
+    public void Play(SoundType type, string clipName)
     {
-        _muteSFX = value;
-        if (_isInitialized)
-        {
-            SaveMuteSFX();
-        }
-        if (_muteSFX)
-        {
-            _audioMixer.SetFloat(SFX, MIN_VOLUME);
-        }
-        else
-        {
-            _audioMixer.SetFloat(SFX, GetVolume(_volumeSFX));
-        }
+        _channels[type].player.Play(GetClip(type, clipName));
     }
 
-    void SetVolumeBGM(float value)
+    public void Play(SoundType type, AudioClip clip)
     {
-        _volumeBGM = value;
-        if (_isInitialized)
-        {
-            SaveVolumeBGM();
-        }
-        if (_muteBGM)
-        {
-            return;
-        }
-        _audioMixer.SetFloat(BGM, GetVolume(_volumeBGM));
+        _channels[type].player.Play(clip);
     }
 
-    void SetVolumeSFX(float value)
+    public void Stop(SoundType type)
     {
-        _volumeSFX = value;
-        if (_isInitialized)
-        {
-            SaveVolumeSFX();
-        }
-        if (_muteSFX)
-        {
-            return;
-        }
-        _audioMixer.SetFloat(SFX, GetVolume(_volumeSFX));
+        _channels[type].player.Stop();
     }
 
-    float GetVolume(float value)
+    public float GetVolume(SoundType type)
     {
-        return value / MAX_VALUE * (MAX_VOLUME - MIN_VOLUME) + MIN_VOLUME;
+        return _channels[type].volume;
     }
 
-    bool LoadMuteBGM()
+    public bool GetMute(SoundType type)
     {
-        return PlayerPrefs.GetInt(KEY_MUTE_BGM, 0) == 1;
+        return _channels[type].mute;
     }
 
-    bool LoadMuteSFX()
+    public void SetVolume(SoundType type, float value)
     {
-        return PlayerPrefs.GetInt(KEY_MUTE_SFX, 0) == 1;
+        SoundChannel ch = _channels[type];
+        ch.volume = Mathf.Clamp(value, 0, MAX_VALUE);
+        ApplyVolume(type);
+        SavePref(ch.GetVolumeSaveKey(), (int)ch.volume);
     }
 
-    void SaveMuteBGM()
+    public void SetMute(SoundType type, bool value)
     {
-        PlayerPrefs.SetInt(KEY_MUTE_BGM, _muteBGM ? 1 : 0);
-        PlayerPrefs.Save();
+        SoundChannel ch = _channels[type];
+        ch.mute = value;
+        ApplyMute(type);
+        SavePref(ch.GetVolumeMuteKey(), ch.mute ? 1 : 0);
     }
 
-    void SaveMuteSFX()
+    void ApplyVolume(SoundType type)
     {
-        PlayerPrefs.SetInt(KEY_MUTE_SFX, _muteSFX ? 1 : 0);
-        PlayerPrefs.Save();
+        SoundChannel ch = _channels[type];
+        if (ch.mute) return;
+        _audioMixer.SetFloat(ch.mixerParam, UiVolumeToDb(ch.volume));
     }
 
-    float LoadVolumeBGM()
+    void ApplyMute(SoundType type)
     {
-        return PlayerPrefs.GetInt(KEY_VOLUME_BGM, 100);
+        SoundChannel ch = _channels[type];
+        _audioMixer.SetFloat(ch.mixerParam, ch.mute ? MIN_DB : UiVolumeToDb(ch.volume));
     }
 
-    float LoadVolumeSFX()
+    float UiVolumeToDb(float uiValue)
     {
-        return PlayerPrefs.GetInt(KEY_VOLUME_SFX, 100);
+        return uiValue / MAX_VALUE * (MAX_DB - MIN_DB) + MIN_DB;
     }
 
-    void SaveVolumeBGM()
+    void SavePref(string key, int value)
     {
-        PlayerPrefs.SetInt(KEY_VOLUME_BGM, (int)_volumeBGM);
-        PlayerPrefs.Save();
-    }
-
-    void SaveVolumeSFX()
-    {
-        PlayerPrefs.SetInt(KEY_VOLUME_SFX, (int)_volumeSFX);
+        PlayerPrefs.SetInt(key, value);
         PlayerPrefs.Save();
     }
 }

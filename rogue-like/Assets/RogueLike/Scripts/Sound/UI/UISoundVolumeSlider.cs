@@ -7,7 +7,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Slider))]
 public class UISoundVolumeSlider : MonoBehaviour
 {
-    public SoundData.Type soundType;
+    public SoundType type;
     public TextMeshProUGUI valueText;
     public UISoundMuteToggle muteToggle;    
 
@@ -23,55 +23,29 @@ public class UISoundVolumeSlider : MonoBehaviour
 
     private void OnEnable()
     {
-        float volume = 100f;
-        bool mute = false;
-        switch (soundType)
-        {
-            case SoundData.Type.BGM:
-                volume = SoundManager.Instance.VolumeBGM;
-                mute = SoundManager.Instance.MuteBGM;
-                break;
-            case SoundData.Type.SFX:
-                volume = SoundManager.Instance.VolumeSFX;
-                mute = SoundManager.Instance.MuteSFX;
-                break;
-        }
+        float volume = SoundManager.Instance.GetVolume(type);
         _slider.SetValueWithoutNotify(volume);
-        Mute(mute);
-
+ 
         if (valueText != null)
-        {
             valueText.text = ((int)volume).ToString();
-        }
+
+        Mute(SoundManager.Instance.GetMute(type));
     }
 
     void OnValueChanged(float value)
     {
-        switch (soundType)
-        {
-            case SoundData.Type.BGM:
-                SoundManager.Instance.VolumeBGM = value;
-                if (muteToggle != null && SoundManager.Instance.MuteBGM)
-                {
-                    SoundManager.Instance.MuteBGM = false;
-                    Mute(false);
-                    muteToggle.WakeUp();
-                }
-                break;
-            case SoundData.Type.SFX:
-                SoundManager.Instance.VolumeSFX = value;
-                if (muteToggle != null && SoundManager.Instance.MuteSFX)
-                {
-                    SoundManager.Instance.MuteSFX = false;
-                    Mute(false);
-                    muteToggle.WakeUp();
-                }
-                break;
-        }
+        SoundManager.Instance.SetVolume(type, value);
 
         if (valueText != null)
-        {
             valueText.text = ((int)value).ToString();
+
+        if (SoundManager.Instance.GetMute(type))
+        {
+            SoundManager.Instance.SetMute(type, false);
+            Mute(false);
+
+            if (muteToggle != null)
+                muteToggle.WakeUp();
         }
     }
 

@@ -1,24 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
-[RequireComponent(typeof(AudioSource))]
-public class SoundSFX : MonoBehaviour
+public class SoundSFX : SoundBase
 {
-    AudioSource _audioSource;
-
-    public void Initialize(AudioMixerGroup audioMixerGroup)
+    public override void Play(AudioClip clip)
     {
-        _audioSource = GetComponent<AudioSource>();
-
-        _audioSource.outputAudioMixerGroup = audioMixerGroup;
-        _audioSource.loop = false;
-        _audioSource.playOnAwake = false;
-    }
-
-    public void Play(AudioClip clip)
-    {
-        _audioSource.PlayOneShot(clip);
+        _source.PlayOneShot(clip);
     }
 }

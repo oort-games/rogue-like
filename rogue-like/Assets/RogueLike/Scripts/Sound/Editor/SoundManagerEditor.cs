@@ -38,19 +38,19 @@ public class SoundManagerEditor : Editor
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Mute");
         EditorGUI.BeginChangeCheck();
-        _muteBGM = EditorGUILayout.Toggle(_soundManager.MuteBGM);
+        _muteBGM = EditorGUILayout.Toggle(_soundManager.GetMute(SoundType.BGM));
         if (EditorGUI.EndChangeCheck())
         {
-            _soundManager.MuteBGM = _muteBGM;
+            _soundManager.SetMute(SoundType.BGM, _muteBGM);
             serializedObject.ApplyModifiedProperties();
         }
         GUILayout.EndHorizontal();
 
         EditorGUI.BeginChangeCheck();
-        _volumeBGM = EditorGUILayout.Slider(_soundManager.VolumeBGM, 0f, SoundManager.MAX_VALUE);
+        _volumeBGM = EditorGUILayout.Slider(_soundManager.GetVolume(SoundType.BGM), 0f, SoundManager.MAX_VALUE);
         if (EditorGUI.EndChangeCheck())
         {
-            _soundManager.VolumeBGM = _volumeBGM;
+            _soundManager.SetVolume(SoundType.BGM, _volumeBGM);
             serializedObject.ApplyModifiedProperties();
         }
 
@@ -67,19 +67,19 @@ public class SoundManagerEditor : Editor
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Mute");
         EditorGUI.BeginChangeCheck();
-        _muteSFX = EditorGUILayout.Toggle(_soundManager.MuteSFX);
+        _muteSFX = EditorGUILayout.Toggle(_soundManager.GetMute(SoundType.SFX));
         if (EditorGUI.EndChangeCheck())
         {
-            _soundManager.MuteSFX = _muteSFX;
+            _soundManager.SetMute(SoundType.SFX, _muteSFX);
             serializedObject.ApplyModifiedProperties();
         }
         GUILayout.EndHorizontal();
 
         EditorGUI.BeginChangeCheck();
-        _volumeSFX = EditorGUILayout.Slider(_soundManager.VolumeSFX, 0f, SoundManager.MAX_VALUE);
+        _volumeSFX = EditorGUILayout.Slider(_soundManager.GetVolume(SoundType.SFX), 0f, SoundManager.MAX_VALUE);
         if (EditorGUI.EndChangeCheck())
         {
-            _soundManager.VolumeSFX = _volumeSFX;
+            _soundManager.SetVolume(SoundType.SFX, _volumeSFX);
             serializedObject.ApplyModifiedProperties();
         }
 
