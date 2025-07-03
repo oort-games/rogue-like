@@ -6,8 +6,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Toggle))]
 public class UISoundMuteToggle : MonoBehaviour
 {
-    public SoundType type;
-    public UISoundVolumeSlider volumeSlider;
+    [SerializeField] SoundType _type;
+    [SerializeField] UISoundVolumeSlider _volumeSlider;
     
     Toggle _toggle;
 
@@ -19,15 +19,15 @@ public class UISoundMuteToggle : MonoBehaviour
 
     private void OnEnable()
     {
-        _toggle.SetIsOnWithoutNotify(SoundManager.Instance.GetMute(type));
+        _toggle.SetIsOnWithoutNotify(SoundManager.Instance.GetMute(_type));
     }
 
     void OnValueChanged(bool value)
     {
-        SoundManager.Instance.SetMute(type, value);
+        SoundManager.Instance.SetMute(_type, value);
 
-        if (volumeSlider != null)
-            volumeSlider.Mute(value);
+        if (_volumeSlider != null)
+            _volumeSlider.Mute(value);
     }
 
     public void WakeUp()

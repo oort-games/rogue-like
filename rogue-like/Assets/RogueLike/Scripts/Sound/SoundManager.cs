@@ -11,7 +11,6 @@ public class SoundManager : Manager<SoundManager>
     const float MAX_DB = 0f;
     const float MIN_DB = -80f;
 
-    [Header("Audio Mixer")]
     [SerializeField] AudioMixer _audioMixer;
 
     Dictionary<SoundType, SoundChannel> _channels = new();

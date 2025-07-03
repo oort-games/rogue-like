@@ -7,9 +7,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Slider))]
 public class UISoundVolumeSlider : MonoBehaviour
 {
-    public SoundType type;
-    public TextMeshProUGUI valueText;
-    public UISoundMuteToggle muteToggle;    
+    [SerializeField] SoundType _type;
+    [SerializeField] TextMeshProUGUI _valueText;
+    [SerializeField] UISoundMuteToggle _muteToggle;    
 
     Slider _slider;
 
@@ -23,29 +23,29 @@ public class UISoundVolumeSlider : MonoBehaviour
 
     private void OnEnable()
     {
-        float volume = SoundManager.Instance.GetVolume(type);
+        float volume = SoundManager.Instance.GetVolume(_type);
         _slider.SetValueWithoutNotify(volume);
  
-        if (valueText != null)
-            valueText.text = ((int)volume).ToString();
+        if (_valueText != null)
+            _valueText.text = ((int)volume).ToString();
 
-        Mute(SoundManager.Instance.GetMute(type));
+        Mute(SoundManager.Instance.GetMute(_type));
     }
 
     void OnValueChanged(float value)
     {
-        SoundManager.Instance.SetVolume(type, value);
+        SoundManager.Instance.SetVolume(_type, value);
 
-        if (valueText != null)
-            valueText.text = ((int)value).ToString();
+        if (_valueText != null)
+            _valueText.text = ((int)value).ToString();
 
-        if (SoundManager.Instance.GetMute(type))
+        if (SoundManager.Instance.GetMute(_type))
         {
-            SoundManager.Instance.SetMute(type, false);
+            SoundManager.Instance.SetMute(_type, false);
             Mute(false);
 
-            if (muteToggle != null)
-                muteToggle.WakeUp();
+            if (_muteToggle != null)
+                _muteToggle.WakeUp();
         }
     }
 

@@ -1,88 +1,71 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(SoundManager))]
-[CanEditMultipleObjects]
 public class SoundManagerEditor : Editor
 {
-    SoundManager _soundManager;
+    SoundManager _manager;
 
-    float _volumeBGM;
-    float _volumeSFX;
-
-    bool _muteBGM;
-    bool _muteSFX;
+    void OnEnable()
+    {
+        _manager = (SoundManager)target;
+    }
 
     public override void OnInspectorGUI()
     {
-        _soundManager = (SoundManager)target;
-        base.OnInspectorGUI();
+        serializedObject.Update();
 
+        base.OnInspectorGUI();
         if (Application.isPlaying == false) return;
 
-        serializedObject.Update();
-        DrawBGM();
-        DrawSFX();
+        EditorGUILayout.Space(4);
+        DrawChannel(SoundType.BGM, "BGM");
+        EditorGUILayout.Space(2);
+        DrawChannel(SoundType.SFX, "SFX");
+
         serializedObject.ApplyModifiedProperties();
     }
 
-    void DrawBGM()
+    void DrawChannel(SoundType type, string label)
     {
-        GUILayout.Space(5);
-        GUILayout.BeginVertical();
-       
-        EditorGUILayout.LabelField("BGM");
-
-        GUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Mute");
-        EditorGUI.BeginChangeCheck();
-        _muteBGM = EditorGUILayout.Toggle(_soundManager.GetMute(SoundType.BGM));
-        if (EditorGUI.EndChangeCheck())
+        GUIStyle boxStyle = new(GUI.skin.box)
         {
-            _soundManager.SetMute(SoundType.BGM, _muteBGM);
-            serializedObject.ApplyModifiedProperties();
-        }
-        GUILayout.EndHorizontal();
+            padding = new RectOffset(10, 10, 6, 6),
+            margin = new RectOffset(0, 0, 4, 4)
+        };
 
-        EditorGUI.BeginChangeCheck();
-        _volumeBGM = EditorGUILayout.Slider(_soundManager.GetVolume(SoundType.BGM), 0f, SoundManager.MAX_VALUE);
-        if (EditorGUI.EndChangeCheck())
+        EditorGUILayout.BeginVertical(boxStyle);
+        EditorGUILayout.LabelField(label, EditorStyles.boldLabel);
+        
+        bool prevMute = _manager.GetMute(type);
+        float prevVolume = _manager.GetVolume(type);
+
+        EditorGUILayout.BeginHorizontal();
+
+        Texture icon = EditorGUIUtility.IconContent("AudioSource Icon").image;
+        GUILayout.Label(icon, GUILayout.Width(20), GUILayout.Height(20));
+
+        bool newMute = EditorGUILayout.ToggleLeft("Mute", prevMute, GUILayout.Width(60));
+        float newVolume = EditorGUILayout.Slider(prevVolume, 0f, SoundManager.MAX_VALUE);
+        
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.EndVertical();
+
+        if (newMute != prevMute)
+            _manager.SetMute(type, newMute);
+
+        if (!Mathf.Approximately(newVolume, prevVolume))
         {
-            _soundManager.SetVolume(SoundType.BGM, _volumeBGM);
-            serializedObject.ApplyModifiedProperties();
-        }
+            _manager.SetVolume(type, newVolume);
 
-        GUILayout.EndVertical();
+            if (prevMute)
+            {
+                _manager.SetMute(type, false);
+            }
+        }
     }
 
-    void DrawSFX()
-    {
-        GUILayout.Space(5);
-        GUILayout.BeginVertical();
-
-        EditorGUILayout.LabelField("SFX");
-
-        GUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Mute");
-        EditorGUI.BeginChangeCheck();
-        _muteSFX = EditorGUILayout.Toggle(_soundManager.GetMute(SoundType.SFX));
-        if (EditorGUI.EndChangeCheck())
-        {
-            _soundManager.SetMute(SoundType.SFX, _muteSFX);
-            serializedObject.ApplyModifiedProperties();
-        }
-        GUILayout.EndHorizontal();
-
-        EditorGUI.BeginChangeCheck();
-        _volumeSFX = EditorGUILayout.Slider(_soundManager.GetVolume(SoundType.SFX), 0f, SoundManager.MAX_VALUE);
-        if (EditorGUI.EndChangeCheck())
-        {
-            _soundManager.SetVolume(SoundType.SFX, _volumeSFX);
-            serializedObject.ApplyModifiedProperties();
-        }
-
-        GUILayout.EndVertical();
-    }
+    public override bool RequiresConstantRepaint() => true;
 }
+#endif
