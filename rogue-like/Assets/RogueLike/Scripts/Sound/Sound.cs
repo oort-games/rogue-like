@@ -21,11 +21,11 @@ public class SoundChannel
 
     public string GetVolumeSaveKey()
     {
-        return $"Sound_Volume_{type}";
+        return $"Sound.Volume.{type}";
     }
 
     public string GetVolumeMuteKey()
     {
-        return $"Sound_Mute_{type}";
+        return $"Sound.Mute.{type}";
     }
 }

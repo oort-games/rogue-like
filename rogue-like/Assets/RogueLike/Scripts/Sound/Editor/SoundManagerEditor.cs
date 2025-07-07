@@ -20,6 +20,7 @@ public class SoundManagerEditor : Editor
         if (Application.isPlaying == false) return;
 
         EditorGUILayout.Space(4);
+
         DrawChannel(SoundType.BGM, "BGM");
         EditorGUILayout.Space(2);
         DrawChannel(SoundType.SFX, "SFX");

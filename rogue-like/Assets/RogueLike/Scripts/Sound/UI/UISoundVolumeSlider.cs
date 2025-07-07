@@ -1,15 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using TMPro;
 
 [RequireComponent(typeof(Slider))]
 public class UISoundVolumeSlider : MonoBehaviour
 {
     [SerializeField] SoundType _type;
     [SerializeField] TextMeshProUGUI _valueText;
-    [SerializeField] UISoundMuteToggle _muteToggle;    
+    [SerializeField] UISoundMuteToggle _muteToggle;
+
+    [Space(10)]
+    [SerializeField] UnityEvent _onAction;
+    [Space(10)]
+    [SerializeField] UnityEvent _offAction;
 
     Slider _slider;
 
@@ -51,6 +55,6 @@ public class UISoundVolumeSlider : MonoBehaviour
 
     public void Mute(bool mute)
     {
-        _slider.handleRect.GetComponent<Image>().color = mute ? Color.red : Color.green;
+        (mute ? _offAction : _onAction).Invoke();
     }
 }
