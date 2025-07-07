@@ -16,14 +16,14 @@ public class UIDisplayScreenModeDropdown : MonoBehaviour
 
         _modes = Enum.GetValues(typeof(DisplayScreenMode)).Cast<DisplayScreenMode>().ToList();
         _dropDown.ClearOptions();
-        _dropDown.AddOptions(_modes.Select(m => m.ToString()).ToList());
+        _dropDown.AddOptions(_modes.Select(mode => mode.ToString()).ToList());
 
         _dropDown.onValueChanged.AddListener(OnValueChanged);
     }
 
     private void OnEnable()
     {
-        _dropDown.value = _modes.IndexOf(DisplayManager.Instance.GetMode());
+        _dropDown.SetValueWithoutNotify(_modes.IndexOf(DisplayManager.Instance.GetMode()));
         _dropDown.RefreshShownValue();
     }
 

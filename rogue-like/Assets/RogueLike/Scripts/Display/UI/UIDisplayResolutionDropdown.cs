@@ -16,14 +16,18 @@ public class UIDisplayResolutionDropdown : MonoBehaviour
 
         _resolutions = Enum.GetValues(typeof(DisplayResolution)).Cast<DisplayResolution>().ToList();
         _dropDown.ClearOptions();
-        _dropDown.AddOptions(_resolutions.Select(m => m.ToString()).ToList());
+        _dropDown.AddOptions(_resolutions.Select(index =>
+        {
+            Resolution resolution = index.ToResolution();
+            return $"{resolution.width} x {resolution.height}";
+        }).ToList());
 
         _dropDown.onValueChanged.AddListener(OnValueChanged);
     }
 
     private void OnEnable()
     {
-        _dropDown.value = _resolutions.IndexOf(DisplayManager.Instance.GetResolution());
+        _dropDown.SetValueWithoutNotify(_resolutions.IndexOf(DisplayManager.Instance.GetResolution()));
         _dropDown.RefreshShownValue();
     }
 
