@@ -33,7 +33,8 @@ public class UISoundVolumeSlider : MonoBehaviour
         if (_valueText != null)
             _valueText.text = ((int)volume).ToString();
 
-        Mute(SoundManager.Instance.GetMute(_type));
+        _slider.interactable = !SoundManager.Instance.GetMasterMute();
+        Mute(SoundManager.Instance.GetMasterMute() || SoundManager.Instance.GetMute(_type));
     }
 
     void OnValueChanged(float value)
@@ -56,5 +57,10 @@ public class UISoundVolumeSlider : MonoBehaviour
     public void Mute(bool mute)
     {
         (mute ? _offAction : _onAction).Invoke();
+    }
+
+    public void SetInteractable(bool value)
+    {
+        _slider.interactable = value;
     }
 }

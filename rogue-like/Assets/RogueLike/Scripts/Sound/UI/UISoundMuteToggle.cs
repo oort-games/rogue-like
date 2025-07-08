@@ -17,19 +17,25 @@ public class UISoundMuteToggle : MonoBehaviour
 
     private void OnEnable()
     {
-        _toggle.SetIsOnWithoutNotify(SoundManager.Instance.GetMute(_type));
+        _toggle.interactable = !SoundManager.Instance.GetMasterMute();
+        _toggle.SetIsOnWithoutNotify(!SoundManager.Instance.GetMute(_type));
     }
 
     void OnValueChanged(bool value)
     {
-        SoundManager.Instance.SetMute(_type, value);
+        SoundManager.Instance.SetMute(_type, !value);
 
         if (_volumeSlider != null)
-            _volumeSlider.Mute(value);
+            _volumeSlider.Mute(!value);
     }
 
     public void WakeUp()
     {
-        _toggle.SetIsOnWithoutNotify(false);
+        _toggle.SetIsOnWithoutNotify(true);
+    }
+
+    public void SetInteractable(bool value)
+    {
+        _toggle.interactable = value;
     }
 }

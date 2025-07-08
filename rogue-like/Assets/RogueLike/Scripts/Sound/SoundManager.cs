@@ -6,27 +6,36 @@ public class SoundManager : Manager<SoundManager>
 {
     public const float MAX_VALUE = 100f;
 
-    const float MAX_DB = 0f;
-    const float MIN_DB = -80f;
-
     [SerializeField] AudioMixer _audioMixer;
 
+    SoundMaster _master = new();
     Dictionary<SoundType, SoundChannel> _channels = new();
     Dictionary<string, AudioClip> _clips = new();
     
     public override void Initialize()
     {
         if (_audioMixer == null) _audioMixer = GetAudioMixer();
- 
+
         _channels[SoundType.BGM] = CreateChannel(SoundType.BGM, "Master/BGM", "BGM", new GameObject("Sound BGM").AddComponent<SoundBGM>());
         _channels[SoundType.SFX] = CreateChannel(SoundType.SFX, "Master/SFX", "SFX", new GameObject("Sound SFX").AddComponent<SoundSFX>());
 
-        foreach(var (type, ch) in _channels)
+        _master.mixerParam = "Master";
+        _master.volume = PlayerPrefs.GetInt(_master.GetVolumeSaveKey(), 100);
+        _master.mute = PlayerPrefs.GetInt(_master.GetMuteSaveKey(), 0) == 1;
+
+        foreach (var ch in _channels.Values)
         {
             ch.volume = PlayerPrefs.GetInt(ch.GetVolumeSaveKey(), 100);
-            ch.mute = PlayerPrefs.GetInt(ch.GetVolumeMuteKey(), 0) == 1;
-            ApplyVolume(type);
-            ApplyMute(type);
+            ch.mute = PlayerPrefs.GetInt(ch.GetMuteSaveKey(), 0) == 1;
+        }
+    }
+
+    private void Start()
+    {
+        ApplyMaster();
+        foreach (var type in _channels.Keys)
+        {
+            ApplyChannel(type);
         }
     }
 
@@ -74,48 +83,61 @@ public class SoundManager : Manager<SoundManager>
         _channels[type].player.Stop();
     }
 
-    public float GetVolume(SoundType type)
-    {
-        return _channels[type].volume;
-    }
+    public float GetMasterVolume() => _master.volume;
 
-    public bool GetMute(SoundType type)
+    public float GetVolume(SoundType type) => _channels[type].volume;
+
+    public bool GetMasterMute() => _master.mute;
+
+    public bool GetMute(SoundType type) => _channels[type].mute;
+
+    public void SetMasterVolume(float value)
     {
-        return _channels[type].mute;
+        _master.volume = Mathf.Clamp(value, 0, MAX_VALUE);
+        ApplyMaster();
+        SavePref(_master.GetVolumeSaveKey(), (int)_master.volume);
     }
 
     public void SetVolume(SoundType type, float value)
     {
         SoundChannel ch = _channels[type];
         ch.volume = Mathf.Clamp(value, 0, MAX_VALUE);
-        ApplyVolume(type);
+        ApplyChannel(type);
         SavePref(ch.GetVolumeSaveKey(), (int)ch.volume);
+    }
+
+    public void SetMasterMute(bool value)
+    {
+        _master.mute = value;
+        ApplyMaster();
+        SavePref(_master.GetMuteSaveKey(), _master.mute ? 1 : 0);
     }
 
     public void SetMute(SoundType type, bool value)
     {
         SoundChannel ch = _channels[type];
         ch.mute = value;
-        ApplyMute(type);
-        SavePref(ch.GetVolumeMuteKey(), ch.mute ? 1 : 0);
+        ApplyChannel(type);
+        SavePref(ch.GetMuteSaveKey(), ch.mute ? 1 : 0);
     }
 
-    void ApplyVolume(SoundType type)
+    void ApplyMaster()
     {
-        SoundChannel ch = _channels[type];
-        if (ch.mute) return;
-        _audioMixer.SetFloat(ch.mixerParam, UiVolumeToDb(ch.volume));
+        float db = _master.mute ? -80f : UiVolumeToDb(_master.volume);
+        _audioMixer.SetFloat(_master.mixerParam, db);
     }
 
-    void ApplyMute(SoundType type)
+    void ApplyChannel(SoundType type)
     {
         SoundChannel ch = _channels[type];
-        _audioMixer.SetFloat(ch.mixerParam, ch.mute ? MIN_DB : UiVolumeToDb(ch.volume));
+        float db = ch.mute ? -80f : UiVolumeToDb(ch.volume);
+        _audioMixer.SetFloat(ch.mixerParam, db);
     }
 
     float UiVolumeToDb(float uiValue)
     {
-        return uiValue / MAX_VALUE * (MAX_DB - MIN_DB) + MIN_DB;
+        float linear = Mathf.Clamp01(uiValue / MAX_VALUE);
+        return Mathf.Log10(Mathf.Max(linear, 0.0001f)) * 20f;
     }
 
     void SavePref(string key, int value)

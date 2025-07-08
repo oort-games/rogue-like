@@ -7,6 +7,24 @@ public enum SoundType
     SFX
 }
 
+public class SoundMaster
+{
+    public string mixerParam;
+
+    public float volume;
+    public bool mute;
+
+    public string GetVolumeSaveKey()
+    {
+        return $"Sound.Volume.Master";
+    }
+
+    public string GetMuteSaveKey()
+    {
+        return $"Sound.Mute.Master";
+    }
+}
+
 public class SoundChannel
 {
     public SoundType type;
@@ -24,7 +42,7 @@ public class SoundChannel
         return $"Sound.Volume.{type}";
     }
 
-    public string GetVolumeMuteKey()
+    public string GetMuteSaveKey()
     {
         return $"Sound.Mute.{type}";
     }
