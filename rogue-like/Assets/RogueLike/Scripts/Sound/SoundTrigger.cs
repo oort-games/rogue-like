@@ -13,6 +13,7 @@ public class SoundTrigger : MonoBehaviour
             Play();
     }
 
+    [ContextMenu("Play")]
     public void Play()
     {
         if (_clip != null)
