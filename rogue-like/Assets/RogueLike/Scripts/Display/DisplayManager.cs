@@ -3,26 +3,26 @@ using UnityEngine;
 public class DisplayManager : Manager<DisplayManager>
 {
     const string KEY_RESOLUTION = "Display.Resolution";
-    const string KEY_MODE = "Display.Mode";
+    const string KEY_SCREENMODE = "Display.ScreenMode";
+    const string KEY_TARGETFRAMERATE = "Display.TargetFrameRate";
 
-#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
-    const FullScreenMode NativeFullScreen = FullScreenMode.MaximizedWindow;
-#else
-    const FullScreenMode NativeFullScreen = FullScreenMode.ExclusiveFullScreen;
-#endif
-
-    DisplayScreenMode _mode;
+    DisplayScreenMode _screenMode;
     DisplayResolution _resolution;
+    DisplayTargetFrameRate _targetFrameRate;
 
     public DisplayResolution GetResolution() => _resolution;
-    public DisplayScreenMode GetMode() => _mode;
+    public DisplayScreenMode GetScreenMode() => _screenMode;
+    public DisplayTargetFrameRate GetTargetFrameRate() => _targetFrameRate;
 
     public override void Initialize()
     {
 #if UNITY_STANDALONE
-        _mode = (DisplayScreenMode)PlayerPrefs.GetInt(KEY_MODE, (int)DisplayScreenMode.FullScreen);
-        _resolution = (DisplayResolution)PlayerPrefs.GetInt(KEY_RESOLUTION, (int)DisplayResolution.FHD_1920x1080);
+        _screenMode = (DisplayScreenMode)PlayerPrefs.GetInt(KEY_SCREENMODE, (int)DisplayScreenMode.FullScreen);
+        _resolution = (DisplayResolution)PlayerPrefs.GetInt(KEY_RESOLUTION, (int)DisplayResolution.Resolution_1920x1080);
+        _targetFrameRate = (DisplayTargetFrameRate)PlayerPrefs.GetInt(KEY_TARGETFRAMERATE, (int)DisplayTargetFrameRate.Auto);
+        
         ApplyDisplay();
+        ApplyTargetFrameRate();
 #endif
     }
 
@@ -33,24 +33,30 @@ public class DisplayManager : Manager<DisplayManager>
         SavePref(KEY_RESOLUTION, (int)_resolution);
     }
 
-    public void SetMode(DisplayScreenMode mode)
+    public void SetScreenMode(DisplayScreenMode screenMode)
     {
-        _mode = mode;
+        _screenMode = screenMode;
         ApplyDisplay();
-        SavePref(KEY_MODE, (int)mode);
+        SavePref(KEY_SCREENMODE, (int)screenMode);
+    }
+
+    public void SetTargetFrameRate(DisplayTargetFrameRate targetFrameRate)
+    {
+        _targetFrameRate = targetFrameRate;
+        ApplyTargetFrameRate();
+        SavePref(KEY_TARGETFRAMERATE, (int)targetFrameRate);
     }
 
     public void ApplyDisplay()
     {
-        Resolution resolution = _resolution.ToResolution();
-        FullScreenMode mode = _mode switch
-        {
-            DisplayScreenMode.FullScreen => NativeFullScreen,
-            DisplayScreenMode.FullScreenWindow => FullScreenMode.FullScreenWindow,
-            DisplayScreenMode.Window => FullScreenMode.Windowed,
-            _ => FullScreenMode.FullScreenWindow
-        };
-        Screen.SetResolution(resolution.width, resolution.height, mode);
+        (int width, int height) = _resolution.ToSize();
+        FullScreenMode fullScreenMode = _screenMode.ToFullScreenMode();
+        Screen.SetResolution(width, height, fullScreenMode);
+    }
+
+    public void ApplyTargetFrameRate()
+    {
+        Application.targetFrameRate = _targetFrameRate.ToInt();
     }
 
     void SavePref(string key, int value)

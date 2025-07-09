@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
+[AddComponentMenu("Settings/UI/Slider/UI SoundVolume Slider")]
 [RequireComponent(typeof(Slider))]
 public class UISoundVolumeSlider : MonoBehaviour
 {

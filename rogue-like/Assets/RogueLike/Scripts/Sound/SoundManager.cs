@@ -55,7 +55,7 @@ public class SoundManager : Manager<SoundManager>
 
     AudioMixer GetAudioMixer()
     {
-        return Resources.Load<AudioMixer>("Sound/AudioMixer");
+        return Resources.Load<AudioMixer>("Sounds/AudioMixer");
     }
 
     AudioClip GetClip(SoundType type, string clipName)
@@ -63,7 +63,7 @@ public class SoundManager : Manager<SoundManager>
         if (_clips.TryGetValue(clipName, out AudioClip clip))
             return clip;
 
-        return Resources.Load<AudioClip>($"Sound/{type}/{clipName}");
+        return Resources.Load<AudioClip>($"Sounds/{type}/{clipName}");
     }
 
     public void Play(SoundType type, string clipName)

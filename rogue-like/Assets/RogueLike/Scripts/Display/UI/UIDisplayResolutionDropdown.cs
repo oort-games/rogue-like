@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[AddComponentMenu("Settings/UI/DropDown/UI Display Resolution Dropdown")]
 [RequireComponent(typeof(TMP_Dropdown))]
 public class UIDisplayResolutionDropdown : MonoBehaviour
 {
@@ -16,11 +17,7 @@ public class UIDisplayResolutionDropdown : MonoBehaviour
 
         _resolutions = Enum.GetValues(typeof(DisplayResolution)).Cast<DisplayResolution>().ToList();
         _dropDown.ClearOptions();
-        _dropDown.AddOptions(_resolutions.Select(index =>
-        {
-            Resolution resolution = index.ToResolution();
-            return $"{resolution.width} x {resolution.height}";
-        }).ToList());
+        _dropDown.AddOptions(_resolutions.Select(resolution => resolution.ToCustomString()).ToList());
 
         _dropDown.onValueChanged.AddListener(OnValueChanged);
     }
