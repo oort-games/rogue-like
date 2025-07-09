@@ -21,6 +21,8 @@ public class SoundManagerEditor : Editor
 
         EditorGUILayout.Space(4);
 
+        DrawChannel(SoundType.Master, "Master");
+        EditorGUILayout.Space(2);
         DrawChannel(SoundType.BGM, "BGM");
         EditorGUILayout.Space(2);
         DrawChannel(SoundType.SFX, "SFX");

@@ -14,6 +14,9 @@ public class DisplayManager : Manager<DisplayManager>
     DisplayScreenMode _mode;
     DisplayResolution _resolution;
 
+    public DisplayResolution GetResolution() => _resolution;
+    public DisplayScreenMode GetMode() => _mode;
+
     public override void Initialize()
     {
 #if UNITY_STANDALONE
@@ -21,16 +24,6 @@ public class DisplayManager : Manager<DisplayManager>
         _resolution = (DisplayResolution)PlayerPrefs.GetInt(KEY_RESOLUTION, (int)DisplayResolution.FHD_1920x1080);
         ApplyDisplay();
 #endif
-    }
-
-    public DisplayResolution GetResolution()
-    {
-        return _resolution;
-    }
-
-    public DisplayScreenMode GetMode()
-    {
-        return _mode;
     }
 
     public void SetResolution(DisplayResolution resolution)

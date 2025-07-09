@@ -1534,7 +1534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &589690722
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1932,8 +1932,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 610a92935bed54f498009a2df6920df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
+  _type: 1
   _volumeSlider: {fileID: 1816064722}
+  _action:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &655809219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2858,9 +2861,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1126042707}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b035c92a27f8b543b79ae40b9fc21e8, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b079c3999848644ab9052f315bdf7b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 0
   _valueText: {fileID: 0}
   _muteToggle: {fileID: 1723610898}
   _onAction:
@@ -3455,7 +3459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4757633508361029021, guid: d83dca1231d6c434c986dfb9075484cc, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4757633508361029021, guid: d83dca1231d6c434c986dfb9075484cc, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3463,11 +3467,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4757633508361029021, guid: d83dca1231d6c434c986dfb9075484cc, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4757633508361029021, guid: d83dca1231d6c434c986dfb9075484cc, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 4757633508361029021, guid: d83dca1231d6c434c986dfb9075484cc, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3503,11 +3507,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4757633508361029021, guid: d83dca1231d6c434c986dfb9075484cc, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 4757633508361029021, guid: d83dca1231d6c434c986dfb9075484cc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4757633508361029021, guid: d83dca1231d6c434c986dfb9075484cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3523,7 +3527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4830735487975080327, guid: d83dca1231d6c434c986dfb9075484cc, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 72.28
       objectReference: {fileID: 0}
     - target: {fileID: 8752228304961746614, guid: d83dca1231d6c434c986dfb9075484cc, type: 3}
       propertyPath: m_Name
@@ -3583,7 +3587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c462fc24ff54043aad0adb0d6854b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
+  _type: 1
   _clip: {fileID: 8300000, guid: 50bb6c0436790d745806fd1006a816ee, type: 3}
   _playOnStart: 1
 --- !u!1 &1630233182
@@ -3907,14 +3911,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 1723610894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fe4e54dfad04674b98259ffa5b4c82a, type: 3}
+  m_Script: {fileID: 11500000, guid: 610a92935bed54f498009a2df6920df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _type: 0
   _volumeSlider: {fileID: 1126042711}
-  _channelVolumeSliders:
-  - {fileID: 1816064722}
-  _channelMuteToggles:
-  - {fileID: 655809218}
+  _action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1816064723}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 655809219}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1801642878
 GameObject:
   m_ObjectHideFlags: 0
@@ -4184,7 +4212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b079c3999848644ab9052f315bdf7b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
+  _type: 1
   _valueText: {fileID: 0}
   _muteToggle: {fileID: 655809218}
   _onAction:

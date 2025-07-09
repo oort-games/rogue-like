@@ -8,20 +8,19 @@ public class SoundManager : Manager<SoundManager>
 
     [SerializeField] AudioMixer _audioMixer;
 
-    SoundMaster _master = new();
     Dictionary<SoundType, SoundChannel> _channels = new();
     Dictionary<string, AudioClip> _clips = new();
-    
+
+    public float GetVolume(SoundType type) => _channels[type].volume;
+    public bool GetMute(SoundType type) => _channels[type].mute;
+
     public override void Initialize()
     {
         if (_audioMixer == null) _audioMixer = GetAudioMixer();
 
-        _channels[SoundType.BGM] = CreateChannel(SoundType.BGM, "Master/BGM", "BGM", new GameObject("Sound BGM").AddComponent<SoundBGM>());
-        _channels[SoundType.SFX] = CreateChannel(SoundType.SFX, "Master/SFX", "SFX", new GameObject("Sound SFX").AddComponent<SoundSFX>());
-
-        _master.mixerParam = "Master";
-        _master.volume = PlayerPrefs.GetInt(_master.GetVolumeSaveKey(), 100);
-        _master.mute = PlayerPrefs.GetInt(_master.GetMuteSaveKey(), 0) == 1;
+        _channels[SoundType.Master] = CreateChannel(SoundType.Master, "Master", "Master", new GameObject("Sound Master Player").AddComponent<SoundMasterPlayer>());
+        _channels[SoundType.BGM] = CreateChannel(SoundType.BGM, "BGM", "Master/BGM", new GameObject("Sound BGM Player").AddComponent<SoundBGMPlayer>());
+        _channels[SoundType.SFX] = CreateChannel(SoundType.SFX, "SFX", "Master/SFX", new GameObject("Sound SFX Player").AddComponent<SoundSFXPlayer>());
 
         foreach (var ch in _channels.Values)
         {
@@ -32,20 +31,19 @@ public class SoundManager : Manager<SoundManager>
 
     private void Start()
     {
-        ApplyMaster();
         foreach (var type in _channels.Keys)
         {
             ApplyChannel(type);
         }
     }
 
-    SoundChannel CreateChannel(SoundType type, string mixerPath, string mixerParam, SoundBase player)
+    SoundChannel CreateChannel(SoundType type, string mixerParam, string mixerPath, SoundPlayer player)
     {
         SoundChannel channel = new()
         {
             type = type,
-            mixerGroup = _audioMixer.FindMatchingGroups(mixerPath)[0],
             mixerParam = mixerParam,
+            mixerGroup = _audioMixer.FindMatchingGroups(mixerPath)[0],
             player = player,
         };
 
@@ -83,21 +81,6 @@ public class SoundManager : Manager<SoundManager>
         _channels[type].player.Stop();
     }
 
-    public float GetMasterVolume() => _master.volume;
-
-    public float GetVolume(SoundType type) => _channels[type].volume;
-
-    public bool GetMasterMute() => _master.mute;
-
-    public bool GetMute(SoundType type) => _channels[type].mute;
-
-    public void SetMasterVolume(float value)
-    {
-        _master.volume = Mathf.Clamp(value, 0, MAX_VALUE);
-        ApplyMaster();
-        SavePref(_master.GetVolumeSaveKey(), (int)_master.volume);
-    }
-
     public void SetVolume(SoundType type, float value)
     {
         SoundChannel ch = _channels[type];
@@ -106,25 +89,12 @@ public class SoundManager : Manager<SoundManager>
         SavePref(ch.GetVolumeSaveKey(), (int)ch.volume);
     }
 
-    public void SetMasterMute(bool value)
-    {
-        _master.mute = value;
-        ApplyMaster();
-        SavePref(_master.GetMuteSaveKey(), _master.mute ? 1 : 0);
-    }
-
     public void SetMute(SoundType type, bool value)
     {
         SoundChannel ch = _channels[type];
         ch.mute = value;
         ApplyChannel(type);
         SavePref(ch.GetMuteSaveKey(), ch.mute ? 1 : 0);
-    }
-
-    void ApplyMaster()
-    {
-        float db = _master.mute ? -80f : UiVolumeToDb(_master.volume);
-        _audioMixer.SetFloat(_master.mixerParam, db);
     }
 
     void ApplyChannel(SoundType type)

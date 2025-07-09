@@ -1,21 +1,28 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
-public class SoundPlayer : MonoBehaviour
+[RequireComponent(typeof(AudioSource))]
+public abstract class SoundPlayer : MonoBehaviour
 {
-    [SerializeField] SoundType _type;
-    [SerializeField] AudioClip _clip;
+    protected AudioSource _source;
 
-    [SerializeField] bool _playOnStart;
-
-    private void Start()
+    public virtual void Initialize(AudioMixerGroup mixerGroup)
     {
-        if (_playOnStart)
-            Play();
+        _source = GetComponent<AudioSource>();
+
+        _source.outputAudioMixerGroup = mixerGroup;
+        _source.playOnAwake = false;
     }
 
-    public void Play()
+    public virtual void Play(AudioClip clip)
     {
-        if (_clip != null)
-            SoundManager.Instance.Play(_type, _clip);
+        if (clip == null) return;
+        _source.clip = clip;
+        _source.Play();
+    }
+
+    public virtual void Stop()
+    {
+        _source.Stop();
     }
 }

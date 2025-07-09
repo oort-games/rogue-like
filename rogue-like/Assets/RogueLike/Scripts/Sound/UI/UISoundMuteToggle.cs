@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Toggle))]
 public class UISoundMuteToggle : MonoBehaviour
 {
     [SerializeField] SoundType _type;
     [SerializeField] UISoundVolumeSlider _volumeSlider;
-    
+
+    [Space(10)]
+    [SerializeField] UnityEvent<bool> _action;
+
     Toggle _toggle;
 
     private void Awake()
@@ -17,7 +21,7 @@ public class UISoundMuteToggle : MonoBehaviour
 
     private void OnEnable()
     {
-        _toggle.interactable = !SoundManager.Instance.GetMasterMute();
+        _toggle.interactable = _type == SoundType.Master || !SoundManager.Instance.GetMute(SoundType.Master);
         _toggle.SetIsOnWithoutNotify(!SoundManager.Instance.GetMute(_type));
     }
 
@@ -27,15 +31,13 @@ public class UISoundMuteToggle : MonoBehaviour
 
         if (_volumeSlider != null)
             _volumeSlider.Mute(!value);
+
+        _action?.Invoke(value);
     }
 
     public void WakeUp()
     {
         _toggle.SetIsOnWithoutNotify(true);
-    }
-
-    public void SetInteractable(bool value)
-    {
-        _toggle.interactable = value;
+        _action?.Invoke(true);
     }
 }

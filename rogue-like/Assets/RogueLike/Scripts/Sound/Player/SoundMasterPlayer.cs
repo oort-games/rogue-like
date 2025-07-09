@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SoundSFX : SoundBase
+public class SoundMasterPlayer : SoundPlayer
 {
     public override void Play(AudioClip clip)
     {

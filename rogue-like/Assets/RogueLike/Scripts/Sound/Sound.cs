@@ -3,47 +3,23 @@ using UnityEngine.Audio;
 
 public enum SoundType
 {
+    Master,
     BGM,
     SFX
-}
-
-public class SoundMaster
-{
-    public string mixerParam;
-
-    public float volume;
-    public bool mute;
-
-    public string GetVolumeSaveKey()
-    {
-        return $"Sound.Volume.Master";
-    }
-
-    public string GetMuteSaveKey()
-    {
-        return $"Sound.Mute.Master";
-    }
 }
 
 public class SoundChannel
 {
     public SoundType type;
-    
-    public AudioMixerGroup mixerGroup;
+
     public string mixerParam;
 
     public float volume;
     public bool mute;
 
-    public SoundBase player;
+    public AudioMixerGroup mixerGroup;
+    public SoundPlayer player;
 
-    public string GetVolumeSaveKey()
-    {
-        return $"Sound.Volume.{type}";
-    }
-
-    public string GetMuteSaveKey()
-    {
-        return $"Sound.Mute.{type}";
-    }
+    public string GetVolumeSaveKey() => $"Sound.Volume.{type}";
+    public string GetMuteSaveKey() => $"Sound.Mute.{type}";
 }

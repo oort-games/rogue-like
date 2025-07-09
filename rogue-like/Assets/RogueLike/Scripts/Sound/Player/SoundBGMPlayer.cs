@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SoundBGM : SoundBase
+public class SoundBGMPlayer : SoundPlayer
 {
     public override void Play(AudioClip clip)
     {
