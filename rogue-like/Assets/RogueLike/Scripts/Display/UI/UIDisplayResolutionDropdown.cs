@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[AddComponentMenu("Settings/UI/DropDown/UI Display Resolution Dropdown")]
+[AddComponentMenu("Settings/UI/Display/UI Display Resolution Dropdown")]
 [RequireComponent(typeof(TMP_Dropdown))]
 public class UIDisplayResolutionDropdown : MonoBehaviour
 {

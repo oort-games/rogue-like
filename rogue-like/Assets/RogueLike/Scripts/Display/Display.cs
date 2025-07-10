@@ -25,7 +25,6 @@ public enum DisplayTargetFrameRate
     FPS_75,
     FPS_90,
     FPS_120,
-    Auto,
 }
 
 public static class DisplayExtensions
@@ -62,7 +61,6 @@ public static class DisplayExtensions
         DisplayTargetFrameRate.FPS_75 => 75,
         DisplayTargetFrameRate.FPS_90 => 90,
         DisplayTargetFrameRate.FPS_120 => 120,
-        DisplayTargetFrameRate.Auto => -1,
         _ => -1
     };
 
@@ -72,14 +70,7 @@ public static class DisplayExtensions
         return $"{width} x {height}";
     }
 
-    public static string ToCustomString(this DisplayScreenMode screenMode)
-    {
-        return $"{screenMode}";
-    }
+    public static string ToCustomString(this DisplayScreenMode screenMode) => $"{screenMode}";
 
-    public static string ToCustomString(this DisplayTargetFrameRate targetFrameRate) => targetFrameRate switch
-    {
-        DisplayTargetFrameRate.Auto => "Auto",
-        _ => $"{targetFrameRate.ToInt()}"
-    };
+    public static string ToCustomString(this DisplayTargetFrameRate targetFrameRate) => $"{targetFrameRate.ToInt()}";
 }

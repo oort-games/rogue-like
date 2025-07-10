@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[AddComponentMenu("Settings/UI/DropDown/UI Display ScreenMode Dropdown")]
+[AddComponentMenu("Settings/UI/Display/UI Display ScreenMode Dropdown")]
 [RequireComponent(typeof(TMP_Dropdown))]
 public class UIDisplayScreenModeDropdown : MonoBehaviour
 {

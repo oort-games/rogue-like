@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-[AddComponentMenu("Settings/UI/Text/UI Display TargetFrameRate Text")]
+[AddComponentMenu("Settings/UI/Display/UI Display TargetFrameRate Text")]
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class UIDisplayTargetFrameRateText : MonoBehaviour
 {

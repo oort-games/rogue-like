@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-[AddComponentMenu("Settings/UI/Toggle/UI SoundMute Toggle")]
+[AddComponentMenu("Settings/UI/Sound/UI Sound Mute Toggle")]
 [RequireComponent(typeof(Toggle))]
 public class UISoundMuteToggle : MonoBehaviour
 {

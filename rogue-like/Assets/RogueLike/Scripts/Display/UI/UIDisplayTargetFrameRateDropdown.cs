@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-[AddComponentMenu("Settings/UI/DropDown/UI Display TargetFrameRate Dropdown")]
+[AddComponentMenu("Settings/UI/Display/UI Display TargetFrameRate Dropdown")]
 [RequireComponent(typeof(TMP_Dropdown))]
 public class UIDisplayTargetFrameRateDropdown : MonoBehaviour
 {
