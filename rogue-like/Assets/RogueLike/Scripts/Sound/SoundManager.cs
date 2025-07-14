@@ -16,8 +16,6 @@ public class SoundManager : Manager<SoundManager>
 
     public override void Initialize()
     {
-        if (_audioMixer == null) _audioMixer = GetAudioMixer();
-
         _channels[SoundType.Master] = CreateChannel(SoundType.Master, "Master", "Master", new GameObject("Sound Master Player").AddComponent<SoundMasterPlayer>());
         _channels[SoundType.BGM] = CreateChannel(SoundType.BGM, "BGM", "Master/BGM", new GameObject("Sound BGM Player").AddComponent<SoundBGMPlayer>());
         _channels[SoundType.SFX] = CreateChannel(SoundType.SFX, "SFX", "Master/SFX", new GameObject("Sound SFX Player").AddComponent<SoundSFXPlayer>());
@@ -51,11 +49,6 @@ public class SoundManager : Manager<SoundManager>
         player.Initialize(channel.mixerGroup);
 
         return channel;
-    }
-
-    AudioMixer GetAudioMixer()
-    {
-        return Resources.Load<AudioMixer>("Sounds/AudioMixer");
     }
 
     AudioClip GetClip(SoundType type, string clipName)
