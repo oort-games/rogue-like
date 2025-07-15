@@ -5,20 +5,22 @@ public static class UIExtensions
 {
     public static void EnsureVisibleInScrollView(this RectTransform rectTransform, ScrollRect scrollRect)
     {
-        if (rectTransform.IsFullyInsideViewport(scrollRect)) return;
+        if (rectTransform.IsFullyInsideRectTransform(scrollRect.viewport)) return;
         rectTransform.ScrollIntoView(scrollRect);
     }
 
-    public static bool IsFullyInsideViewport(this RectTransform rectTransform, ScrollRect scrollRect)
+    public static bool IsFullyInsideRectTransform(this RectTransform rectTransform, RectTransform rootRectTransform)
     {
-        RectTransform viewport = scrollRect.viewport;
+        Bounds bound = RectTransformUtility.CalculateRelativeRectTransformBounds(rootRectTransform, rectTransform);
 
-        Bounds bound = RectTransformUtility.CalculateRelativeRectTransformBounds(viewport, rectTransform);
-
-        return bound.min.x >= viewport.rect.xMin && bound.max.x <= viewport.rect.xMax
-            && bound.min.y >= viewport.rect.yMin && bound.max.y <= viewport.rect.yMax;   
+        return bound.min.x >= rootRectTransform.rect.xMin && bound.max.x <= rootRectTransform.rect.xMax
+            && bound.min.y >= rootRectTransform.rect.yMin && bound.max.y <= rootRectTransform.rect.yMax;   
     }
 
+    /// <summary>
+    /// 지정된 RectTransform을 ScrollRect 안에서 화면에 보이도록 스크롤합니다.
+    /// 이 코드는 scroll Rect content의 pivot이 (x = 0, y = 1)으로 기준으로 작성되었습니다.
+    /// </summary>
     public static void ScrollIntoView(this RectTransform rectTransform, ScrollRect scrollRect)
     {
         RectTransform content = scrollRect.content;
@@ -28,7 +30,7 @@ public static class UIExtensions
 
         if (scrollRect.vertical)
         {
-            float itemTop = -bound.max.y;   // content pivotY = 1 기준 (위→+)
+            float itemTop = -bound.max.y;
             float itemBottom = -bound.min.y;
             float itemH = bound.size.y;
 
@@ -55,7 +57,6 @@ public static class UIExtensions
 
         if (scrollRect.horizontal)
         {
-            // content pivotX = 0 기준 (왼쪽→0, 오른쪽→+)
             float itemLeft = bound.min.x;
             float itemRight = bound.max.x;
             float itemW = bound.size.x;
