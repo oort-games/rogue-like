@@ -13,12 +13,11 @@ public class UIDisplayScreenModeDropdown : MonoBehaviour
 
     private void Awake()
     {
-        _dropDown = GetComponent<TMP_Dropdown>();
-
         _screenModes = Enum.GetValues(typeof(DisplayScreenMode)).Cast<DisplayScreenMode>().ToList();
+        
+        _dropDown = GetComponent<TMP_Dropdown>();
         _dropDown.ClearOptions();
         _dropDown.AddOptions(_screenModes.Select(screenMode => screenMode.ToCustomString()).ToList());
-
         _dropDown.onValueChanged.AddListener(OnValueChanged);
     }
 

@@ -13,12 +13,11 @@ public class UIDisplayTargetFrameRateDropdown : MonoBehaviour
 
     private void Awake()
     {
-        _dropDown = GetComponent<TMP_Dropdown>();
-
         _targetFrameRates = Enum.GetValues(typeof(DisplayTargetFrameRate)).Cast<DisplayTargetFrameRate>().ToList();
+        
+        _dropDown = GetComponent<TMP_Dropdown>();
         _dropDown.ClearOptions();
         _dropDown.AddOptions(_targetFrameRates.Select(targetFrameRate => targetFrameRate.ToCustomString()).ToList());
-
         _dropDown.onValueChanged.AddListener(OnValueChanged);
     }
 

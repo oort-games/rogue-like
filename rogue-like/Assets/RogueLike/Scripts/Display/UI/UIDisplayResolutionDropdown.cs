@@ -13,12 +13,11 @@ public class UIDisplayResolutionDropdown : MonoBehaviour
 
     private void Awake()
     {
-        _dropDown = GetComponent<TMP_Dropdown>();
-
         _resolutions = Enum.GetValues(typeof(DisplayResolution)).Cast<DisplayResolution>().ToList();
+        
+        _dropDown = GetComponent<TMP_Dropdown>();
         _dropDown.ClearOptions();
         _dropDown.AddOptions(_resolutions.Select(resolution => resolution.ToCustomString()).ToList());
-
         _dropDown.onValueChanged.AddListener(OnValueChanged);
     }
 

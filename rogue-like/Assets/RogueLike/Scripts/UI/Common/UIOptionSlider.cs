@@ -1,29 +1,27 @@
 using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem.UI;
 
-public class UIOptionSelector : Selectable
+public class UIOptionSlider : Selectable
 {
     [SerializeField] ScrollRect _scrollRect;
 
     [SerializeField] TextMeshProUGUI _headerText;
-    [SerializeField] TextMeshProUGUI _valueText;
     [SerializeField] Button _prevButton;
     [SerializeField] Button _nextButton;
-    [SerializeField] string[] _options;
+    [SerializeField] Slider slider;
+    [SerializeField] float step = 5f;
+    [SerializeField] float step2 = 1f;
 
     [SerializeField] GameObject _selected;
 
-    [SerializeField] InputActionReference _navigateAction;
-
     RectTransform _rectTransform;
-    int currentIndex = 0;
-
-    public string GetCurrentOption() => _options[currentIndex];
+    InputSystemUIInputModule sysModule;
 
     protected override void Awake()
     {
@@ -35,41 +33,11 @@ public class UIOptionSelector : Selectable
     protected override void Start()
     {
         base.Start();
-
+        sysModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
         _prevButton.onClick.AddListener(OnClickPrev);
         _nextButton.onClick.AddListener(OnClickNext);
-        UpdateUI();
         SetSelectedVisual(false);
         _headerText.text = Regex.Match(gameObject.name, @"\d+").Value;
-    }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-
-        _navigateAction.action.performed += OnNavigate;
-        _navigateAction.action.Enable();
-    }
-
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-
-        _navigateAction.action.performed -= OnNavigate;
-        _navigateAction.action.Disable();
-    }
-
-    void OnNavigate(InputAction.CallbackContext context)
-    {
-        if (EventSystem.current.currentSelectedGameObject != gameObject)
-            return;
-
-        Vector2 input = context.ReadValue<Vector2>();
-
-        if (input.x < -0.5f)
-            PrevOption();
-        else if (input.x > 0.5f)
-            NextOption();
     }
 
     void OnClickPrev()
@@ -86,19 +54,12 @@ public class UIOptionSelector : Selectable
 
     void PrevOption()
     {
-        currentIndex = (currentIndex - 1 + _options.Length) % _options.Length;
-        UpdateUI();
+        slider.value -= step;
     }
 
     void NextOption()
     {
-        currentIndex = (currentIndex + 1) % _options.Length;
-        UpdateUI();
-    }
-
-    void UpdateUI()
-    {
-        _valueText.text = _options[currentIndex];
+        slider.value += step;
     }
 
     public override void OnSelect(BaseEventData eventData)
@@ -117,6 +78,39 @@ public class UIOptionSelector : Selectable
         EventSystem.current.SetSelectedGameObject(gameObject);
     }
 
+    public override void OnMove(AxisEventData eventData)
+    {
+        if (EventSystem.current.currentSelectedGameObject != gameObject)
+            return;
+
+        Debug.Log($"{sysModule.moveRepeatDelay},{sysModule.moveRepeatRate}");
+        switch (eventData.moveDir)
+        {
+            case MoveDirection.Left:
+                slider.value -= step2;
+                break;
+            case MoveDirection.Right:
+                slider.value += step2;
+                break;
+            case MoveDirection.Up:
+                Navigate(eventData, FindSelectableOnUp());
+                break;
+            case MoveDirection.Down:
+                Navigate(eventData, FindSelectableOnDown());
+                break;
+        }
+
+        sysModule.moveRepeatRate = 0.05f;
+    }
+
+    void Navigate(AxisEventData eventData, Selectable sel)
+    {
+        if (sel != null && sel.IsActive())
+        {
+            eventData.selectedObject = sel.gameObject;
+        }
+    }
+
     IEnumerator DelayedDeselectCheck()
     {
         yield return null;
@@ -128,6 +122,7 @@ public class UIOptionSelector : Selectable
             yield break;
         }
         SetSelectedVisual(false);
+        sysModule.moveRepeatRate = 0.1f;
     }
 
     public void SetSelectedVisual(bool isSelected)
