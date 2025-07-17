@@ -9,8 +9,8 @@ public class UISoundMuteToggle : MonoBehaviour
     [SerializeField] SoundType _type;
     [SerializeField] UISoundVolumeSlider _volumeSlider;
 
-    [Space(10)]
-    [SerializeField] UnityEvent<bool> _action;
+    [Header("Events")]
+    [SerializeField] UnityEvent<bool> _onExtensionValueChanged;
 
     Toggle _toggle;
 
@@ -33,12 +33,12 @@ public class UISoundMuteToggle : MonoBehaviour
         if (_volumeSlider != null)
             _volumeSlider.Mute(!value);
 
-        _action?.Invoke(value);
+        _onExtensionValueChanged?.Invoke(value);
     }
 
     public void WakeUp()
     {
         _toggle.SetIsOnWithoutNotify(true);
-        _action?.Invoke(true);
+        _onExtensionValueChanged?.Invoke(true);
     }
 }

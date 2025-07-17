@@ -1,27 +1,37 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
+[Serializable]
+public struct UIOffset
+{
+    public float top;
+    public float bottom;
+    public float left;
+    public float right;
+}
+
 public static class UIExtensions
 {
-    public static void EnsureVisibleInScrollView(this RectTransform rectTransform, ScrollRect scrollRect)
+    public static void EnsureVisibleInScrollView(this RectTransform rectTransform, ScrollRect scrollRect, UIOffset margin = default)
     {
-        if (rectTransform.IsFullyInsideRectTransform(scrollRect.viewport)) return;
-        rectTransform.ScrollIntoView(scrollRect);
+        if (rectTransform.IsFullyInsideRectTransform(scrollRect.viewport, margin)) return;
+        rectTransform.ScrollIntoView(scrollRect, margin);
     }
 
-    public static bool IsFullyInsideRectTransform(this RectTransform rectTransform, RectTransform rootRectTransform)
+    public static bool IsFullyInsideRectTransform(this RectTransform rectTransform, RectTransform rootRectTransform, UIOffset margin = default)
     {
         Bounds bound = RectTransformUtility.CalculateRelativeRectTransformBounds(rootRectTransform, rectTransform);
 
         return bound.min.x >= rootRectTransform.rect.xMin && bound.max.x <= rootRectTransform.rect.xMax
-            && bound.min.y >= rootRectTransform.rect.yMin && bound.max.y <= rootRectTransform.rect.yMax;   
+            && bound.min.y >= rootRectTransform.rect.yMin && bound.max.y + margin.top <= rootRectTransform.rect.yMax;   
     }
 
     /// <summary>
     /// 지정된 RectTransform을 ScrollRect 안에서 화면에 보이도록 스크롤합니다.
     /// 이 코드는 scroll Rect content의 pivot이 (x = 0, y = 1)으로 기준으로 작성되었습니다.
     /// </summary>
-    public static void ScrollIntoView(this RectTransform rectTransform, ScrollRect scrollRect)
+    public static void ScrollIntoView(this RectTransform rectTransform, ScrollRect scrollRect, UIOffset margin = default)
     {
         RectTransform content = scrollRect.content;
         RectTransform viewport = scrollRect.viewport;
@@ -30,7 +40,7 @@ public static class UIExtensions
 
         if (scrollRect.vertical)
         {
-            float itemTop = -bound.max.y;
+            float itemTop = -bound.max.y - margin.top;
             float itemBottom = -bound.min.y;
             float itemH = bound.size.y;
 

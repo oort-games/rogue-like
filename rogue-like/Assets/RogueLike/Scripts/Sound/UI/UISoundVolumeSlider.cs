@@ -11,10 +11,9 @@ public class UISoundVolumeSlider : MonoBehaviour
     [SerializeField] TextMeshProUGUI _valueText;
     [SerializeField] UISoundMuteToggle _muteToggle;
 
-    [Space(10)]
-    [SerializeField] UnityEvent _onAction;
-    [Space(10)]
-    [SerializeField] UnityEvent _offAction;
+    [Header("Events")]
+    [SerializeField] UnityEvent _onEnabled;
+    [SerializeField] UnityEvent _onDisabled;
 
     Slider _slider;
 
@@ -57,6 +56,6 @@ public class UISoundVolumeSlider : MonoBehaviour
 
     public void Mute(bool mute)
     {
-        (mute ? _offAction : _onAction).Invoke();
+        (mute ? _onDisabled : _onEnabled).Invoke();
     }
 }
