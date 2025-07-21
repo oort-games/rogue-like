@@ -8,7 +8,7 @@ public class UIDisplayResolutionSelector : MonoBehaviour
     UISettingSelector _selector;
     DisplayResolution[] _resolutions;
 
-    void Awake()
+    private void Awake()
     {
         _resolutions = Enum.GetValues(typeof(DisplayResolution)).Cast<DisplayResolution>().ToArray();
 
@@ -18,7 +18,7 @@ public class UIDisplayResolutionSelector : MonoBehaviour
         _selector.SetAction(OnValueChanged);
     }
 
-    void OnValueChanged(int value)
+    private void OnValueChanged(int value)
     {
         DisplayManager.Instance.SetResolution((DisplayResolution)value);
     }

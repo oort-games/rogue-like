@@ -20,7 +20,7 @@ public class UILongPressButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     bool _isPointerDown;
     bool _longPressFired;
 
-    void Awake()
+    private void Awake()
     {
         _button = GetComponent<Button>();
 

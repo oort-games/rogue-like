@@ -8,12 +8,12 @@ public class UIDisplayTargetFrameRateText : MonoBehaviour
     TextMeshProUGUI _text;
     float _deltaTime;
 
-    void Awake()
+    private void Awake()
     {
         _text = GetComponent<TextMeshProUGUI>();
     }
 
-    void Update()
+    private void Update()
     {
         _deltaTime += (Time.unscaledDeltaTime - _deltaTime) * 0.1f;
         float fps = 1f / _deltaTime;

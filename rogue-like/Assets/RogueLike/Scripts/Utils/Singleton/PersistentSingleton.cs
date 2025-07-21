@@ -57,7 +57,7 @@ public class PersistentSingleton<T> : MonoBehaviour where T : Component
         }
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         _applicationIsQuit = true;
     }

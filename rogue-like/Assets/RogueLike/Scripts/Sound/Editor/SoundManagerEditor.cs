@@ -7,7 +7,7 @@ public class SoundManagerEditor : Editor
 {
     SoundManager _manager;
 
-    void OnEnable()
+    private void OnEnable()
     {
         _manager = (SoundManager)target;
     }
