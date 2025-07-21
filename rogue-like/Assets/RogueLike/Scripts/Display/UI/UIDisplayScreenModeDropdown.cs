@@ -11,7 +11,7 @@ public class UIDisplayScreenModeDropdown : MonoBehaviour
     TMP_Dropdown _dropDown;
     List<DisplayScreenMode> _screenModes;
 
-    private void Awake()
+    void Awake()
     {
         _screenModes = Enum.GetValues(typeof(DisplayScreenMode)).Cast<DisplayScreenMode>().ToList();
         
@@ -21,7 +21,7 @@ public class UIDisplayScreenModeDropdown : MonoBehaviour
         _dropDown.onValueChanged.AddListener(OnValueChanged);
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         _dropDown.SetValueWithoutNotify(_screenModes.IndexOf(DisplayManager.Instance.GetScreenMode()));
         _dropDown.RefreshShownValue();

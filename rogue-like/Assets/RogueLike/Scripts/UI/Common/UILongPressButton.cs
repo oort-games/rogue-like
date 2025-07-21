@@ -15,10 +15,10 @@ public class UILongPressButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public UnityEvent onLongPress;
     public UnityEvent onLongPressRepeat;
 
-    private Button _button;
-    private Coroutine _pressRoutine;
-    private bool _isPointerDown;
-    private bool _longPressFired;
+    Button _button;
+    Coroutine _pressRoutine;
+    bool _isPointerDown;
+    bool _longPressFired;
 
     void Awake()
     {
@@ -48,7 +48,7 @@ public class UILongPressButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
     public void OnPointerExit(PointerEventData eventData) => CancelPress();
 
-    private IEnumerator PressRoutine()
+    IEnumerator PressRoutine()
     {
         float timer = 0f;
         while (_isPointerDown && timer < _longPressThreshold)
@@ -70,7 +70,7 @@ public class UILongPressButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
         }
     }
 
-    private void CancelPress()
+    void CancelPress()
     {
         _isPointerDown = false;
         if (_pressRoutine != null)

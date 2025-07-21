@@ -7,7 +7,7 @@ public class SoundTrigger : MonoBehaviour
 
     [SerializeField] bool _playOnStart;
 
-    private void Start()
+    void Start()
     {
         if (_playOnStart)
             Play();

@@ -27,7 +27,7 @@ public class SoundManager : Manager<SoundManager>
         }
     }
 
-    private void Start()
+    void Start()
     {
         foreach (var type in _channels.Keys)
         {

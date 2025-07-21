@@ -14,13 +14,13 @@ public class UISoundMuteToggle : MonoBehaviour
 
     Toggle _toggle;
 
-    private void Awake()
+    void Awake()
     {
         _toggle = GetComponent<Toggle>();
         _toggle.onValueChanged.AddListener(OnValueChanged);
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         _toggle.interactable = _type == SoundType.Master || !SoundManager.Instance.GetMute(SoundType.Master);
         _toggle.SetIsOnWithoutNotify(!SoundManager.Instance.GetMute(_type));

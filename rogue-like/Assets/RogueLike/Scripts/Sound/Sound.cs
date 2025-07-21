@@ -23,3 +23,8 @@ public class SoundChannel
     public string GetVolumeSaveKey() => $"Sound.Volume.{type}";
     public string GetMuteSaveKey() => $"Sound.Mute.{type}";
 }
+
+public static class SoundExtensions
+{
+
+}

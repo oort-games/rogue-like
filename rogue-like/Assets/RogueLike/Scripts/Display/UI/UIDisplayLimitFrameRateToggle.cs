@@ -7,13 +7,13 @@ public class UIDisplayLimitFrameRateToggle : MonoBehaviour
 {
     Toggle _toggle;
 
-    private void Awake()
+    void Awake()
     {
         _toggle = GetComponent<Toggle>();
         _toggle.onValueChanged.AddListener(OnValueChanged);
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         _toggle.SetIsOnWithoutNotify(DisplayManager.Instance.GetLimitFrameRate());
     }

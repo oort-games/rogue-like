@@ -9,7 +9,7 @@ public abstract class UISettingBase : Selectable
     [Header("Common")]
     [SerializeField] protected TextMeshProUGUI _headerText;
     [SerializeField] protected GameObject _highlight;
-    [SerializeField] UIOffset _margin;
+    [SerializeField] RectTransformOffset _margin;
 
     RectTransform _rectTransform;
     ScrollRect _scrollRect;
@@ -67,10 +67,18 @@ public abstract class UISettingBase : Selectable
 
         switch (eventData.moveDir)
         {
-            case MoveDirection.Up: { Navigate(eventData, FindSelectableOnUp()); SetSelectedVisual(false); }; break;
-            case MoveDirection.Down: { Navigate(eventData, FindSelectableOnDown()); SetSelectedVisual(false); } break;
+            case MoveDirection.Up:
+                Navigate(eventData, FindSelectableOnUp());
+                SetSelectedVisual(false);
+                break;
+            case MoveDirection.Down:
+                Navigate(eventData, FindSelectableOnDown()); 
+                SetSelectedVisual(false);
+                break;
             case MoveDirection.Left:
-            case MoveDirection.Right: HandleHorizontal(eventData.moveDir); break;
+            case MoveDirection.Right:
+                HandleHorizontal(eventData.moveDir); 
+                break;
         }
     }
 

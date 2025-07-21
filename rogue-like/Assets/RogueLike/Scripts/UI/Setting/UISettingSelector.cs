@@ -14,7 +14,15 @@ public class UISettingSelector : UISettingBase
     int _currentIndex;
 
     public string GetCurrentOption() => _options[_currentIndex];
-    
+
+    #region Unity Life-cycle
+    protected override void Start()
+    {
+        base.Start();
+        UpdateUI();
+    }
+    #endregion
+
     #region Overrides
     protected override void HandleHorizontal(MoveDirection dir)
     {
@@ -24,9 +32,16 @@ public class UISettingSelector : UISettingBase
 
     protected override void RegisterButtons()
     {
-        _prevButton.onClick.AddListener(() => { ChangeOption(-1); EventSystem.current.SetSelectedGameObject(gameObject); });
-        _nextButton.onClick.AddListener(() => { ChangeOption(1); EventSystem.current.SetSelectedGameObject(gameObject); });
-        UpdateUI();
+        _prevButton.onClick.AddListener(() => 
+        { 
+            ChangeOption(-1); 
+            EventSystem.current.SetSelectedGameObject(gameObject); 
+        });
+        _nextButton.onClick.AddListener(() => 
+        { 
+            ChangeOption(1); 
+            EventSystem.current.SetSelectedGameObject(gameObject); 
+        });
     }
 
     protected override void SetSelectedVisual(bool isSelected)

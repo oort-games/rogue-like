@@ -11,7 +11,7 @@ public class UIDisplayTargetFrameRateDropdown : MonoBehaviour
     TMP_Dropdown _dropDown;
     List<DisplayTargetFrameRate> _targetFrameRates;
 
-    private void Awake()
+    void Awake()
     {
         _targetFrameRates = Enum.GetValues(typeof(DisplayTargetFrameRate)).Cast<DisplayTargetFrameRate>().ToList();
         
@@ -21,7 +21,7 @@ public class UIDisplayTargetFrameRateDropdown : MonoBehaviour
         _dropDown.onValueChanged.AddListener(OnValueChanged);
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         _dropDown.SetValueWithoutNotify(_targetFrameRates.IndexOf(DisplayManager.Instance.GetTargetFrameRate()));
         _dropDown.RefreshShownValue();

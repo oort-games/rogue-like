@@ -11,7 +11,7 @@ public class UIDisplayResolutionDropdown : MonoBehaviour
     TMP_Dropdown _dropDown;
     List<DisplayResolution> _resolutions;
 
-    private void Awake()
+    void Awake()
     {
         _resolutions = Enum.GetValues(typeof(DisplayResolution)).Cast<DisplayResolution>().ToList();
         
@@ -21,7 +21,7 @@ public class UIDisplayResolutionDropdown : MonoBehaviour
         _dropDown.onValueChanged.AddListener(OnValueChanged);
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         _dropDown.SetValueWithoutNotify(_resolutions.IndexOf(DisplayManager.Instance.GetResolution()));
         _dropDown.RefreshShownValue();

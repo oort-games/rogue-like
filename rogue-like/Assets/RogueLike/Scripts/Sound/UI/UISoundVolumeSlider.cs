@@ -17,7 +17,7 @@ public class UISoundVolumeSlider : MonoBehaviour
 
     Slider _slider;
 
-    private void Awake()
+    void Awake()
     {
         _slider = GetComponent<Slider>();
         _slider.wholeNumbers = true;
@@ -25,7 +25,7 @@ public class UISoundVolumeSlider : MonoBehaviour
         _slider.onValueChanged.AddListener(OnValueChanged);
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         float volume = SoundManager.Instance.GetVolume(_type);
         _slider.SetValueWithoutNotify(volume);
