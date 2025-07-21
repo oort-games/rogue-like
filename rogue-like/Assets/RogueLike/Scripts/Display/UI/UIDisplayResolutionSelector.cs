@@ -1,16 +1,25 @@
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 [RequireComponent(typeof(UISettingSelector))]
 public class UIDisplayResolutionSelector : MonoBehaviour
 {
     UISettingSelector _selector;
+    DisplayResolution[] _resolutions;
 
     void Awake()
     {
-        
+        _resolutions = Enum.GetValues(typeof(DisplayResolution)).Cast<DisplayResolution>().ToArray();
+
+        _selector = GetComponent<UISettingSelector>();
+        _selector.SetOption(_resolutions.Select(resolution => resolution.ToCustomString()).ToArray());
+        _selector.SetIndex(Array.IndexOf(_resolutions, DisplayManager.Instance.GetResolution()));
+        _selector.SetAction(OnValueChanged);
+    }
+
+    void OnValueChanged(int value)
+    {
+        DisplayManager.Instance.SetResolution((DisplayResolution)value);
     }
 }

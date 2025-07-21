@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/RogueLike/Scenes/Demo.unity
-    guid: bcc10ddc1b77f2a4d81d55cbe8e12239
+    path: Assets/RogueLike/Scenes/Demo/Setting.unity
+    guid: d527d868d1035d14ba21317a468cbde2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

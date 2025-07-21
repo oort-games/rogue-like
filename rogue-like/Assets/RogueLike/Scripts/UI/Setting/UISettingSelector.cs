@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
@@ -10,8 +11,10 @@ public class UISettingSelector : UISettingBase
     [SerializeField] Button _nextButton;
     [SerializeField] TextMeshProUGUI _valueText;
     [SerializeField] string[] _options;
+    [SerializeField] bool _immediately;
 
     int _currentIndex;
+    UnityAction<int> _onValueChanged;
 
     public string GetCurrentOption() => _options[_currentIndex];
 
@@ -19,6 +22,7 @@ public class UISettingSelector : UISettingBase
     protected override void Start()
     {
         base.Start();
+        if (Application.isPlaying == false) return;
         UpdateUI();
     }
     #endregion
@@ -56,9 +60,27 @@ public class UISettingSelector : UISettingBase
     void ChangeOption(int delta)
     {
         _currentIndex = (_currentIndex + delta + _options.Length) % _options.Length;
+        _onValueChanged?.Invoke(_currentIndex);
         UpdateUI();
     }
 
     void UpdateUI() => _valueText.text = _options[_currentIndex];
+    #endregion
+
+    #region Public
+    public void SetOption(string[] options)
+    {
+        _options = options;
+    }
+
+    public void SetIndex(int index)
+    {
+        _currentIndex = index;
+    }
+
+    public void SetAction(UnityAction<int> onValueChanged)
+    {
+        _onValueChanged = onValueChanged;
+    }
     #endregion
 }
