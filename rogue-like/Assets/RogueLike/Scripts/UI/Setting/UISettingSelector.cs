@@ -16,8 +16,6 @@ public class UISettingSelector : UISettingBase
     int _currentIndex;
     UnityAction<int> _onValueChanged;
 
-    public string GetCurrentOption() => _options[_currentIndex];
-
     #region Unity Life-cycle
     protected override void Start()
     {
@@ -50,7 +48,7 @@ public class UISettingSelector : UISettingBase
 
     protected override void SetSelectedVisual(bool isSelected)
     {
-        _highlight.SetActive(isSelected);
+        base.SetSelectedVisual(isSelected);
         _prevButton.gameObject.SetActive(isSelected);
         _nextButton.gameObject.SetActive(isSelected);
     }

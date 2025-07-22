@@ -7,13 +7,13 @@ public enum UIType
 }
 
 
-public enum UIOnOff
+public enum UIToggleState
 {
-    On,
-    Off
+    Off,
+    On
 }
 
 public static class UIExtensions
 {
-
+    public static string ToCustomString(this UIToggleState toggleState) => $"{toggleState}";
 }

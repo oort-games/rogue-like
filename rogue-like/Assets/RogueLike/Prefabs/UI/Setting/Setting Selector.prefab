@@ -228,6 +228,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3944176385793017519, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7695487731605822411, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -262,6 +266,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &763795827024499586 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3944176385793017519, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
+  m_PrefabInstance: {fileID: 4333883155272815917}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1118173087865621949 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3720404005817686160, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
@@ -353,6 +362,12 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 177530053094914367}
   _headerText: {fileID: 1118173087865621949}
   _highlight: {fileID: 4348786245440555760}
+  _dim: {fileID: 763795827024499586}
+  _margin:
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
   _prevButton: {fileID: 1797143781119947754}
   _nextButton: {fileID: 4197487548197634382}
   _valueText: {fileID: 2632466615826233749}
@@ -360,3 +375,4 @@ MonoBehaviour:
   - "\uC635\uC158 1"
   - "\uC635\uC158 2"
   - "\uC635\uC158 3"
+  _immediately: 0

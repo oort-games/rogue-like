@@ -394,7 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3372549, g: 0.3372549, b: 0.3372549, a: 1}
+  m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -503,6 +503,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3944176385793017519, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7695487731605822411, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -583,11 +587,21 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8158240099566742366}
   _headerText: {fileID: 8990837414474391516}
   _highlight: {fileID: 5699495051424340113}
+  _dim: {fileID: 8780012406787064291}
+  _margin:
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
   _prevButton: {fileID: 8252681483420503980}
   _nextButton: {fileID: 5689607666067849877}
   _slider: {fileID: 7862860284071874308}
+  _valueText: {fileID: 3680507673252423867}
   _step: 1
   _repeatRate: 0.025
+  _sliderFillImage: {fileID: 2720672390607912796}
+  _defaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  _highlightColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2715534324563729543 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7695487731605822411, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
@@ -665,6 +679,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8780012406787064291 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3944176385793017519, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
+  m_PrefabInstance: {fileID: 5720795581178021708}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8990837414474391516 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3720404005817686160, guid: 99aa89b41d901a34db41d125af00178f, type: 3}

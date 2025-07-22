@@ -9,6 +9,7 @@ public abstract class UISettingBase : Selectable
     [Header("Common")]
     [SerializeField] protected TextMeshProUGUI _headerText;
     [SerializeField] protected GameObject _highlight;
+    [SerializeField] protected GameObject _dim;
     [SerializeField] RectTransformOffset _margin;
 
     RectTransform _rectTransform;
@@ -19,6 +20,8 @@ public abstract class UISettingBase : Selectable
     {
         base.Awake();
         _rectTransform = GetComponent<RectTransform>();
+        if (Application.isPlaying == false) return;
+        SetSelectedVisual(false);
     }
 
     protected override void Start()
@@ -26,7 +29,6 @@ public abstract class UISettingBase : Selectable
         base.Start();
         if (Application.isPlaying == false) return;
         _scrollRect = GetComponentInParent<ScrollRect>();
-        SetSelectedVisual(false);
         RegisterButtons();
     }
     #endregion
@@ -89,14 +91,20 @@ public abstract class UISettingBase : Selectable
     }
     #endregion
 
-    #region Abstract hooks
+    #region Abstract Methods
     /// <summary>← / → 입력 처리 (파생 클래스마다 다름)</summary>
     protected abstract void HandleHorizontal(MoveDirection dir);
 
     /// <summary>버튼 onClick 등 파생 클래스에서 연결</summary>
     protected abstract void RegisterButtons();
+    #endregion
 
+    #region Virtual Methods
     /// <summary>선택 시 비주얼 토글 (파생 클래스가 필요한 오브젝트 함께 제어)</summary>
-    protected abstract void SetSelectedVisual(bool isSelected);
+    protected virtual void SetSelectedVisual(bool isSelected)
+    {
+        _highlight.SetActive(isSelected);
+        _dim.SetActive(!isSelected);
+    }
     #endregion
 }

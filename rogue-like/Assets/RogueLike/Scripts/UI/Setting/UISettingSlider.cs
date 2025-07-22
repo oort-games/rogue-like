@@ -1,10 +1,8 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using TMPro;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 
 public class UISettingSlider : UISettingBase
 {
@@ -12,8 +10,16 @@ public class UISettingSlider : UISettingBase
     [SerializeField] UILongPressButton _prevButton;
     [SerializeField] UILongPressButton _nextButton;
     [SerializeField] Slider _slider;
+    [SerializeField] TextMeshProUGUI _valueText;
     [SerializeField] float _step = 1f;
     [SerializeField] float _repeatRate = 0.025f;
+
+    [Header("Deco")]
+    [SerializeField] Image _sliderFillImage;
+    [SerializeField] Color _defaultColor;
+    [SerializeField] Color _highlightColor;
+
+    UnityAction<float> _onValueChanged;
 
     #region Unity Life-cycle
     protected override void Start()
@@ -22,6 +28,9 @@ public class UISettingSlider : UISettingBase
         if (Application.isPlaying == false) return;
         _prevButton.SetSetRepeatRate(_repeatRate);
         _nextButton.SetSetRepeatRate(_repeatRate);
+
+        _slider.onValueChanged.AddListener(OnValueChanged);
+        UpdateUI();
     }
     #endregion
 
@@ -46,16 +55,45 @@ public class UISettingSlider : UISettingBase
 
     protected override void SetSelectedVisual(bool isSelected)
     {
-        _highlight.SetActive(isSelected);
+        base.SetSelectedVisual(isSelected);
         _prevButton.gameObject.SetActive(isSelected);
         _nextButton.gameObject.SetActive(isSelected);
-
-        if (!isSelected)
-            InputManager.Instance.SetMoveRepeatRate(0.1f);
+        _sliderFillImage.color = isSelected ? _highlightColor : _defaultColor;
+        if (isSelected) InputManager.Instance.SetMoveRepeatRate(0.1f);
     }
     #endregion
 
     #region Private
     void ClickDelta(float delta) => _slider.value += delta;
+
+    void UpdateUI() => _valueText.text = $"{_slider.value}";
+
+    void OnValueChanged(float value)
+    {
+        _onValueChanged?.Invoke(value);
+        UpdateUI();
+    }
+    #endregion
+
+    #region Public
+    public void SetValue(float value)
+    {
+        _slider.value = value;
+    }
+
+    public void SetWholeNUmbers(bool value)
+    {
+        _slider.wholeNumbers = value;
+    }
+
+    public void SetMaxValue(float value)
+    {
+        _slider.maxValue = value;
+    }
+
+    public void SetAction(UnityAction<float> onValueChanged)
+    {
+        _onValueChanged = onValueChanged;
+    }
     #endregion
 }
