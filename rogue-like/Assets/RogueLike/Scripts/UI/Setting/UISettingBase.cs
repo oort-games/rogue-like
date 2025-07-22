@@ -10,7 +10,10 @@ public abstract class UISettingBase : Selectable
     [SerializeField] protected TextMeshProUGUI _headerText;
     [SerializeField] protected GameObject _highlight;
     [SerializeField] protected GameObject _dim;
+    [SerializeField] protected GameObject _block;
     [SerializeField] RectTransformOffset _margin;
+
+    protected bool _enable = true;
 
     RectTransform _rectTransform;
     ScrollRect _scrollRect;
@@ -105,6 +108,14 @@ public abstract class UISettingBase : Selectable
     {
         _highlight.SetActive(isSelected);
         _dim.SetActive(!isSelected);
+    }
+    #endregion
+
+    #region Public
+    public void SetEnable(bool enable)
+    {
+        _enable = enable;
+        _block.SetActive(!enable);
     }
     #endregion
 }

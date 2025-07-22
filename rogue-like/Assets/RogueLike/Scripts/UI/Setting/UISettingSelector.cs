@@ -57,6 +57,7 @@ public class UISettingSelector : UISettingBase
     #region Private
     void ChangeOption(int delta)
     {
+        if (_enable == false) return;
         _currentIndex = (_currentIndex + delta + _options.Length) % _options.Length;
         _onValueChanged?.Invoke(_currentIndex);
         UpdateUI();

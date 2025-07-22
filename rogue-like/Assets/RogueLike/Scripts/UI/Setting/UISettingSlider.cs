@@ -64,7 +64,11 @@ public class UISettingSlider : UISettingBase
     #endregion
 
     #region Private
-    void ClickDelta(float delta) => _slider.value += delta;
+    void ClickDelta(float delta)
+    {
+        if (_enable == false) return;
+        _slider.value += delta;
+    }
 
     void UpdateUI() => _valueText.text = $"{_slider.value}";
 
