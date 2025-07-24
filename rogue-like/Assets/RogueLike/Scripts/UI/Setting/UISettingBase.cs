@@ -58,7 +58,10 @@ public abstract class UISettingBase : Selectable
     {
         yield return null;
         if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            Debug.Log("???");
             EventSystem.current.SetSelectedGameObject(gameObject);
+        }
         else
             SetSelectedVisual(false);
     }
@@ -67,9 +70,6 @@ public abstract class UISettingBase : Selectable
     #region Navigation (공통: ↑/↓, 파생: ←/→)
     public override void OnMove(AxisEventData eventData)
     {
-        if (EventSystem.current.currentSelectedGameObject != gameObject)
-            return;
-
         switch (eventData.moveDir)
         {
             case MoveDirection.Up:
@@ -82,7 +82,7 @@ public abstract class UISettingBase : Selectable
                 break;
             case MoveDirection.Left:
             case MoveDirection.Right:
-                HandleHorizontal(eventData.moveDir); 
+                if (EventSystem.current.currentSelectedGameObject == gameObject) HandleHorizontal(eventData.moveDir);
                 break;
         }
     }
