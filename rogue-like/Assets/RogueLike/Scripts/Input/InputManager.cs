@@ -17,10 +17,11 @@ public class InputManager : Manager<InputManager>
 
     public void SetMoveRepeatRate(float value) => _sysModule.moveRepeatRate = value;
 
-
+    #region Input Action Events
     void OnControlsChanged(PlayerInput playerInput)
     {
         Debug.Log(_playerInput.currentControlScheme);
         OnSchemeChanged?.Invoke(CurrentScheme);
     }
+    #endregion
 }

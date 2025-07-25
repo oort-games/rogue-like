@@ -23,8 +23,6 @@ public class UILongPressButton : MonoBehaviour, IPointerDownHandler, IPointerUpH
     private void Awake()
     {
         _button = GetComponent<Button>();
-
-        _button.onClick.RemoveAllListeners();
         _button.onClick.AddListener(() =>
         {
             if (!_longPressFired)

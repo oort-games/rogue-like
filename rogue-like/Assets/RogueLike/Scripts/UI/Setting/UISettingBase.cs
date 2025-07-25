@@ -59,7 +59,6 @@ public abstract class UISettingBase : Selectable
         yield return null;
         if (EventSystem.current.currentSelectedGameObject == null)
         {
-            Debug.Log("???");
             EventSystem.current.SetSelectedGameObject(gameObject);
         }
         else
