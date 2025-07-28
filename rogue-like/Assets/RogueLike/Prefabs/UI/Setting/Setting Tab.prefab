@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3936294594476229277}
   - component: {fileID: 6403314385694754854}
   - component: {fileID: 4780193984022353127}
-  - component: {fileID: 4832629605985144750}
+  - component: {fileID: 5362335808970812749}
   m_Layer: 5
   m_Name: Setting Tab
   m_TagString: Untagged
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &4832629605985144750
+--- !u!114 &5362335808970812749
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,10 +159,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 820556506169104846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2f223ca2149097438460c5d3b328415, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c2adc2c2e4d99d4b92e3216285e3267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _highlight: {fileID: 8396308523021907169}
+  _text: {fileID: 2809487522743381328}
+  _defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  _highlightColor: {r: 0.9137255, g: 0.75686276, b: 0.34901962, a: 1}
 --- !u!1 &8396308523021907169
 GameObject:
   m_ObjectHideFlags: 0

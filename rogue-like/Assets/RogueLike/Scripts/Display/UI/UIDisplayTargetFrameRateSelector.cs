@@ -2,8 +2,9 @@ using System;
 using System.Linq;
 using UnityEngine;
 
+[AddComponentMenu("Settings/UI/Display/UI Display TargetFrameRate Selector")]
 [RequireComponent(typeof(UISettingSelector))]
-public class UIDisplayTargetFrameSelector : MonoBehaviour
+public class UIDisplayTargetFrameRateSelector : MonoBehaviour
 {
     UISettingSelector _selector;
     DisplayTargetFrameRate[] _targetFrameRates;

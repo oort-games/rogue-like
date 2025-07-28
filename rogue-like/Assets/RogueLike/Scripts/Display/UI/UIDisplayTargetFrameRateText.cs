@@ -17,6 +17,6 @@ public class UIDisplayTargetFrameRateText : MonoBehaviour
     {
         _deltaTime += (Time.unscaledDeltaTime - _deltaTime) * 0.1f;
         float fps = 1f / _deltaTime;
-        _text.text = $"FPS: {Mathf.RoundToInt(fps)}";
+        _text.text = $"FPS : {Mathf.RoundToInt(fps)}";
     }
 }

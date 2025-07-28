@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 
+[AddComponentMenu("Settings/UI/Display/UI Display ScreenMode Selector")]
 [RequireComponent(typeof(UISettingSelector))]
 public class UIDisplayScreenModeSelector : MonoBehaviour
 {

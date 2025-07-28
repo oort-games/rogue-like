@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[AddComponentMenu("Settings/UI/Sound/UI Sound Slider")]
 [RequireComponent(typeof(UISettingSlider))]
 public class UISoundSlider : MonoBehaviour
 {

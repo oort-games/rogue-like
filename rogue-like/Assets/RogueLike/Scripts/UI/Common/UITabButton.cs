@@ -20,5 +20,5 @@ public class UITabButton : MonoBehaviour
         });
     }
 
-    public void SetSelected(bool isOn) => _highlight.SetActive(isOn);
+    public virtual void SetSelected(bool isOn) => _highlight.SetActive(isOn);
 }
