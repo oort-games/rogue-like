@@ -24,7 +24,7 @@ public class UIDisplayLimtFrameRateSelector : MonoBehaviour
         _targetFrameSelector.SetEnable(isLimit);
     }
 
-    private void OnValueChanged(int value)
+    void OnValueChanged(int value)
     {
         bool isLimit = value == 1;
 

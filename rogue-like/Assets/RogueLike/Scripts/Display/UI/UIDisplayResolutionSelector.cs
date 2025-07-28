@@ -19,7 +19,7 @@ public class UIDisplayResolutionSelector : MonoBehaviour
         _selector.SetAction(OnValueChanged);
     }
 
-    private void OnValueChanged(int value)
+    void OnValueChanged(int value)
     {
         DisplayManager.Instance.SetResolution((DisplayResolution)value);
     }
