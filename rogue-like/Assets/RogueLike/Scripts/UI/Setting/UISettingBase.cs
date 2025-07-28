@@ -34,6 +34,12 @@ public abstract class UISettingBase : Selectable
         _scrollRect = GetComponentInParent<ScrollRect>();
         RegisterButtons();
     }
+
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        SetSelectedVisual(false);
+    }
     #endregion
 
     #region Pointer / Selection
@@ -62,22 +68,29 @@ public abstract class UISettingBase : Selectable
             EventSystem.current.SetSelectedGameObject(gameObject);
         }
         else
+        {
             SetSelectedVisual(false);
+        }
     }
     #endregion
 
     #region Navigation (공통: ↑/↓, 파생: ←/→)
     public override void OnMove(AxisEventData eventData)
     {
+        Selectable selectable;
         switch (eventData.moveDir)
         {
             case MoveDirection.Up:
-                Navigate(eventData, FindSelectableOnUp());
-                SetSelectedVisual(false);
+                selectable = FindSelectableOnUp();
+                Navigate(eventData, selectable);
+                if (selectable != null)
+                    SetSelectedVisual(false);
                 break;
             case MoveDirection.Down:
-                Navigate(eventData, FindSelectableOnDown()); 
-                SetSelectedVisual(false);
+                selectable = FindSelectableOnDown();
+                Navigate(eventData, FindSelectableOnDown());
+                if (selectable != null)
+                    SetSelectedVisual(false);
                 break;
             case MoveDirection.Left:
             case MoveDirection.Right:

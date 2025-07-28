@@ -6,7 +6,7 @@ public class UITabGroup : MonoBehaviour
 {
     [Header("Tabs & Pages")]
     [SerializeField] List<UITabButton> _tabs = new();
-    [SerializeField] List<GameObject> _pages = new();
+    [SerializeField] List<UITabPage> _pages = new();
 
     [Header("Input")]
     [SerializeField] InputActionReference prevAction;
@@ -23,6 +23,11 @@ public class UITabGroup : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        SetActiveTab(0);
+    }
+
     private void OnEnable()
     {
         if (prevAction != null)
@@ -35,7 +40,6 @@ public class UITabGroup : MonoBehaviour
             nextAction.action.performed += _ => Shift(+1);
             nextAction.action.Enable();
         }
-        SetActiveTab(0);
     }
 
     private void OnDisable()
@@ -67,7 +71,7 @@ public class UITabGroup : MonoBehaviour
         {
             bool on = (i == index);
             _tabs[i].SetSelected(on);
-            if (i < _pages.Count) _pages[i].SetActive(on);
+            if (i < _pages.Count) _pages[i].SetSelected(on);
         }
     }
 }

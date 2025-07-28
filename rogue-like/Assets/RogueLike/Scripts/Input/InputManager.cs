@@ -20,7 +20,6 @@ public class InputManager : Manager<InputManager>
     #region Input Action Events
     void OnControlsChanged(PlayerInput playerInput)
     {
-        Debug.Log(_playerInput.currentControlScheme);
         OnSchemeChanged?.Invoke(CurrentScheme);
     }
     #endregion
