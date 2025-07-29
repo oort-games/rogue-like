@@ -8,7 +8,7 @@ public class UITabGroup : MonoBehaviour
     [SerializeField] List<UITabButton> _tabs = new();
     [SerializeField] List<UITabPage> _pages = new();
 
-    [Header("Input")]
+    [Header("Inputs")]
     [SerializeField] InputActionReference prevAction;
     [SerializeField] InputActionReference nextAction;
 
@@ -30,30 +30,20 @@ public class UITabGroup : MonoBehaviour
 
     private void OnEnable()
     {
-        if (prevAction != null)
-        {
-            prevAction.action.performed += _ => Shift(-1);
-            prevAction.action.Enable();
-        }
-        if (nextAction != null)
-        {
-            nextAction.action.performed += _ => Shift(+1);
-            nextAction.action.Enable();
-        }
+        prevAction.action.performed += _ => Shift(-1);
+        prevAction.action.Enable();
+
+        nextAction.action.performed += _ => Shift(+1);
+        nextAction.action.Enable();
     }
 
     private void OnDisable()
     {
-        if (prevAction != null)
-        {
-            prevAction.action.performed -= _ => Shift(-1);
-            prevAction.action.Disable();
-        }
-        if (nextAction != null)
-        {
-            nextAction.action.performed -= _ => Shift(+1);
-            nextAction.action.Disable();
-        }
+        prevAction.action.performed -= _ => Shift(-1);
+        prevAction.action.Disable();
+
+        nextAction.action.performed -= _ => Shift(+1);
+        nextAction.action.Disable();
     }
 
     void Shift(int dir)

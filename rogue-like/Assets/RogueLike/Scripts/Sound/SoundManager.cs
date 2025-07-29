@@ -59,6 +59,15 @@ public class SoundManager : Manager<SoundManager>
         return Resources.Load<AudioClip>($"Sounds/{type}/{clipName}");
     }
 
+    public void ResetOption()
+    {
+        foreach (var ch in _channels.Keys)
+        {
+            SetMute(ch, false);
+            SetVolume(ch, 100);
+        }
+    }
+
     public void Play(SoundType type, string clipName)
     {
         _channels[type].player.Play(GetClip(type, clipName));

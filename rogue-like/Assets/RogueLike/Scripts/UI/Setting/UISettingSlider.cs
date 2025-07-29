@@ -85,6 +85,12 @@ public class UISettingSlider : UISettingBase
         _slider.value = value;
     }
 
+    public void SetValueWithoutNotify(float value)
+    {
+        _slider.SetValueWithoutNotify(value);
+        UpdateUI();
+    }
+
     public void SetWholeNUmbers(bool value)
     {
         _slider.wholeNumbers = value;

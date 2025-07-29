@@ -17,10 +17,16 @@ public class UIDisplayVSyncSelector : MonoBehaviour
         _selector.SetOption(_toggleStates.Select(toggleStates => toggleStates.ToCustomString()).ToArray());
         _selector.SetIndex(DisplayManager.Instance.GetVSync() == true ? 1 : 0);
         _selector.SetAction(OnValueChanged);
+        _selector.SetResetAction(ResetAction);
     }
 
     void OnValueChanged(int value)
     {
         DisplayManager.Instance.SetVSync(value == 1);
+    }
+
+    void ResetAction()
+    {
+        _selector.SetIndexWithoutNotify(DisplayManager.Instance.GetVSync() == true ? 1 : 0);
     }
 }

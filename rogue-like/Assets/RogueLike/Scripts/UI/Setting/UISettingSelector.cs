@@ -34,16 +34,8 @@ public class UISettingSelector : UISettingBase
 
     protected override void RegisterButtons()
     {
-        _prevButton.onClick.AddListener(() => 
-        { 
-            ChangeOption(-1); 
-            EventSystem.current.SetSelectedGameObject(gameObject); 
-        });
-        _nextButton.onClick.AddListener(() => 
-        { 
-            ChangeOption(1); 
-            EventSystem.current.SetSelectedGameObject(gameObject); 
-        });
+        _prevButton.onClick.AddListener(() => { ChangeOption(-1); });
+        _nextButton.onClick.AddListener(() => { ChangeOption(1); });
     }
 
     protected override void SetSelectedVisual(bool isSelected)
@@ -75,6 +67,12 @@ public class UISettingSelector : UISettingBase
     public void SetIndex(int index)
     {
         _currentIndex = index;
+    }
+
+    public void SetIndexWithoutNotify(int index)
+    {
+        SetIndex(index);
+        UpdateUI();
     }
 
     public void SetAction(UnityAction<int> onValueChanged)

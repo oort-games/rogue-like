@@ -20,6 +20,7 @@ public class UIDisplayLimtFrameRateSelector : MonoBehaviour
         _selector.SetOption(_toggleStates.Select(toggleStates => toggleStates.ToCustomString()).ToArray());
         _selector.SetIndex(isLimit == true ? 1 : 0);
         _selector.SetAction(OnValueChanged);
+        _selector.SetResetAction(ResetAction);
 
         _targetFrameSelector.SetEnable(isLimit);
     }
@@ -29,6 +30,13 @@ public class UIDisplayLimtFrameRateSelector : MonoBehaviour
         bool isLimit = value == 1;
 
         DisplayManager.Instance.SetLimitFrameRate(isLimit);
+        _targetFrameSelector.SetEnable(isLimit);
+    }
+
+    void ResetAction()
+    {
+        bool isLimit = DisplayManager.Instance.GetLimitFrameRate();
+        _selector.SetIndexWithoutNotify(isLimit == true ? 1 : 0);
         _targetFrameSelector.SetEnable(isLimit);
     }
 }

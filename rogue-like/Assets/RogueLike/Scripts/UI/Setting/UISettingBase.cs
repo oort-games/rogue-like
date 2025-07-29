@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
@@ -17,6 +18,7 @@ public abstract class UISettingBase : Selectable
 
     RectTransform _rectTransform;
     ScrollRect _scrollRect;
+    UnityAction _resetAction;
 
     #region Unity Life-cycle
     protected override void Awake()
@@ -128,6 +130,16 @@ public abstract class UISettingBase : Selectable
     {
         _enable = enable;
         _block.SetActive(!enable);
+    }
+
+    public void SetResetAction(UnityAction resetAction)
+    {
+        _resetAction = resetAction;
+    }
+
+    public void ResetOption()
+    {
+        _resetAction?.Invoke();
     }
     #endregion
 }

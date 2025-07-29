@@ -17,10 +17,16 @@ public class UIDisplayResolutionSelector : MonoBehaviour
         _selector.SetOption(_resolutions.Select(resolution => resolution.ToCustomString()).ToArray());
         _selector.SetIndex(Array.IndexOf(_resolutions, DisplayManager.Instance.GetResolution()));
         _selector.SetAction(OnValueChanged);
+        _selector.SetResetAction(ResetAction);
     }
 
     void OnValueChanged(int value)
     {
         DisplayManager.Instance.SetResolution((DisplayResolution)value);
+    }
+
+    void ResetAction()
+    {
+        _selector.SetIndexWithoutNotify(Array.IndexOf(_resolutions, DisplayManager.Instance.GetResolution()));
     }
 }

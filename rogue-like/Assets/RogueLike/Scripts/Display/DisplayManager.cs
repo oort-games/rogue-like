@@ -35,6 +35,15 @@ public class DisplayManager : Manager<DisplayManager>
 #endif
     }
 
+    public void ResetOption()
+    {
+        SetScreenMode(DisplayScreenMode.FullScreenWindow);
+        SetResolution(DisplayResolution.Resolution_1920x1080);
+        SetTargetFrameRate(DisplayTargetFrameRate.FPS_120);
+        SetLimitFrameRate(true);
+        SetVSync(false);
+    }
+
     public void SetResolution(DisplayResolution resolution)
     {
         _resolution = resolution;

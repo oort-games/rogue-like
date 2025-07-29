@@ -14,10 +14,16 @@ public class UISoundSlider : MonoBehaviour
         _slider.SetWholeNUmbers(true);
         _slider.SetMaxValue(SoundManager.MAX_VALUE);
         _slider.SetAction(OnValueChanged);
+        _slider.SetResetAction(ResetAction);
     }
 
     void OnValueChanged(float value)
     {
         SoundManager.Instance.SetVolume(_type, value);
+    }
+
+    void ResetAction()
+    {
+        _slider.SetValueWithoutNotify(SoundManager.Instance.GetVolume(_type));
     }
 }
