@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
@@ -6,6 +7,14 @@ public class UIInputKeyDisplay : MonoBehaviour
 {
     [SerializeField] InputActionReference _inputActionRef;
     [SerializeField] TextMeshProUGUI _valueText;
+
+    Dictionary<string, string> _symbols = new()
+    {
+        ["Triangle"] = "¡â",
+        ["Circle"] = "¡Û",
+        ["Square"] = "¡à",
+        ["Cross"] = "X",
+    };
 
     private void OnEnable()
     {
@@ -25,10 +34,12 @@ public class UIInputKeyDisplay : MonoBehaviour
 
         int bindingIndex = FindBindingForScheme(action, scheme);
 
-        _valueText.text = action.GetBindingDisplayString(
+        string displayStr = action.GetBindingDisplayString(
             bindingIndex,
             InputBinding.DisplayStringOptions.DontUseShortDisplayNames |
             InputBinding.DisplayStringOptions.IgnoreBindingOverrides);
+
+        _valueText.text = _symbols.TryGetValue(displayStr, out var str) ? str : displayStr;
     }
 
     int FindBindingForScheme(InputAction action, string scheme)

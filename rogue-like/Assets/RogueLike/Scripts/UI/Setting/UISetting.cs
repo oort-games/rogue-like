@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-public class UISetting : MonoBehaviour
+public class UISetting : PersistentSingleton<UISetting>
 {
     [Header("Buttons")]
     [SerializeField] Button applyButton;
@@ -17,11 +18,31 @@ public class UISetting : MonoBehaviour
 
     UISettingBase[] _settingList;
 
+    int _applyActionCount = 0;
+    event Action _onApply;
+    public event Action OnApply
+    {
+        add
+        {
+            _onApply += value;
+            _applyActionCount++;
+            applyButton.gameObject.SetActive(_applyActionCount > 0);
+        }
+        remove
+        {
+            _onApply -= value;
+            _applyActionCount--;
+            applyButton.gameObject.SetActive(_applyActionCount > 0);
+        }
+    }
+
     private void Start()
     {
         applyButton.onClick.AddListener(OnClickApply);
         resetButton.onClick.AddListener(OnClickReset);
         closeButton.onClick.AddListener(OnClickClose);
+
+        applyButton.gameObject.SetActive(false);
 
         _settingList = GetComponentsInChildren<UISettingBase>(true);
     }
@@ -53,6 +74,8 @@ public class UISetting : MonoBehaviour
     void OnClickApply()
     {
         Debug.Log("Apply");
+        if (_applyActionCount > 0)
+            _onApply.Invoke();
     }
 
     void OnClickReset()

@@ -11,9 +11,13 @@ public class UISettingSelector : UISettingBase
     [SerializeField] Button _nextButton;
     [SerializeField] TextMeshProUGUI _valueText;
     [SerializeField] string[] _options;
-    [SerializeField] bool _immediately;
+    [SerializeField] bool _immediately = true;
+    [SerializeField] GameObject _change;
 
     int _currentIndex;
+    int _prevIndex;
+    bool _isApplyEventBound;
+
     UnityAction<int> _onValueChanged;
 
     #region Unity Life-cycle
@@ -51,11 +55,45 @@ public class UISettingSelector : UISettingBase
     {
         if (_enable == false) return;
         _currentIndex = (_currentIndex + delta + _options.Length) % _options.Length;
+        
+        if (_immediately == true)
+        {
+            Apply();
+        }
+        else
+        {
+            UpdateUI();
+
+            bool changed = IsChanged();
+            if (changed == _isApplyEventBound) return;
+
+            _isApplyEventBound = changed;
+            if (changed)
+                UISetting.Instance.OnApply += Apply;
+            else
+                UISetting.Instance.OnApply -= Apply;
+        }
+    }
+
+    void UpdateUI()
+    {
+        _valueText.text = _options[_currentIndex];
+        if (_immediately == false)
+            _change.SetActive(IsChanged());
+    }
+
+    bool IsChanged()
+    {
+        return _currentIndex != _prevIndex;
+    }
+
+    void Apply()
+    {
         _onValueChanged?.Invoke(_currentIndex);
+        _prevIndex = _currentIndex;
         UpdateUI();
     }
 
-    void UpdateUI() => _valueText.text = _options[_currentIndex];
     #endregion
 
     #region Public
@@ -67,6 +105,7 @@ public class UISettingSelector : UISettingBase
     public void SetIndex(int index)
     {
         _currentIndex = index;
+        _prevIndex = index;
     }
 
     public void SetIndexWithoutNotify(int index)
