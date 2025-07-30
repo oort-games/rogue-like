@@ -59,7 +59,6 @@ public class UISettingSlider : UISettingBase
         _prevButton.gameObject.SetActive(isSelected);
         _nextButton.gameObject.SetActive(isSelected);
         _sliderFillImage.color = isSelected ? _highlightColor : _defaultColor;
-        if (isSelected) InputManager.Instance.SetMoveRepeatRate(0.1f);
     }
     #endregion
 

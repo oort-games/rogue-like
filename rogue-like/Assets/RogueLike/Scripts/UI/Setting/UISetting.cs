@@ -27,12 +27,14 @@ public class UISetting : PersistentSingleton<UISetting>
             _onApply += value;
             _applyActionCount++;
             applyButton.gameObject.SetActive(_applyActionCount > 0);
+            Debug.Log($"apply {_applyActionCount}");
         }
         remove
         {
             _onApply -= value;
             _applyActionCount--;
             applyButton.gameObject.SetActive(_applyActionCount > 0);
+            Debug.Log($"remove {_applyActionCount}");
         }
     }
 
@@ -74,7 +76,15 @@ public class UISetting : PersistentSingleton<UISetting>
     void OnClickApply()
     {
         if (_applyActionCount > 0)
-            _onApply.Invoke();
+        {
+            _onApply?.Invoke();
+            var handlers = _onApply?.GetInvocationList();
+            if (handlers != null)
+            {
+                foreach (Action handler in handlers)
+                    OnApply -= handler;
+            }
+        }
     }
 
     void OnClickReset()

@@ -91,6 +91,7 @@ public class UISettingSelector : UISettingBase
 
     void Apply()
     {
+        _isApplyEventBound = false;
         _onValueChanged?.Invoke(_currentIndex);
         _prevIndex = _currentIndex;
         UpdateUI();

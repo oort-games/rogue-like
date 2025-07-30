@@ -122,6 +122,7 @@ public abstract class UISettingBase : Selectable
     {
         _highlight.SetActive(isSelected);
         _dim.SetActive(!isSelected);
+        if (isSelected) InputManager.Instance.SetMoveRepeatRate(0.1f);
     }
     #endregion
 
