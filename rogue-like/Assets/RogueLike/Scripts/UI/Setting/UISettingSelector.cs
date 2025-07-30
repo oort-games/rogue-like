@@ -80,6 +80,8 @@ public class UISettingSelector : UISettingBase
         _valueText.text = _options[_currentIndex];
         if (_immediately == false)
             _change.SetActive(IsChanged());
+        else
+            _change.SetActive(false);
     }
 
     bool IsChanged()
@@ -112,6 +114,11 @@ public class UISettingSelector : UISettingBase
     {
         SetIndex(index);
         UpdateUI();
+        if (_immediately == false && _isApplyEventBound)
+        {
+            _isApplyEventBound = false;
+            UISetting.Instance.OnApply -= Apply;
+        }
     }
 
     public void SetAction(UnityAction<int> onValueChanged)

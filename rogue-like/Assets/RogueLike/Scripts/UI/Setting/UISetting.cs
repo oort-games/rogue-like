@@ -73,15 +73,12 @@ public class UISetting : PersistentSingleton<UISetting>
 
     void OnClickApply()
     {
-        Debug.Log("Apply");
         if (_applyActionCount > 0)
             _onApply.Invoke();
     }
 
     void OnClickReset()
     {
-        Debug.Log("Reset");
-        
         SoundManager.Instance.ResetOption();
         DisplayManager.Instance.ResetOption();
         foreach (var setting in _settingList)
