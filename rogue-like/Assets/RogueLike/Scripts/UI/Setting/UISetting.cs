@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-public class UISetting : PersistentSingleton<UISetting>
+public class UISetting : UIPopup
 {
     [Header("Buttons")]
     [SerializeField] Button applyButton;
@@ -27,14 +26,12 @@ public class UISetting : PersistentSingleton<UISetting>
             _onApply += value;
             _applyActionCount++;
             applyButton.gameObject.SetActive(_applyActionCount > 0);
-            Debug.Log($"apply {_applyActionCount}");
         }
         remove
         {
             _onApply -= value;
             _applyActionCount--;
             applyButton.gameObject.SetActive(_applyActionCount > 0);
-            Debug.Log($"remove {_applyActionCount}");
         }
     }
 

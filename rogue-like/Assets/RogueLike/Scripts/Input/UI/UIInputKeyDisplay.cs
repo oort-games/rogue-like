@@ -18,17 +18,17 @@ public class UIInputKeyDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        UpdateText(InputManager.Instance.CurrentScheme);
-        InputManager.Instance.OnSchemeChanged += (scheme) => UpdateText(scheme);
+        UpdateDisplay(InputManager.Instance.CurrentScheme);
+        InputManager.Instance.OnSchemeChanged += (scheme) => UpdateDisplay(scheme);
     }
 
     private void OnDisable()
     {
         if (InputManager.Instance != null)
-            InputManager.Instance.OnSchemeChanged -= (scheme) => UpdateText(scheme);
+            InputManager.Instance.OnSchemeChanged -= (scheme) => UpdateDisplay(scheme);
     }
 
-    void UpdateText(string scheme)
+    void UpdateDisplay(string scheme)
     {
         InputAction action = _inputActionRef.action;
 

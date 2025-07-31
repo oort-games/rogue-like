@@ -19,6 +19,7 @@ public class UISettingSelector : UISettingBase
     bool _isApplyEventBound;
 
     UnityAction<int> _onValueChanged;
+    UISetting _settingPopup;
 
     #region Unity Life-cycle
     protected override void Start()
@@ -26,6 +27,7 @@ public class UISettingSelector : UISettingBase
         base.Start();
         if (Application.isPlaying == false) return;
         UpdateUI();
+        _settingPopup = GetComponentInParent<UISetting>();
     }
     #endregion
 
@@ -69,9 +71,9 @@ public class UISettingSelector : UISettingBase
 
             _isApplyEventBound = changed;
             if (changed)
-                UISetting.Instance.OnApply += Apply;
+                _settingPopup.OnApply += Apply;
             else
-                UISetting.Instance.OnApply -= Apply;
+                _settingPopup.OnApply -= Apply;
         }
     }
 
@@ -118,7 +120,7 @@ public class UISettingSelector : UISettingBase
         if (_immediately == false && _isApplyEventBound)
         {
             _isApplyEventBound = false;
-            UISetting.Instance.OnApply -= Apply;
+            _settingPopup.OnApply -= Apply;
         }
     }
 

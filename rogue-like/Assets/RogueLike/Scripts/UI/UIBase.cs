@@ -1,7 +1,16 @@
 using UnityEngine;
 
-public abstract class UIBase<T> : MonoBehaviour where T : class
+[RequireComponent(typeof(Canvas))]
+public abstract class UIBase: MonoBehaviour
 {
-    [Header("Common")]
-    [SerializeField] UIType _type;
+    protected UIType _type;
+
+    public int GetCanvasSortOrder()
+    {
+        return GetComponent<Canvas>().sortingOrder;
+    }
+    public void SetCanvasSortOrder(int order)
+    {
+        GetComponent<Canvas>().sortingOrder = order;
+    }
 }
