@@ -4,8 +4,7 @@ using UnityEngine.InputSystem;
 
 public class UIManager : Manager<UIManager>
 {
-    //[Header("Inputs")]
-    //[SerializeField] InputActionReference _closeAction;
+    [SerializeField] InputActionReference _closeActionRef;
 
     UIScene _scene;
     [SerializeField] List<UIPopup> _popupList = new();
@@ -15,29 +14,16 @@ public class UIManager : Manager<UIManager>
 
     }
 
-    //private void OnEnable()
-    //{
-    //    _closeAction.action.performed += _ => Close();
-    //    _closeAction.action.Enable();
-    //}
-
-    //private void OnDisable()
-    //{
-    //    _closeAction.action.performed -= _ => Close();
-    //    _closeAction.action.Disable();
-    //}
-
-    GameObject CreateUI(UIType type, string prefabName)
+    private void OnEnable()
     {
-        GameObject prefab = GetPrefab(type, prefabName);
-        GameObject ui = Instantiate(prefab);
-        ui.name = prefabName;
-        return ui;
+        _closeActionRef.action.performed += _ => Close();
+        _closeActionRef.action.Enable();
     }
 
-    GameObject GetPrefab(UIType type, string prefabName)
+    private void OnDisable()
     {
-        return Resources.Load<GameObject>($"UI/{type}/{prefabName}");
+        _closeActionRef.action.performed -= _ => Close();
+        _closeActionRef.action.Disable();
     }
 
     void Close()
@@ -52,6 +38,19 @@ public class UIManager : Manager<UIManager>
                 break;
             }
         }
+    }
+
+    GameObject CreateUI(UIType type, string prefabName)
+    {
+        GameObject prefab = GetPrefab(type, prefabName);
+        GameObject ui = Instantiate(prefab);
+        ui.name = prefabName;
+        return ui;
+    }
+
+    GameObject GetPrefab(UIType type, string prefabName)
+    {
+        return Resources.Load<GameObject>($"UI/{type}/{prefabName}");
     }
 
     public void SetSceneUI(UIScene scene)
@@ -149,6 +148,12 @@ public class UIManager : Manager<UIManager>
         {
             ClosePopupUI(popup);
         }
+    }
+
+    public bool IsLastPopup(GameObject gameObject)
+    {
+        if (_popupList.Count == 0) return false;
+        return _popupList[_popupList.Count - 1].gameObject == gameObject;
     }
 
     public void ClosePopupUI(UIPopup popup)

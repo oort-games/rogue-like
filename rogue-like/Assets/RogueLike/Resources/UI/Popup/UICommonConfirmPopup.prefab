@@ -673,12 +673,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46f471834764ff04088479f8d0c06239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _closeButton: {fileID: 7973397145668582322}
+  _closeActionRef: {fileID: -7930506646826955541, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   _titleText: {fileID: 603886107952271202}
   _infoText: {fileID: 46154619905801123}
   _confirmText: {fileID: 3252139415045304787}
   _closeText: {fileID: 3503680612471759484}
   _confirmButton: {fileID: 8293742724657408029}
-  _closeButton: {fileID: 7973397145668582322}
+  _confirmActionRef: {fileID: -5386098105588829111, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1001 &5085652045601672018
 PrefabInstance:
   m_ObjectHideFlags: 0

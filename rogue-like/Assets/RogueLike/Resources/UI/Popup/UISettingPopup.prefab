@@ -219,8 +219,8 @@ MonoBehaviour:
   - {fileID: 2318319266118565383}
   - {fileID: 6622993892285805575}
   - {fileID: 2494823789479580119}
-  _prevActionRef: {fileID: 2411907206095950430, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  _nextActionRef: {fileID: 7476244043514120974, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  _prevActionRef: {fileID: 9139134852711683232, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  _nextActionRef: {fileID: -914752333098608300, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1 &4769349088146784643
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,9 +650,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2dd15b1d66dfb147bd3d4c8ed6de7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _closeActionRef: {fileID: -7930506646826955541, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  _closeButton: {fileID: 5922968306385659231}
   _applyButton: {fileID: 7445731133396647064}
   _resetButton: {fileID: 7866316834721421561}
-  _closeButton: {fileID: 5922968306385659231}
   _applyActionRef: {fileID: -5660063552557035194, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   _resetActionRef: {fileID: -7341084424362546457, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
 --- !u!1001 &350470704643895485

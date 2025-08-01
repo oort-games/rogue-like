@@ -8,7 +8,6 @@ public class UISettingPopup : UIPopup
     [Header("Buttons")]
     [SerializeField] Button _applyButton;
     [SerializeField] Button _resetButton;
-    [SerializeField] Button _closeButton;
 
     [Header("Inputs")]
     [SerializeField] InputActionReference _applyActionRef;
@@ -35,11 +34,12 @@ public class UISettingPopup : UIPopup
         }
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         _applyButton.onClick.AddListener(OnClickApply);
         _resetButton.onClick.AddListener(OnClickReset);
-        _closeButton.onClick.AddListener(Close);
 
         _applyButton.gameObject.SetActive(false);
 
@@ -90,7 +90,15 @@ public class UISettingPopup : UIPopup
 
     public override void Close()
     {
-        //base.Close();
-        Debug.Log("Close");
+        if (_applyActionCount == 0)
+        {
+            Debug.Log($"Setting Popup Close");
+            //base.Close();
+        }
+        else
+        {
+            UICommonConfirmPopup confirmPopup = UIManager.Instance.OpenPopupUI<UICommonConfirmPopup>();
+            confirmPopup.Initialize(()=> { OnClickApply(); confirmPopup.Close(); }, "타이틀", "정보", "확인", "취소");
+        }
     }
 }
