@@ -1,15 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UIManager : Manager<UIManager>
 {
+    //[Header("Inputs")]
+    //[SerializeField] InputActionReference _closeAction;
+
     UIScene _scene;
-    List<UIPopup> _popupList = new();
+    [SerializeField] List<UIPopup> _popupList = new();
 
     public override void Initialize()
     {
 
     }
+
+    //private void OnEnable()
+    //{
+    //    _closeAction.action.performed += _ => Close();
+    //    _closeAction.action.Enable();
+    //}
+
+    //private void OnDisable()
+    //{
+    //    _closeAction.action.performed -= _ => Close();
+    //    _closeAction.action.Disable();
+    //}
 
     GameObject CreateUI(UIType type, string prefabName)
     {
@@ -22,6 +38,20 @@ public class UIManager : Manager<UIManager>
     GameObject GetPrefab(UIType type, string prefabName)
     {
         return Resources.Load<GameObject>($"UI/{type}/{prefabName}");
+    }
+
+    void Close()
+    {
+        int listCount = _popupList.Count;
+        for (int index = listCount - 1; index >= 0; --index)
+        {
+            UIPopup popup = _popupList[index];
+            if (popup.gameObject.activeSelf)
+            {
+                popup.Close();
+                break;
+            }
+        }
     }
 
     public void SetSceneUI(UIScene scene)

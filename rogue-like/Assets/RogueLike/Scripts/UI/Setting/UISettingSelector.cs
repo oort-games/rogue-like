@@ -19,7 +19,7 @@ public class UISettingSelector : UISettingBase
     bool _isApplyEventBound;
 
     UnityAction<int> _onValueChanged;
-    UISetting _settingPopup;
+    UISettingPopup _settingPopup;
 
     #region Unity Life-cycle
     protected override void Start()
@@ -27,7 +27,7 @@ public class UISettingSelector : UISettingBase
         base.Start();
         if (Application.isPlaying == false) return;
         UpdateUI();
-        _settingPopup = GetComponentInParent<UISetting>();
+        _settingPopup = GetComponentInParent<UISettingPopup>();
     }
     #endregion
 
