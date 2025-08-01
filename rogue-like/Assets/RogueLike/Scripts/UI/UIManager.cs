@@ -1,10 +1,16 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class UIManager : Manager<UIManager>
 {
+    [Header("Inputs")]
     [SerializeField] InputActionReference _closeActionRef;
+    [SerializeField] InputActionReference _confirmActionRef;
+    [SerializeField] InputActionReference _applyActionRef;
+    [SerializeField] InputActionReference _resetActionRef;
 
     UIScene _scene;
     [SerializeField] List<UIPopup> _popupList = new();
@@ -18,12 +24,18 @@ public class UIManager : Manager<UIManager>
     {
         _closeActionRef.action.performed += _ => Close();
         _closeActionRef.action.Enable();
+        _applyActionRef.action.Enable();
+        _resetActionRef.action.Enable();
+        _closeActionRef.action.Enable();
     }
 
     private void OnDisable()
     {
         _closeActionRef.action.performed -= _ => Close();
         _closeActionRef.action.Disable();
+        _applyActionRef.action.Disable();
+        _resetActionRef.action.Disable();
+        _confirmActionRef.action.Disable();
     }
 
     void Close()
@@ -167,5 +179,31 @@ public class UIManager : Manager<UIManager>
         {
             _popupList[i].SetCanvasSortOrder(i);
         }
+    }
+
+    public void AddConfirmAction(Action<InputAction.CallbackContext> action)
+    {
+        _confirmActionRef.action.performed += action;
+    }
+    public void AddApplyAction(Action<InputAction.CallbackContext> action)
+    {
+        _applyActionRef.action.performed += action;
+    }
+    public void AddResetAction(Action<InputAction.CallbackContext> action)
+    {
+        _resetActionRef.action.performed += action;
+    }
+
+    public void DeleteConfirmAction(Action<InputAction.CallbackContext> action)
+    {
+        _confirmActionRef.action.performed -= action;
+    }
+    public void DeleteApplyAction(Action<InputAction.CallbackContext> action)
+    {
+        _applyActionRef.action.performed -= action;
+    }
+    public void DeleteResetAction(Action<InputAction.CallbackContext> action)
+    {
+        _resetActionRef.action.performed -= action;
     }
 }

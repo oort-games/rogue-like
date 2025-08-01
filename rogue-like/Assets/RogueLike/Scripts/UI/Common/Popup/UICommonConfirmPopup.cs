@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using System;
 
 public class UICommonConfirmPopup : UIPopup
 {
@@ -14,9 +15,6 @@ public class UICommonConfirmPopup : UIPopup
 
     [Header("Buttons")]
     [SerializeField] Button _confirmButton;
-
-    [Header("Inputs")]
-    [SerializeField] InputActionReference _confirmActionRef;
 
     UnityAction _confirmAction;
 
@@ -32,15 +30,21 @@ public class UICommonConfirmPopup : UIPopup
         _confirmButton.onClick.AddListener(confirmAction);
     }
 
-    private void OnEnable()
+    protected override void Start()
     {
-        _confirmActionRef.action.performed += _ => _confirmAction?.Invoke();
-        _confirmActionRef.action.Enable();
+        base.Start();
+        UIManager.Instance.AddConfirmAction(ConfirmCallback);
     }
 
-    private void OnDisable()
+    protected override void OnDestroy()
     {
-        _confirmActionRef.action.performed -= _ => _confirmAction?.Invoke();
-        _confirmActionRef.action.Disable();
+        base.OnDestroy();
+        if (UIManager.Instance == null) return;
+        UIManager.Instance.DeleteConfirmAction(ConfirmCallback);
+    }
+
+    void ConfirmCallback(InputAction.CallbackContext context)
+    {
+        _confirmAction?.Invoke();
     }
 }

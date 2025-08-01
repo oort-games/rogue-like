@@ -9,14 +9,9 @@ public class UISettingPopup : UIPopup
     [SerializeField] Button _applyButton;
     [SerializeField] Button _resetButton;
 
-    [Header("Inputs")]
-    [SerializeField] InputActionReference _applyActionRef;
-    [SerializeField] InputActionReference _resetActionRef;
-
     UISettingBase[] _settingList;
 
     int _applyActionCount = 0;
-
     event Action _onApply;
     public event Action OnApply
     {
@@ -40,28 +35,19 @@ public class UISettingPopup : UIPopup
 
         _applyButton.onClick.AddListener(OnClickApply);
         _resetButton.onClick.AddListener(OnClickReset);
+        UIManager.Instance.AddApplyAction(ApplyCallback);
+        UIManager.Instance.AddResetAction(ResetCallback);
 
         _applyButton.gameObject.SetActive(false);
-
         _settingList = GetComponentsInChildren<UISettingBase>(true);
     }
 
-    private void OnEnable()
+    protected override void OnDestroy()
     {
-        _applyActionRef.action.performed += _ => OnClickApply();
-        _applyActionRef.action.Enable();
-
-        _resetActionRef.action.performed += _ => OnClickReset();
-        _resetActionRef.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        _applyActionRef.action.performed -= _ => OnClickApply();
-        _applyActionRef.action.Disable();
-
-        _resetActionRef.action.performed -= _ => OnClickReset();
-        _resetActionRef.action.Disable();
+        base.OnDestroy();
+        if (UIManager.Instance == null) return;
+        UIManager.Instance.DeleteApplyAction(ApplyCallback);
+        UIManager.Instance.DeleteResetAction(ResetCallback);
     }
 
     void OnClickApply()
@@ -88,17 +74,29 @@ public class UISettingPopup : UIPopup
         }
     }
 
+    void ApplyCallback(InputAction.CallbackContext context)
+    {
+        OnClickApply();
+    }
+
+    void ResetCallback(InputAction.CallbackContext context)
+    {
+        OnClickReset();
+    }
+
     public override void Close()
     {
         if (_applyActionCount == 0)
         {
-            Debug.Log($"Setting Popup Close");
-            //base.Close();
+
         }
         else
         {
             UICommonConfirmPopup confirmPopup = UIManager.Instance.OpenPopupUI<UICommonConfirmPopup>();
-            confirmPopup.Initialize(()=> { OnClickApply(); confirmPopup.Close(); }, "타이틀", "정보", "확인", "취소");
+            confirmPopup.Initialize(()=> { 
+                OnClickApply(); 
+                confirmPopup.Close(); 
+            }, "타이틀", "정보", "확인", "취소");
         }
     }
 }

@@ -14,17 +14,15 @@ public abstract class UIPopup : UIBase
 
     protected virtual void Start()
     {
-        _closeButton.onClick.AddListener(OnClickClose);
+        _closeButton.onClick.AddListener(Close);
+    }
+
+    protected virtual void OnDestroy()
+    {
     }
 
     public virtual void Close()
     {
         UIManager.Instance.ClosePopupUI(this);
-    }
-
-    void OnClickClose()
-    {
-        if (UIManager.Instance.IsLastPopup(gameObject))
-            Close();
     }
 }
