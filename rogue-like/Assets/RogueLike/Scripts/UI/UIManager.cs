@@ -11,6 +11,8 @@ public class UIManager : Manager<UIManager>
     [SerializeField] InputActionReference _confirmActionRef;
     [SerializeField] InputActionReference _applyActionRef;
     [SerializeField] InputActionReference _resetActionRef;
+    [SerializeField] InputActionReference _prevActionRef;
+    [SerializeField] InputActionReference _nextActionRef;
 
     UIScene _scene;
     [SerializeField] List<UIPopup> _popupList = new();
@@ -185,25 +187,49 @@ public class UIManager : Manager<UIManager>
     {
         _confirmActionRef.action.performed += action;
     }
+
     public void AddApplyAction(Action<InputAction.CallbackContext> action)
     {
         _applyActionRef.action.performed += action;
     }
+
     public void AddResetAction(Action<InputAction.CallbackContext> action)
     {
         _resetActionRef.action.performed += action;
+    }
+
+    public void AddPrevAction(Action<InputAction.CallbackContext> action)
+    {
+        _prevActionRef.action.performed += action;
+    }
+
+    public void AddNextAction(Action<InputAction.CallbackContext> action)
+    {
+        _nextActionRef.action.performed += action;
     }
 
     public void DeleteConfirmAction(Action<InputAction.CallbackContext> action)
     {
         _confirmActionRef.action.performed -= action;
     }
+
     public void DeleteApplyAction(Action<InputAction.CallbackContext> action)
     {
         _applyActionRef.action.performed -= action;
     }
+
     public void DeleteResetAction(Action<InputAction.CallbackContext> action)
     {
         _resetActionRef.action.performed -= action;
+    }
+
+    public void DeletePrevAction(Action<InputAction.CallbackContext> action)
+    {
+        _prevActionRef.action.performed -= action;
+    }
+
+    public void DeleteNextAction(Action<InputAction.CallbackContext> action)
+    {
+        _nextActionRef.action.performed -= action;
     }
 }

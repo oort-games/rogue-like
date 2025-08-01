@@ -15,6 +15,7 @@ public abstract class UISettingBase : Selectable
     [SerializeField] RectTransformOffset _margin;
 
     protected bool _enable = true;
+    protected UISettingPopup _settingPopup;
 
     RectTransform _rectTransform;
     ScrollRect _scrollRect;
@@ -35,6 +36,7 @@ public abstract class UISettingBase : Selectable
         if (Application.isPlaying == false) return;
         _scrollRect = GetComponentInParent<ScrollRect>();
         RegisterButtons();
+        _settingPopup = GetComponentInParent<UISettingPopup>();
     }
 
     protected override void OnDisable()
@@ -79,6 +81,7 @@ public abstract class UISettingBase : Selectable
     #region Navigation (공통: ↑/↓, 파생: ←/→)
     public override void OnMove(AxisEventData eventData)
     {
+        if (UIManager.Instance.IsLastPopup(_settingPopup.gameObject) == false) return;
         Selectable selectable;
         switch (eventData.moveDir)
         {

@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _closeActionRef: {fileID: -7930506646826955541, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  _confirmActionRef: {fileID: -5386098105588829111, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   _applyActionRef: {fileID: -5660063552557035194, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   _resetActionRef: {fileID: -7341084424362546457, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  _confirmActionRef: {fileID: -5386098105588829111, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  _prevActionRef: {fileID: 9139134852711683232, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  _nextActionRef: {fileID: -914752333098608300, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   _popupList: []

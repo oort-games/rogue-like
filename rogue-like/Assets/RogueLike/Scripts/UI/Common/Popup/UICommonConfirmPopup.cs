@@ -28,23 +28,26 @@ public class UICommonConfirmPopup : UIPopup
         _closeText.text = closeStr;
 
         _confirmButton.onClick.AddListener(confirmAction);
+        _confirmButton.onClick.AddListener(Close);
     }
 
     protected override void Start()
     {
         base.Start();
-        UIManager.Instance.AddConfirmAction(ConfirmCallback);
+        UIManager.Instance.AddConfirmAction(Confirm);
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
         if (UIManager.Instance == null) return;
-        UIManager.Instance.DeleteConfirmAction(ConfirmCallback);
+        UIManager.Instance.DeleteConfirmAction(Confirm);
     }
 
-    void ConfirmCallback(InputAction.CallbackContext context)
+    void Confirm(InputAction.CallbackContext context)
     {
+        if (UIManager.Instance.IsLastPopup(gameObject) == false) return; 
         _confirmAction?.Invoke();
+        Close();
     }
 }

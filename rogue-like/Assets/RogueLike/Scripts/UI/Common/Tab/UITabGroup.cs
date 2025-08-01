@@ -8,11 +8,8 @@ public class UITabGroup : MonoBehaviour
     [SerializeField] List<UITabButton> _tabs = new();
     [SerializeField] List<UITabPage> _pages = new();
 
-    [Header("Inputs")]
-    [SerializeField] InputActionReference _prevActionRef;
-    [SerializeField] InputActionReference _nextActionRef;
-
     int _currentIndex;
+    UIPopup _parentPopup;
 
     private void Awake()
     {
@@ -26,24 +23,32 @@ public class UITabGroup : MonoBehaviour
     private void Start()
     {
         SetActiveTab(0);
+        _parentPopup = GetComponentInParent<UIPopup>();
     }
 
     private void OnEnable()
     {
-        _prevActionRef.action.performed += _ => Shift(-1);
-        _prevActionRef.action.Enable();
-
-        _nextActionRef.action.performed += _ => Shift(+1);
-        _nextActionRef.action.Enable();
+        UIManager.Instance.AddPrevAction(Prev);
+        UIManager.Instance.AddNextAction(Next);
     }
 
     private void OnDisable()
     {
-        _prevActionRef.action.performed -= _ => Shift(-1);
-        _prevActionRef.action.Disable();
+        if (UIManager.Instance == null) return;
+        UIManager.Instance.DeletePrevAction(Prev);
+        UIManager.Instance.DeleteNextAction(Next);
+    }
 
-        _nextActionRef.action.performed -= _ => Shift(+1);
-        _nextActionRef.action.Disable();
+    void Prev(InputAction.CallbackContext context)
+    {
+        if (UIManager.Instance.IsLastPopup(_parentPopup.gameObject) == false) return;
+        Shift(-1);
+    }
+
+    void Next(InputAction.CallbackContext context)
+    {
+        if (UIManager.Instance.IsLastPopup(_parentPopup.gameObject) == false) return;
+        Shift(+1);
     }
 
     void Shift(int dir)
