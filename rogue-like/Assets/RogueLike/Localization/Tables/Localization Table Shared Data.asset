@@ -131,6 +131,18 @@ MonoBehaviour:
     m_Key: ui-display-window
     m_Metadata:
       m_Items: []
+  - m_Id: 50671043170304
+    m_Key: ui-select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59179289497600
+    m_Key: ui-resetSettingsInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59246473859072
+    m_Key: ui-applyChangesInfo
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -10,26 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Localization-Locales
+  m_Name: "Localization-String-Tables-\uD55C\uAD6D\uC5B4"
   m_EditorClassIdentifier: 
-  m_GroupName: Localization-Locales
-  m_GUID: 4201fb6428c10b04ca06f71d54e7e58a
+  m_GroupName: "Localization-String-Tables-\uD55C\uAD6D\uC5B4"
+  m_GUID: bda8e06c0c232cc47844e1c04e8663b9
   m_SerializeEntries:
-  - m_GUID: 9e214d886ba5cca49bc348ffbed6ec72
-    m_Address: English
+  - m_GUID: 8d3b775e4a19ec849a15d170f7f9412c
+    m_Address: Localization Table_ko-KR
     m_ReadOnly: 1
     m_SerializedLabels:
-    - Locale
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c85ea97c5fadf8c4bbbe1d43e7caaca1
-    m_Address: "\uD55C\uAD6D\uC5B4"
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale
+    - Locale-ko-KR
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 2a6b49ed2c58cc64cb2a160faf7c889b, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: fb3f2dc212248d143a7599816593f5c2, type: 2}
-    - {fileID: 11400000, guid: bb2e4c7969dd50d47bf03b1088fafbed, type: 2}
+    - {fileID: 11400000, guid: 29bb229fbd4a83f488c0b611800b9d9c, type: 2}
+    - {fileID: 11400000, guid: b7219f105fac16a4a9eb11a30c69ba78, type: 2}

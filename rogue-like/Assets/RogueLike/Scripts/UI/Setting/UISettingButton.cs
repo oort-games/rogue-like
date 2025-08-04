@@ -13,6 +13,7 @@ public class UISettingButton : UISettingCotent
     
     string[] _options;
     int _currentIndex;
+    string _titleLocalizationKey;
 
     UnityAction<int> _onValueChanged;
 
@@ -53,13 +54,20 @@ public class UISettingButton : UISettingCotent
     {
         Debug.Log("Show");
         UISelectPopup selectPopup = UIManager.Instance.OpenPopupUI<UISelectPopup>();
-        selectPopup.Initialize(_onValueChanged, _options, _currentIndex);
+        selectPopup.Initialize(_titleLocalizationKey, _options, _currentIndex, OnValueChanged);
     }
 
     void Show(InputAction.CallbackContext context)
     {
         if (UIManager.Instance.IsLastPopup(_settingPopup.gameObject) == false) return;
         Show();
+    }
+
+    void OnValueChanged(int index)
+    {
+        SetIndex(index);
+        UpdateUI();
+        _onValueChanged.Invoke(index);
     }
     #endregion
 
@@ -77,6 +85,11 @@ public class UISettingButton : UISettingCotent
     public void SetAction(UnityAction<int> onValueChanged)
     {
         _onValueChanged = onValueChanged;
+    }
+
+    public void SetTitleLocalizationKey(string key)
+    {
+        _titleLocalizationKey = key;
     }
     #endregion
 }

@@ -83,7 +83,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 5988069888000
-    m_Localized: ApplyChanges
+    m_Localized: Apply Changes
     m_Metadata:
       m_Items: []
   - m_Id: 6036522487808
@@ -132,6 +132,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 38208851628032
     m_Localized: Window
+    m_Metadata:
+      m_Items: []
+  - m_Id: 50671043170304
+    m_Localized: Select
     m_Metadata:
       m_Items: []
   references:

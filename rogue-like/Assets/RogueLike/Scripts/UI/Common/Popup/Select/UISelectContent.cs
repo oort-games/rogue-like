@@ -13,6 +13,7 @@ public class UISelectContent : UIScrollViewContent
 
     int _index;
     UnityAction<int> _onClickAction;
+    UnityAction<int> _onSelectAction;
 
     protected override void Start()
     {
@@ -30,12 +31,15 @@ public class UISelectContent : UIScrollViewContent
     {
         base.SetSelectedVisual(isSelected);
         _text.color = isSelected ? _highlightColor : _defaultColor;
+        if (isSelected)
+            _onSelectAction.Invoke(_index);
     }
 
-    public void Initialize(int index, string str, UnityAction<int> onClickAction)
+    public void Initialize(int index, string str, UnityAction<int> onClickAction, UnityAction<int> onSelectAction)
     {
         _index = index;
         _text.text = str;
         _onClickAction = onClickAction;
+        _onSelectAction = onSelectAction;
     }
 }

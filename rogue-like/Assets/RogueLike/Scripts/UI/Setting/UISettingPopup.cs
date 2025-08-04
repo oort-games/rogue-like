@@ -75,10 +75,9 @@ public class UISettingPopup : UIPopup
                 setting.ResetOption();
             }
         },
-        "설정 초기화",
-        "현재 모든 설정을 기본값으로\n" +
-        "초기화 하시겠습니까?",
-        "초기화", "취소");
+        "ui-resetSettings",
+        "ui-resetSettingsInfo",
+        "ui-reset", "ui-cancel");
     }
 
     void Apply(InputAction.CallbackContext context)
@@ -104,11 +103,10 @@ public class UISettingPopup : UIPopup
             UIConfirmPopup confirmPopup = UIManager.Instance.OpenPopupUI<UIConfirmPopup>();
             confirmPopup.Initialize(()=> { 
                 OnClickApply(); 
-            }, 
-            "설정 변경 적용", 
-            "적용하지 않은 설정 변경 사항이 있습니다.\n" +
-            "적용하고 설정을 마치겠습니까?", 
-            "적용", "취소");
+            },
+            "ui-applyChanges",
+            "ui-applyChangesInfo",
+            "ui-apply", "ui-cancel");
         }
     }
 }

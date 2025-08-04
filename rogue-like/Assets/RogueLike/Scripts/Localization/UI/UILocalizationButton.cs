@@ -11,5 +11,6 @@ public class UILocalizationButton : MonoBehaviour
         _button.SetOption(LocalizationManager.Instance.GetLocales());
         _button.SetIndex(0);
         _button.SetAction(LocalizationManager.Instance.ChangeLocalization);
+        _button.SetTitleLocalizationKey("ui-textLanguage");
     }
 }

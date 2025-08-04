@@ -18,14 +18,14 @@ public class UIConfirmPopup : UIPopup
 
     UnityAction _confirmAction;
 
-    public void Initialize(UnityAction confirmAction, string titleStr, string infoStr, string confirmStr, string closeStr)
+    public void Initialize(UnityAction confirmAction, string titleKey, string infoKey, string confirmKey, string closeKey)
     {
         _confirmAction = confirmAction;
 
-        _titleText.text = titleStr;
-        _infoText.text = infoStr;
-        _confirmText.text = confirmStr;
-        _closeText.text = closeStr;
+        _titleText.text = LocalizationManager.Instance.GetString(titleKey);
+        _infoText.text = LocalizationManager.Instance.GetString(infoKey);
+        _confirmText.text = LocalizationManager.Instance.GetString(confirmKey);
+        _closeText.text = LocalizationManager.Instance.GetString(closeKey);
 
         _confirmButton.onClick.AddListener(confirmAction);
         _confirmButton.onClick.AddListener(Close);
