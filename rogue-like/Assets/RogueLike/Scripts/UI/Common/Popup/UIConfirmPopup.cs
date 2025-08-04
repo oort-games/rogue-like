@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using System;
 
-public class UICommonConfirmPopup : UIPopup
+public class UIConfirmPopup : UIPopup
 {
     [Header("Texts")]
     [SerializeField] TextMeshProUGUI _titleText;

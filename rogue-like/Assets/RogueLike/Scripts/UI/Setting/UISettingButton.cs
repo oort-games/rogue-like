@@ -45,10 +45,12 @@ public class UISettingButton : UISettingCotent
     void Show()
     {
         Debug.Log("Show");
+        UISelectPopup selectPopup = UIManager.Instance.OpenPopupUI<UISelectPopup>();
     }
 
     void Show(InputAction.CallbackContext context)
     {
+        if (UIManager.Instance.IsLastPopup(_settingPopup.gameObject) == false) return;
         Show();
     }
 }

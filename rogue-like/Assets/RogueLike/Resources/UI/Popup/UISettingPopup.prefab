@@ -2953,7 +2953,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2162184244275072659, guid: 52b6ddc1e54d7d8438226c1bc53e2e38, type: 3}
       propertyPath: m_Name
-      value: 'Setting Display Header '
+      value: 'Setting Language Header '
       objectReference: {fileID: 0}
     - target: {fileID: 2257043622140090021, guid: 52b6ddc1e54d7d8438226c1bc53e2e38, type: 3}
       propertyPath: m_text
@@ -5669,6 +5669,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3155492589295784852, guid: 2b5a57123e085c64095376e3f64c3295, type: 3}
+      propertyPath: _firstSelectObject
+      value: 
+      objectReference: {fileID: 2458480156347715497}
     - target: {fileID: 3440157900691522259, guid: 2b5a57123e085c64095376e3f64c3295, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -6357,13 +6361,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5830545681841893900, guid: ef3345257f81ed046baf3402ee8b9a5b, type: 3}
       propertyPath: m_Name
-      value: Setting Button
+      value: Setting Language Text
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef3345257f81ed046baf3402ee8b9a5b, type: 3}
+--- !u!1 &2458480156347715497 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5830545681841893900, guid: ef3345257f81ed046baf3402ee8b9a5b, type: 3}
+  m_PrefabInstance: {fileID: 8283250883537173925}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7638171565260721332 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1798124115299053841, guid: ef3345257f81ed046baf3402ee8b9a5b, type: 3}

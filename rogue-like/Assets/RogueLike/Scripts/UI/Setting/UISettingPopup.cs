@@ -66,7 +66,7 @@ public class UISettingPopup : UIPopup
 
     void OnClickReset()
     {
-        UICommonConfirmPopup confirmPopup = UIManager.Instance.OpenPopupUI<UICommonConfirmPopup>();
+        UIConfirmPopup confirmPopup = UIManager.Instance.OpenPopupUI<UIConfirmPopup>();
         confirmPopup.Initialize(() => {
             SoundManager.Instance.ResetOption();
             DisplayManager.Instance.ResetOption();
@@ -101,7 +101,7 @@ public class UISettingPopup : UIPopup
         }
         else
         {
-            UICommonConfirmPopup confirmPopup = UIManager.Instance.OpenPopupUI<UICommonConfirmPopup>();
+            UIConfirmPopup confirmPopup = UIManager.Instance.OpenPopupUI<UIConfirmPopup>();
             confirmPopup.Initialize(()=> { 
                 OnClickApply(); 
             }, 
