@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class UISettingSlider : UISettingBase
+public class UISettingSlider : UISettingCotent
 {
     [Header("Slider")]
     [SerializeField] UILongPressButton _prevButton;

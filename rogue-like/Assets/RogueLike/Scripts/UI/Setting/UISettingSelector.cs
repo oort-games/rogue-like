@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class UISettingSelector : UISettingBase
+public class UISettingSelector : UISettingCotent
 {
     [Header("Selector")]
     [SerializeField] Button _prevButton;

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public abstract class UISettingBase : UIScrollViewContent
+public abstract class UISettingCotent : UIScrollViewContent
 {
     [Header("Common")]
     [SerializeField] GameObject _dim;

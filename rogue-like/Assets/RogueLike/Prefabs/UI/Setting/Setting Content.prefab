@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 2627746487642306882}
   - component: {fileID: 4491141473830988818}
   m_Layer: 5
-  m_Name: Setting Base
+  m_Name: Setting Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,7 +9,7 @@ public class UISettingPopup : UIPopup
     [SerializeField] Button _applyButton;
     [SerializeField] Button _resetButton;
 
-    UISettingBase[] _settingList;
+    UISettingCotent[] _settingList;
 
     int _applyActionCount = 0;
     event Action _onApply;
@@ -39,7 +39,7 @@ public class UISettingPopup : UIPopup
         UIManager.Instance.AddResetAction(ResetAction);
 
         _applyButton.gameObject.SetActive(false);
-        _settingList = GetComponentsInChildren<UISettingBase>(true);
+        _settingList = GetComponentsInChildren<UISettingCotent>(true);
     }
 
     protected override void OnDestroy()
