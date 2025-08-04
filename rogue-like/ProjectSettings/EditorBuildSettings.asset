@@ -9,5 +9,7 @@ EditorBuildSettings:
     path: Assets/RogueLike/Scenes/Demo/Setting.unity
     guid: d527d868d1035d14ba21317a468cbde2
   m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 38d813de9e32db2478f29e5fa39bdaa1, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: 11f1500cdb0070e4b89b0fdd78d8f10f, type: 2}
   m_UseUCBPForAssetBundles: 0

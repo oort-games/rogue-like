@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Localization Table_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 923878f5e6dcf3848a4d373232da91e4, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 494441811968
+    m_Localized: Setting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3130922586112
+    m_Localized: Grapics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3485286748160
+    m_Localized: Sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3499190865920
+    m_Localized: Controls
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3502248513536
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3577313972224
+    m_Localized: Accessibility
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3965605859328
+    m_Localized: Screen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4033075433472
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4077686050816
+    m_Localized: Frame Rate Limit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4516175368192
+    m_Localized: Max Frame Rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4652775460864
+    m_Localized: Advanced
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4885655801856
+    m_Localized: Vertical Sync
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5245812297728
+    m_Localized: Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5293841272832
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5333573914624
+    m_Localized: Sound Effects
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5599530536960
+    m_Localized: Text Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5988069888000
+    m_Localized: ApplyChanges
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6036522487808
+    m_Localized: Reset Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6085348380672
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6168324296704
+    m_Localized: Apply
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6274771537920
+    m_Localized: Cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6689407848448
+    m_Localized: Screen Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7270297980928
+    m_Localized: Reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7420697333760
+    m_Localized: Master Volume
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
