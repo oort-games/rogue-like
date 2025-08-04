@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -9,7 +11,17 @@ public class LocalizationManager : Manager<LocalizationManager>
 
     public override void Initialize()
     {
+        Debug.Log(GetLocalCode());
+    }
 
+    public string GetLocalCode()
+    {
+        return LocalizationSettings.SelectedLocale.Identifier.Code;
+    }
+
+    public string[] GetLocales()
+    {
+        return LocalizationSettings.AvailableLocales.Locales.Select(local => local.LocaleName).ToArray();
     }
 
     public void ChangeLocalization(int index)

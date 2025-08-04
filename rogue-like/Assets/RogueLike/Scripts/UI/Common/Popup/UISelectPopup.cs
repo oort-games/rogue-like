@@ -31,7 +31,7 @@ public class UISelectPopup : UIPopup
             string option = _options[i];
             UISelectContent content = Instantiate(_contentPrefab, _contentPrefab.transform.parent).GetComponent<UISelectContent>();
             content.gameObject.SetActive(true);
-            content.Initialize(option);
+            content.Initialize(i, option, _confirmAction);
 
             if (i == _currentIndex)
             {

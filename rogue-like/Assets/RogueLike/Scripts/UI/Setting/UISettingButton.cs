@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using TMPro;
@@ -12,6 +13,8 @@ public class UISettingButton : UISettingCotent
     
     string[] _options;
     int _currentIndex;
+
+    UnityAction<int> _onValueChanged;
 
     #region Unity Life-cycle
     protected override void OnEnable()
@@ -41,7 +44,7 @@ public class UISettingButton : UISettingCotent
 
     protected override void UpdateUI()
     {
-        //_valueText.text = _options[_currentIndex];
+        _valueText.text = _options[_currentIndex];
     }
     #endregion
 
@@ -50,7 +53,7 @@ public class UISettingButton : UISettingCotent
     {
         Debug.Log("Show");
         UISelectPopup selectPopup = UIManager.Instance.OpenPopupUI<UISelectPopup>();
-        selectPopup.Initialize(null, new string[] { "ÇÑ±¹¾î", "English" }, 0);
+        selectPopup.Initialize(_onValueChanged, _options, _currentIndex);
     }
 
     void Show(InputAction.CallbackContext context)
@@ -69,6 +72,11 @@ public class UISettingButton : UISettingCotent
     public void SetIndex(int index)
     {
         _currentIndex = index;
+    }
+
+    public void SetAction(UnityAction<int> onValueChanged)
+    {
+        _onValueChanged = onValueChanged;
     }
     #endregion
 }

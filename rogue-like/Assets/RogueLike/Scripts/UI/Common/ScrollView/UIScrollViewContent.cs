@@ -8,9 +8,9 @@ public abstract class UIScrollViewContent : Selectable
     [SerializeField] GameObject _highlight;
     [SerializeField] RectTransformOffset _margin;
 
+    protected UIPopup _parentPopup;
     RectTransform _rectTransform;
     ScrollRect _scrollRect;
-    UIPopup _parentPopup;
 
     protected override void Awake()
     {
