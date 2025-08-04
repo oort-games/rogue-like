@@ -15,5 +15,13 @@ public enum UIToggleState
 
 public static class UIExtensions
 {
-    public static string ToCustomString(this UIToggleState toggleState) => $"{toggleState}";
+    public static string ToCustomString(this UIToggleState toggleState)
+    {
+        return toggleState switch
+        {
+            UIToggleState.Off => "ui-off",
+            UIToggleState.On => "ui-on",
+            _ => "",
+        };
+    }
 }

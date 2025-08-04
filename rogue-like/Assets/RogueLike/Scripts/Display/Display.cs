@@ -70,7 +70,16 @@ public static class DisplayExtensions
         return $"{width} x {height}";
     }
 
-    public static string ToCustomString(this DisplayScreenMode screenMode) => $"{screenMode}";
+    public static string ToCustomString(this DisplayScreenMode screenMode)
+    {
+        return screenMode switch
+        {
+            DisplayScreenMode.FullScreen => "ui-display-fullScreen",
+            DisplayScreenMode.FullScreenWindow => "ui-display-fullScreenWindow",
+            DisplayScreenMode.Window => "ui-display-window",
+            _ => "",
+        };
+    }
 
     public static string ToCustomString(this DisplayTargetFrameRate targetFrameRate) => $"{targetFrameRate.ToInt()}";
 }

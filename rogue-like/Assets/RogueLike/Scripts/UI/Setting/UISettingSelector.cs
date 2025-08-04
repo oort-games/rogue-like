@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
 using TMPro;
 
 public class UISettingSelector : UISettingCotent
@@ -12,6 +14,7 @@ public class UISettingSelector : UISettingCotent
     [SerializeField] TextMeshProUGUI _valueText;
     [SerializeField] bool _immediately = true;
     [SerializeField] GameObject _change;
+    [SerializeField] bool _useLocalization = true;
 
     string[] _options;
     int _currentIndex;
@@ -25,6 +28,8 @@ public class UISettingSelector : UISettingCotent
     {
         base.Start();
         if (Application.isPlaying == false) return;
+        if (_useLocalization)
+            LocalizationSettings.SelectedLocaleChanged += OnSelectedLocaleChanged;
     }
     #endregion
 
@@ -43,7 +48,11 @@ public class UISettingSelector : UISettingCotent
 
     protected override void UpdateUI()
     {
-        _valueText.text = _options[_currentIndex];
+        if (_useLocalization)
+            _valueText.text = LocalizationManager.Instance.GetString(_options[_currentIndex]);
+        else
+            _valueText.text = _options[_currentIndex];
+
         if (_immediately == false)
             _change.SetActive(IsChanged());
         else
@@ -94,6 +103,12 @@ public class UISettingSelector : UISettingCotent
         _onValueChanged?.Invoke(_currentIndex);
         _prevIndex = _currentIndex;
         UpdateUI();
+    }
+
+    void OnSelectedLocaleChanged(Locale obj)
+    {
+        if (Application.isPlaying == false) return;
+        _valueText.text = LocalizationManager.Instance.GetString(_options[_currentIndex]);
     }
     #endregion
 
