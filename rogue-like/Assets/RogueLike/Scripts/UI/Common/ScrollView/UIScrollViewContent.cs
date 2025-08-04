@@ -14,8 +14,9 @@ public abstract class UIScrollViewContent : Selectable
     protected override void Awake()
     {
         base.Awake();
-        _rectTransform = GetComponent<RectTransform>();
         if (Application.isPlaying == false) return;
+        _rectTransform = GetComponent<RectTransform>();
+        _scrollRect = GetComponentInParent<ScrollRect>();
         SetSelectedVisual(false);
     }
 
@@ -60,15 +61,27 @@ public abstract class UIScrollViewContent : Selectable
     #region Navigation (공통: ↑/↓, 파생: ←/→)
     public override void OnMove(AxisEventData eventData)
     {
-        Selectable selectable;
+        Selectable selectable = null;
         switch (eventData.moveDir)
         {
-            default:
-                selectable = FindSelectableOnUp();
-                Navigate(eventData, selectable);
-                if (selectable != null)
-                    SetSelectedVisual(false);
+            case MoveDirection.Right:
+                selectable = FindSelectableOnRight();
                 break;
+            case MoveDirection.Up:
+                selectable = FindSelectableOnUp();
+                break;
+            case MoveDirection.Left:
+                selectable = FindSelectableOnLeft();
+                break;
+            case MoveDirection.Down:
+                selectable = FindSelectableOnDown();
+                break;
+        }
+        if (selectable != null)
+        {
+            if (selectable.transform.parent != transform.parent) return;
+            SetSelectedVisual(false);
+            Navigate(eventData, selectable);
         }
     }
 

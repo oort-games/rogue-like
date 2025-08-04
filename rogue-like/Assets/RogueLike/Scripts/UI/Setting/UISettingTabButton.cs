@@ -4,7 +4,7 @@ using TMPro;
 public class UISettingTabButton : UITabButton
 {
     [Header("Extensions")]
-    public TextMeshProUGUI _text;
+    [SerializeField] TextMeshProUGUI _text;
     [SerializeField] Color _defaultColor;
     [SerializeField] Color _highlightColor;
 

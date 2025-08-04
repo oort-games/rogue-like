@@ -9,6 +9,9 @@ public class UISettingButton : UISettingCotent
     [Header("External Selector")]
     [SerializeField] TextMeshProUGUI _valueText;
     [SerializeField] Button _button;
+    
+    string[] _options;
+    int _currentIndex;
 
     #region Unity Life-cycle
     protected override void OnEnable()
@@ -38,14 +41,16 @@ public class UISettingButton : UISettingCotent
 
     protected override void UpdateUI()
     {
-
+        //_valueText.text = _options[_currentIndex];
     }
     #endregion
 
+    #region Private
     void Show()
     {
         Debug.Log("Show");
         UISelectPopup selectPopup = UIManager.Instance.OpenPopupUI<UISelectPopup>();
+        selectPopup.Initialize(null, new string[] { "ÇÑ±¹¾î", "English" }, 0);
     }
 
     void Show(InputAction.CallbackContext context)
@@ -53,4 +58,17 @@ public class UISettingButton : UISettingCotent
         if (UIManager.Instance.IsLastPopup(_settingPopup.gameObject) == false) return;
         Show();
     }
+    #endregion
+
+    #region Public
+    public void SetOption(string[] options)
+    {
+        _options = options;
+    }
+
+    public void SetIndex(int index)
+    {
+        _currentIndex = index;
+    }
+    #endregion
 }

@@ -10,10 +10,10 @@ public class UISettingSelector : UISettingCotent
     [SerializeField] Button _prevButton;
     [SerializeField] Button _nextButton;
     [SerializeField] TextMeshProUGUI _valueText;
-    [SerializeField] string[] _options;
     [SerializeField] bool _immediately = true;
     [SerializeField] GameObject _change;
 
+    string[] _options;
     int _currentIndex;
     int _prevIndex;
     bool _isApplyEventBound;
@@ -95,7 +95,6 @@ public class UISettingSelector : UISettingCotent
         _prevIndex = _currentIndex;
         UpdateUI();
     }
-
     #endregion
 
     #region Public
