@@ -10,6 +10,7 @@ public abstract class UIScrollViewContent : Selectable
 
     RectTransform _rectTransform;
     ScrollRect _scrollRect;
+    UIPopup _parentPopup;
 
     protected override void Awake()
     {
@@ -17,6 +18,7 @@ public abstract class UIScrollViewContent : Selectable
         if (Application.isPlaying == false) return;
         _rectTransform = GetComponent<RectTransform>();
         _scrollRect = GetComponentInParent<ScrollRect>();
+        _parentPopup = GetComponentInParent<UIPopup>();
         SetSelectedVisual(false);
     }
 
@@ -53,6 +55,7 @@ public abstract class UIScrollViewContent : Selectable
         }
         else
         {
+            if (UIManager.Instance.IsLastPopup(_parentPopup.gameObject) == false) yield break;
             SetSelectedVisual(false);
         }
     }
