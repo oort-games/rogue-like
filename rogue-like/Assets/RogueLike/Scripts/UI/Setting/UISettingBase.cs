@@ -5,76 +5,24 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public abstract class UISettingBase : Selectable
+public abstract class UISettingBase : UIScrollViewContent
 {
     [Header("Common")]
-    [SerializeField] protected TextMeshProUGUI _headerText;
-    [SerializeField] protected GameObject _highlight;
-    [SerializeField] protected GameObject _dim;
-    [SerializeField] protected GameObject _block;
-    [SerializeField] RectTransformOffset _margin;
+    [SerializeField] GameObject _dim;
+    [SerializeField] GameObject _block;
 
     protected bool _enable = true;
     protected UISettingPopup _settingPopup;
 
-    RectTransform _rectTransform;
-    ScrollRect _scrollRect;
     UnityAction _resetAction;
 
     #region Unity Life-cycle
-    protected override void Awake()
-    {
-        base.Awake();
-        _rectTransform = GetComponent<RectTransform>();
-        if (Application.isPlaying == false) return;
-        SetSelectedVisual(false);
-    }
-
     protected override void Start()
     {
         base.Start();
         if (Application.isPlaying == false) return;
-        _scrollRect = GetComponentInParent<ScrollRect>();
         RegisterButtons();
         _settingPopup = GetComponentInParent<UISettingPopup>();
-    }
-
-    protected override void OnDisable()
-    {
-        base.OnDisable();
-        SetSelectedVisual(false);
-    }
-    #endregion
-
-    #region Pointer / Selection
-    public override void OnSelect(BaseEventData eventData)
-    {
-        SetSelectedVisual(true);
-        if (_scrollRect == null) return;
-        _rectTransform.EnsureVisibleInScrollView(_scrollRect, _margin);
-    }
-
-    public override void OnDeselect(BaseEventData eventData)
-    {
-        StartCoroutine(DelayedDeselectCheck());
-    }
-
-    public override void OnPointerEnter(PointerEventData eventData)
-    {
-        EventSystem.current.SetSelectedGameObject(gameObject);
-    }
-
-    IEnumerator DelayedDeselectCheck()
-    {
-        yield return null;
-        if (EventSystem.current.currentSelectedGameObject == null)
-        {
-            EventSystem.current.SetSelectedGameObject(gameObject);
-        }
-        else
-        {
-            SetSelectedVisual(false);
-        }
     }
     #endregion
 
@@ -103,12 +51,6 @@ public abstract class UISettingBase : Selectable
                 break;
         }
     }
-
-    void Navigate(AxisEventData eventData, Selectable sel)
-    {
-        if (sel != null && sel.IsActive())
-            eventData.selectedObject = sel.gameObject;
-    }
     #endregion
 
     #region Abstract Methods
@@ -121,9 +63,9 @@ public abstract class UISettingBase : Selectable
 
     #region Virtual Methods
     /// <summary>선택 시 비주얼 토글 (파생 클래스가 필요한 오브젝트 함께 제어)</summary>
-    protected virtual void SetSelectedVisual(bool isSelected)
+    protected override void SetSelectedVisual(bool isSelected)
     {
-        _highlight.SetActive(isSelected);
+        base.SetSelectedVisual(isSelected);
         _dim.SetActive(!isSelected);
         if (isSelected) InputManager.Instance.SetMoveRepeatRate(0.1f);
     }
