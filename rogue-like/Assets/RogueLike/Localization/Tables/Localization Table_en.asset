@@ -138,6 +138,17 @@ MonoBehaviour:
     m_Localized: Select
     m_Metadata:
       m_Items: []
+  - m_Id: 59246473859072
+    m_Localized: 'There are unsaved changes to the settings.
+
+      Would you like
+      to apply the changes and exit?'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59179289497600
+    m_Localized: Reset all settings to default?
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
