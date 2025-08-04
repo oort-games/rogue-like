@@ -30,7 +30,6 @@ public class UISettingSlider : UISettingCotent
         _nextButton.SetSetRepeatRate(_repeatRate);
 
         _slider.onValueChanged.AddListener(OnValueChanged);
-        UpdateUI();
     }
     #endregion
 
@@ -53,6 +52,8 @@ public class UISettingSlider : UISettingCotent
         _nextButton.onLongPressRepeat.AddListener(() => ClickDelta(_step));
     }
 
+    protected override void UpdateUI() => _valueText.text = $"{_slider.value}";
+
     protected override void SetSelectedVisual(bool isSelected)
     {
         base.SetSelectedVisual(isSelected);
@@ -68,8 +69,6 @@ public class UISettingSlider : UISettingCotent
         if (_enable == false) return;
         _slider.value += delta;
     }
-
-    void UpdateUI() => _valueText.text = $"{_slider.value}";
 
     void OnValueChanged(float value)
     {

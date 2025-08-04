@@ -20,13 +20,11 @@ public class UISettingSelector : UISettingCotent
 
     UnityAction<int> _onValueChanged;
 
-
     #region Unity Life-cycle
     protected override void Start()
     {
         base.Start();
         if (Application.isPlaying == false) return;
-        UpdateUI();
     }
     #endregion
 
@@ -41,6 +39,15 @@ public class UISettingSelector : UISettingCotent
     {
         _prevButton.onClick.AddListener(() => { ChangeOption(-1); });
         _nextButton.onClick.AddListener(() => { ChangeOption(1); });
+    }
+
+    protected override void UpdateUI()
+    {
+        _valueText.text = _options[_currentIndex];
+        if (_immediately == false)
+            _change.SetActive(IsChanged());
+        else
+            _change.SetActive(false);
     }
 
     protected override void SetSelectedVisual(bool isSelected)
@@ -74,15 +81,6 @@ public class UISettingSelector : UISettingCotent
             else
                 _settingPopup.OnApply -= Apply;
         }
-    }
-
-    void UpdateUI()
-    {
-        _valueText.text = _options[_currentIndex];
-        if (_immediately == false)
-            _change.SetActive(IsChanged());
-        else
-            _change.SetActive(false);
     }
 
     bool IsChanged()

@@ -21,6 +21,7 @@ public abstract class UISettingCotent : UIScrollViewContent
     {
         base.Start();
         if (Application.isPlaying == false) return;
+        UpdateUI();
         RegisterButtons();
         _settingPopup = GetComponentInParent<UISettingPopup>();
     }
@@ -59,6 +60,8 @@ public abstract class UISettingCotent : UIScrollViewContent
 
     /// <summary>버튼 onClick 등 파생 클래스에서 연결</summary>
     protected abstract void RegisterButtons();
+
+    protected abstract void UpdateUI();
     #endregion
 
     #region Virtual Methods
