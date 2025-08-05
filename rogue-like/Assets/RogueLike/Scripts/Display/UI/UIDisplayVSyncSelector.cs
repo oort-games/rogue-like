@@ -14,9 +14,9 @@ public class UIDisplayVSyncSelector : MonoBehaviour
         _toggleStates = Enum.GetValues(typeof(UIToggleState)).Cast<UIToggleState>().ToArray();
 
         _selector = GetComponent<UISettingSelector>();
-        _selector.SetOption(_toggleStates.Select(toggleStates => toggleStates.ToCustomString()).ToArray());
-        _selector.SetIndex(DisplayManager.Instance.GetVSync() == true ? 1 : 0);
-        _selector.SetAction(OnValueChanged);
+        _selector.Initialize(_toggleStates.Select(toggleStates => toggleStates.ToCustomString()).ToArray(),
+            DisplayManager.Instance.GetVSync() == true ? 1 : 0,
+            OnValueChanged);
         _selector.SetResetAction(ResetAction);
     }
 

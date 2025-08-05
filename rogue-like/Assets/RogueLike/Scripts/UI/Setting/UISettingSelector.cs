@@ -68,31 +68,24 @@ public class UISettingSelector : UISettingCotent
     #endregion
 
     #region Public
-    public void SetOption(string[] options)
+    public void Initialize(string[] options, int index, UnityAction<int> onValueChanged)
     {
         _options = options;
-    }
-
-    public void SetIndex(int index)
-    {
         _currentIndex = index;
         _prevIndex = index;
+        _onValueChanged = onValueChanged;
     }
 
     public void SetIndexWithoutNotify(int index)
     {
-        SetIndex(index);
+        _currentIndex = index;
+        _prevIndex = index;
         UpdateUI();
         if (_immediately == false && _isApplyEventBound)
         {
             _isApplyEventBound = false;
             _settingPopup.OnApply -= Apply;
         }
-    }
-
-    public void SetAction(UnityAction<int> onValueChanged)
-    {
-        _onValueChanged = onValueChanged;
     }
     #endregion
 

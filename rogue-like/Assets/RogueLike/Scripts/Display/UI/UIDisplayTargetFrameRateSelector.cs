@@ -14,9 +14,9 @@ public class UIDisplayTargetFrameRateSelector : MonoBehaviour
         _targetFrameRates = Enum.GetValues(typeof(DisplayTargetFrameRate)).Cast<DisplayTargetFrameRate>().ToArray();
 
         _selector = GetComponent<UISettingSelector>();
-        _selector.SetOption(_targetFrameRates.Select(targetFrameRate => targetFrameRate.ToCustomString()).ToArray());
-        _selector.SetIndex(Array.IndexOf(_targetFrameRates, DisplayManager.Instance.GetTargetFrameRate()));
-        _selector.SetAction(OnValueChanged);
+        _selector.Initialize(_targetFrameRates.Select(targetFrameRate => targetFrameRate.ToCustomString()).ToArray(),
+            Array.IndexOf(_targetFrameRates, DisplayManager.Instance.GetTargetFrameRate()),
+            OnValueChanged);
         _selector.SetResetAction(ResetAction);
     }
 

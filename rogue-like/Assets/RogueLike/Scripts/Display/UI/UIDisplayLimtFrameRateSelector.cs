@@ -17,9 +17,9 @@ public class UIDisplayLimtFrameRateSelector : MonoBehaviour
         bool isLimit = DisplayManager.Instance.GetLimitFrameRate();
 
         _selector = GetComponent<UISettingSelector>();
-        _selector.SetOption(_toggleStates.Select(toggleStates => toggleStates.ToCustomString()).ToArray());
-        _selector.SetIndex(isLimit == true ? 1 : 0);
-        _selector.SetAction(OnValueChanged);
+        _selector.Initialize(_toggleStates.Select(toggleStates => toggleStates.ToCustomString()).ToArray(),
+            isLimit == true ? 1 : 0,
+            OnValueChanged);
         _selector.SetResetAction(ResetAction);
 
         _targetFrameSelector.SetEnable(isLimit);

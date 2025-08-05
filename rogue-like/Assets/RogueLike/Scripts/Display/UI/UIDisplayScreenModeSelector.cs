@@ -14,9 +14,9 @@ public class UIDisplayScreenModeSelector : MonoBehaviour
         _screenModes = Enum.GetValues(typeof(DisplayScreenMode)).Cast<DisplayScreenMode>().ToArray();
 
         _selector = GetComponent<UISettingSelector>();
-        _selector.SetOption(_screenModes.Select(screenMode => screenMode.ToCustomString()).ToArray());
-        _selector.SetIndex(Array.IndexOf(_screenModes, DisplayManager.Instance.GetScreenMode()));
-        _selector.SetAction(OnValueChanged);
+        _selector.Initialize(_screenModes.Select(screenMode => screenMode.ToCustomString()).ToArray(),
+            Array.IndexOf(_screenModes, DisplayManager.Instance.GetScreenMode()),
+            OnValueChanged);
         _selector.SetResetAction(ResetAction);
     }
 
