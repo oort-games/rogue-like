@@ -63,6 +63,22 @@ public class UISettingSlider : UISettingCotent
     }
     #endregion
 
+    #region Public
+    public void Initialize(float maxValue, float value, bool wholeNumbers, UnityAction<float> onValueChanged)
+    {
+        _slider.maxValue = maxValue;
+        _slider.value = value;
+        _slider.wholeNumbers = wholeNumbers;
+        _onValueChanged = onValueChanged;
+    }
+
+    public void SetValueWithoutNotify(float value)
+    {
+        _slider.SetValueWithoutNotify(value);
+        UpdateUI();
+    }
+    #endregion
+
     #region Private
     void ClickDelta(float delta)
     {
@@ -73,22 +89,6 @@ public class UISettingSlider : UISettingCotent
     void OnValueChanged(float value)
     {
         _onValueChanged?.Invoke(value);
-        UpdateUI();
-    }
-    #endregion
-
-    #region Public
-    public void Initialize(float value, float maxValue, bool wholeNumbers, UnityAction<float> onValueChanged)
-    {
-        _slider.value = value;
-        _slider.maxValue = maxValue;
-        _slider.wholeNumbers = wholeNumbers;
-        _onValueChanged = onValueChanged;
-    }
-
-    public void SetValueWithoutNotify(float value)
-    {
-        _slider.SetValueWithoutNotify(value);
         UpdateUI();
     }
     #endregion

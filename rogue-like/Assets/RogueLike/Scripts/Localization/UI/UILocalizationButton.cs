@@ -13,11 +13,11 @@ public class UILocalizationButton : MonoBehaviour
         _languages = Enum.GetValues(typeof(LocalizationLanguage)).Cast<LocalizationLanguage>().ToArray();
 
         _button = GetComponent<UISettingButton>();
-        _button.SetOption(_languages.Select(language => language.ToCustomString()).ToArray());
-        _button.SetIndex(Array.IndexOf(_languages, LocalizationManager.Instance.GetLanguage()));
-        _button.SetAction(OnValueChanged);
-        _button.SetTitleLocalizationKey("ui-textLanguage");
+        _button.Initialize(_languages.Select(language => language.ToCustomString()).ToArray(),
+            Array.IndexOf(_languages, LocalizationManager.Instance.GetLanguage()),
+            OnValueChanged);
         _button.SetResetAction(ResetAction);
+        _button.SetTitleLocalizationKey("ui-textLanguage");
     }
 
     void OnValueChanged(int value)

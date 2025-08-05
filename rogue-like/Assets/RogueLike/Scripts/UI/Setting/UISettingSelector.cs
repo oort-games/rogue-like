@@ -67,6 +67,35 @@ public class UISettingSelector : UISettingCotent
     }
     #endregion
 
+    #region Public
+    public void SetOption(string[] options)
+    {
+        _options = options;
+    }
+
+    public void SetIndex(int index)
+    {
+        _currentIndex = index;
+        _prevIndex = index;
+    }
+
+    public void SetIndexWithoutNotify(int index)
+    {
+        SetIndex(index);
+        UpdateUI();
+        if (_immediately == false && _isApplyEventBound)
+        {
+            _isApplyEventBound = false;
+            _settingPopup.OnApply -= Apply;
+        }
+    }
+
+    public void SetAction(UnityAction<int> onValueChanged)
+    {
+        _onValueChanged = onValueChanged;
+    }
+    #endregion
+
     #region Private
     void ChangeOption(int delta)
     {
@@ -109,35 +138,6 @@ public class UISettingSelector : UISettingCotent
     {
         if (Application.isPlaying == false) return;
         _valueText.text = LocalizationManager.Instance.GetString(_options[_currentIndex]);
-    }
-    #endregion
-
-    #region Public
-    public void SetOption(string[] options)
-    {
-        _options = options;
-    }
-
-    public void SetIndex(int index)
-    {
-        _currentIndex = index;
-        _prevIndex = index;
-    }
-
-    public void SetIndexWithoutNotify(int index)
-    {
-        SetIndex(index);
-        UpdateUI();
-        if (_immediately == false && _isApplyEventBound)
-        {
-            _isApplyEventBound = false;
-            _settingPopup.OnApply -= Apply;
-        }
-    }
-
-    public void SetAction(UnityAction<int> onValueChanged)
-    {
-        _onValueChanged = onValueChanged;
     }
     #endregion
 }

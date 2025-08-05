@@ -49,6 +49,26 @@ public class UISettingButton : UISettingCotent
     }
     #endregion
 
+    #region Public
+    public void Initialize(string[] options, int index, UnityAction<int> onValueChanged)
+    {
+        _options = options;
+        _currentIndex = index;
+        _onValueChanged = onValueChanged;
+    }
+
+    public void SetIndexWithoutNotify(int index)
+    {
+        _currentIndex = index;
+        UpdateUI();
+    }
+
+    public void SetTitleLocalizationKey(string key)
+    {
+        _titleLocalizationKey = key;
+    }
+    #endregion
+
     #region Private
     void Show()
     {
@@ -65,37 +85,9 @@ public class UISettingButton : UISettingCotent
 
     void OnValueChanged(int index)
     {
-        SetIndex(index);
+        _currentIndex = index;
         UpdateUI();
         _onValueChanged.Invoke(index);
-    }
-    #endregion
-
-    #region Public
-    public void SetOption(string[] options)
-    {
-        _options = options;
-    }
-
-    public void SetIndex(int index)
-    {
-        _currentIndex = index;
-    }
-
-    public void SetIndexWithoutNotify(int index)
-    {
-        SetIndex(index);
-        UpdateUI();
-    }
-
-    public void SetAction(UnityAction<int> onValueChanged)
-    {
-        _onValueChanged = onValueChanged;
-    }
-
-    public void SetTitleLocalizationKey(string key)
-    {
-        _titleLocalizationKey = key;
     }
     #endregion
 }

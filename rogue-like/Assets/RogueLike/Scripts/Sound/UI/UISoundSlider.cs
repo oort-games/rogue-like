@@ -10,7 +10,7 @@ public class UISoundSlider : MonoBehaviour
     private void Awake()
     {
         _slider = GetComponent<UISettingSlider>();
-        _slider.Initialize(SoundManager.Instance.GetVolume(_type), SoundManager.MAX_VALUE, true, OnValueChanged);
+        _slider.Initialize(SoundManager.MAX_VALUE, SoundManager.Instance.GetVolume(_type), true, OnValueChanged);
         _slider.SetResetAction(ResetAction);
     }
 
