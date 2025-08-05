@@ -108,10 +108,4 @@ public class DisplayManager : Manager<DisplayManager>
     {
         QualitySettings.vSyncCount = _vSync ? 1 : 0;
     }
-
-    void SavePref(string key, int value)
-    {
-        PlayerPrefs.SetInt(key, value);
-        PlayerPrefs.Save();
-    }
 }

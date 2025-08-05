@@ -57,10 +57,4 @@ public class LocalizationManager : Manager<LocalizationManager>
     {
         return LocalizationSettings.StringDatabase.GetLocalizedString(table, key);
     }
-
-    void SavePref(string key, int value)
-    {
-        PlayerPrefs.SetInt(key, value);
-        PlayerPrefs.Save();
-    }
 }

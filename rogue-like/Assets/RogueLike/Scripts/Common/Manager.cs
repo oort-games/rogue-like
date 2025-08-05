@@ -12,4 +12,10 @@ public abstract class Manager<T> : PersistentSingleton<T> where T : Component
     }
 
     public abstract void Initialize();
+
+    protected void SavePref(string key, int value)
+    {
+        PlayerPrefs.SetInt(key, value);
+        PlayerPrefs.Save();
+    }
 }

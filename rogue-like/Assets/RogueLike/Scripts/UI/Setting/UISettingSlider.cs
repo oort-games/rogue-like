@@ -78,30 +78,18 @@ public class UISettingSlider : UISettingCotent
     #endregion
 
     #region Public
-    public void SetValue(float value)
+    public void Initialize(float value, float maxValue, bool wholeNumbers, UnityAction<float> onValueChanged)
     {
         _slider.value = value;
+        _slider.maxValue = maxValue;
+        _slider.wholeNumbers = wholeNumbers;
+        _onValueChanged = onValueChanged;
     }
 
     public void SetValueWithoutNotify(float value)
     {
         _slider.SetValueWithoutNotify(value);
         UpdateUI();
-    }
-
-    public void SetWholeNUmbers(bool value)
-    {
-        _slider.wholeNumbers = value;
-    }
-
-    public void SetMaxValue(float value)
-    {
-        _slider.maxValue = value;
-    }
-
-    public void SetAction(UnityAction<float> onValueChanged)
-    {
-        _onValueChanged = onValueChanged;
     }
     #endregion
 }

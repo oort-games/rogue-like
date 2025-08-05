@@ -111,10 +111,4 @@ public class SoundManager : Manager<SoundManager>
         float linear = Mathf.Clamp01(uiValue / MAX_VALUE);
         return Mathf.Log10(Mathf.Max(linear, 0.0001f)) * 20f;
     }
-
-    void SavePref(string key, int value)
-    {
-        PlayerPrefs.SetInt(key, value);
-        PlayerPrefs.Save();
-    }
 }
