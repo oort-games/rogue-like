@@ -82,6 +82,12 @@ public class UISettingButton : UISettingCotent
         _currentIndex = index;
     }
 
+    public void SetIndexWithoutNotify(int index)
+    {
+        SetIndex(index);
+        UpdateUI();
+    }
+
     public void SetAction(UnityAction<int> onValueChanged)
     {
         _onValueChanged = onValueChanged;

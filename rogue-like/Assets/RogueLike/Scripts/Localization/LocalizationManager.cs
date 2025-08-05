@@ -7,34 +7,43 @@ using UnityEngine.Localization.Settings;
 
 public class LocalizationManager : Manager<LocalizationManager>
 {
+    const string KEY_LANGUAGE = "Localization.Language";
+
+    LocalizationLanguage _language;
+
+    public LocalizationLanguage GetLanguage() => _language;
+
     bool _isChanging;
 
     public override void Initialize()
     {
-        Debug.Log(GetLocalCode());
+        _language = (LocalizationLanguage)PlayerPrefs.GetInt(KEY_LANGUAGE, (int)LocalizationLanguage.Korean);
+        ApplyLanguage();
     }
 
-    public string GetLocalCode()
+    public void ResetOption()
     {
-        return LocalizationSettings.SelectedLocale.Identifier.Code;
+        SetLanguage(LocalizationLanguage.Korean);
     }
 
-    public string[] GetLocales()
+    public void SetLanguage(LocalizationLanguage language)
     {
-        return LocalizationSettings.AvailableLocales.Locales.Select(local => local.LocaleName).ToArray();
+        _language = language;
+        ApplyLanguage();
+        SavePref(KEY_LANGUAGE, (int)_language);
     }
 
-    public void ChangeLocalization(int index)
+    void ApplyLanguage()
     {
         if (_isChanging) return;
-        StartCoroutine(ChangeRoutine(index));
+        StartCoroutine(ApplyLanguageRoutine());
     }
 
-    IEnumerator ChangeRoutine(int index)
+    IEnumerator ApplyLanguageRoutine()
     {
         _isChanging = true;
         yield return LocalizationSettings.InitializationOperation;
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(_language.ToCode());
 
         _isChanging = false;
     }
@@ -47,5 +56,11 @@ public class LocalizationManager : Manager<LocalizationManager>
     public string GetString(string table, string key)
     {
         return LocalizationSettings.StringDatabase.GetLocalizedString(table, key);
+    }
+
+    void SavePref(string key, int value)
+    {
+        PlayerPrefs.SetInt(key, value);
+        PlayerPrefs.Save();
     }
 }

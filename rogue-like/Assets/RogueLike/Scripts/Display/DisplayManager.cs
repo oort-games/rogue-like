@@ -84,9 +84,8 @@ public class DisplayManager : Manager<DisplayManager>
         SavePref(KEY_VSYNC, _vSync ? 1 : 0);
     }
 
-    public void ApplyDisplay()
+    void ApplyDisplay()
     {
-        Debug.Log("ApplyDisplay");
         (int width, int height) = _resolution.ToSize();
         FullScreenMode fullScreenMode = _screenMode.ToFullScreenMode();
         Screen.SetResolution(width, height, fullScreenMode);
@@ -100,12 +99,12 @@ public class DisplayManager : Manager<DisplayManager>
         _isDisplayResoultionChanging = false;
     }
 
-    public void ApplyTargetFrameRate()
+    void ApplyTargetFrameRate()
     {
         Application.targetFrameRate = _limitFrameRate ? _targetFrameRate.ToInt() : -1;
     }
 
-    public void ApplyVSync()
+    void ApplyVSync()
     {
         QualitySettings.vSyncCount = _vSync ? 1 : 0;
     }

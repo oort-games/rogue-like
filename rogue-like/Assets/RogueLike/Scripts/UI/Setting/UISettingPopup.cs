@@ -70,6 +70,7 @@ public class UISettingPopup : UIPopup
         confirmPopup.Initialize(() => {
             SoundManager.Instance.ResetOption();
             DisplayManager.Instance.ResetOption();
+            LocalizationManager.Instance.ResetOption();
             foreach (var setting in _settingList)
             {
                 setting.ResetOption();
