@@ -36,6 +36,7 @@ public class UISelectPopup : UIPopup
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        if (UIManager.Instance == null) return;
         UIManager.Instance.DeleteConfirmAction(Select);
     }
 
