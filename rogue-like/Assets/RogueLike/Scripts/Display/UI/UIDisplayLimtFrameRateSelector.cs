@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(UISettingSelector))]
 public class UIDisplayLimtFrameRateSelector : MonoBehaviour
 {
-    [SerializeField] UISettingCotent _targetFrameSelector;
+    [SerializeField] UISettingContent _targetFrameSelector;
 
     UISettingSelector _selector;
     UIToggleState[] _toggleStates;

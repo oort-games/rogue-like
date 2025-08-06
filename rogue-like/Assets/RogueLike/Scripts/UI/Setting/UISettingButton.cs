@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class UISettingButton : UISettingCotent
+public class UISettingButton : UISettingContent
 {
     [Header("External Selector")]
     [SerializeField] TextMeshProUGUI _valueText;

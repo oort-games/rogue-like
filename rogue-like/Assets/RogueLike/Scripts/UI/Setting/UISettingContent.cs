@@ -3,11 +3,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
 using TMPro;
 
-public abstract class UISettingCotent : UIScrollViewContent
+public abstract class UISettingContent : UIScrollViewContent
 {
     [Header("Common")]
+    [SerializeField] TextMeshProUGUI _titleText;
     [SerializeField] GameObject _dim;
     [SerializeField] GameObject _block;
 
@@ -17,13 +20,19 @@ public abstract class UISettingCotent : UIScrollViewContent
     UnityAction _resetAction;
 
     #region Unity Life-cycle
+    protected override void Awake()
+    {
+        base.Awake();
+        if (Application.isPlaying == false) return;
+        _settingPopup = GetComponentInParent<UISettingPopup>();
+    }
+
     protected override void Start()
     {
         base.Start();
         if (Application.isPlaying == false) return;
         UpdateUI();
         RegisterButtons();
-        _settingPopup = GetComponentInParent<UISettingPopup>();
     }
     #endregion
 
@@ -70,7 +79,11 @@ public abstract class UISettingCotent : UIScrollViewContent
     {
         base.SetSelectedVisual(isSelected);
         _dim.SetActive(!isSelected);
-        if (isSelected) InputManager.Instance.SetMoveRepeatRate(0.1f);
+        if (isSelected)
+        {
+            _settingPopup.Select(this);
+            InputManager.Instance.SetMoveRepeatRate(0.1f);
+        }
     }
     #endregion
 
@@ -89,6 +102,11 @@ public abstract class UISettingCotent : UIScrollViewContent
     public void ResetOption()
     {
         _resetAction?.Invoke();
+    }
+
+    public LocalizedString GetTitleLocalizedString()
+    {
+        return _titleText.GetComponent<LocalizeStringEvent>().StringReference;
     }
     #endregion
 }

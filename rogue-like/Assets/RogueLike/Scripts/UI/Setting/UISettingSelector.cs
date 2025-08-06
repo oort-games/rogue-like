@@ -6,7 +6,7 @@ using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using TMPro;
 
-public class UISettingSelector : UISettingCotent
+public class UISettingSelector : UISettingContent
 {
     [Header("Selector")]
     [SerializeField] Button _prevButton;

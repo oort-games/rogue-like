@@ -1,7 +1,10 @@
 using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Components;
+using TMPro;
 
 public class UISettingPopup : UIPopup
 {
@@ -9,7 +12,12 @@ public class UISettingPopup : UIPopup
     [SerializeField] Button _applyButton;
     [SerializeField] Button _resetButton;
 
-    UISettingCotent[] _settingList;
+    [Header("Info")]
+    [SerializeField] TextMeshProUGUI _infoTitleText;
+    [SerializeField] TextMeshProUGUI _infoText;
+
+    UISettingContent[] _settingList;
+    UISettingContent _selectedContent;
 
     int _applyActionCount = 0;
     event Action _onApply;
@@ -39,7 +47,7 @@ public class UISettingPopup : UIPopup
         UIManager.Instance.AddResetAction(ResetAction);
 
         _applyButton.gameObject.SetActive(false);
-        _settingList = GetComponentsInChildren<UISettingCotent>(true);
+        _settingList = GetComponentsInChildren<UISettingContent>(true);
     }
 
     protected override void OnDestroy()
@@ -48,6 +56,30 @@ public class UISettingPopup : UIPopup
         if (UIManager.Instance == null) return;
         UIManager.Instance.DeleteApplyAction(Apply);
         UIManager.Instance.DeleteResetAction(ResetAction);
+    }
+
+    public override void Close()
+    {
+        if (_applyActionCount == 0)
+        {
+
+        }
+        else
+        {
+            UIConfirmPopup confirmPopup = UIManager.Instance.OpenPopupUI<UIConfirmPopup>();
+            confirmPopup.Initialize(() => {
+                OnClickApply();
+            },
+            "ui-applyChanges",
+            "ui-applyChangesInfo",
+            "ui-apply", "ui-cancel");
+        }
+    }
+    
+    public void Select(UISettingContent content)
+    {
+        _selectedContent = content;
+        _infoTitleText.GetComponent<LocalizeStringEvent>().StringReference = _selectedContent.GetTitleLocalizedString();
     }
 
     void OnClickApply()
@@ -91,23 +123,5 @@ public class UISettingPopup : UIPopup
     {
         if (UIManager.Instance.IsLastPopup(gameObject) == false) return;
         OnClickReset();
-    }
-
-    public override void Close()
-    {
-        if (_applyActionCount == 0)
-        {
-
-        }
-        else
-        {
-            UIConfirmPopup confirmPopup = UIManager.Instance.OpenPopupUI<UIConfirmPopup>();
-            confirmPopup.Initialize(()=> { 
-                OnClickApply(); 
-            },
-            "ui-applyChanges",
-            "ui-applyChangesInfo",
-            "ui-apply", "ui-cancel");
-        }
     }
 }
