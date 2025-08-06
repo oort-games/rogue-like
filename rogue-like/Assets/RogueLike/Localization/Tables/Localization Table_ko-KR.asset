@@ -149,6 +149,54 @@ MonoBehaviour:
       \uB9C8\uCE58\uACA0\uC2B5\uB2C8\uAE4C?"
     m_Metadata:
       m_Items: []
+  - m_Id: 782572687151104
+    m_Localized: "\uD654\uBA74 \uBAA8\uB4DC\uB97C \uC124\uC815\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 782773996965888
+    m_Localized: "\uAC8C\uC784 \uD654\uBA74\uC744 \uD45C\uC2DC\uD560 \uB514\uC2A4\uD50C\uB808\uC774
+      \uD574\uC0C1\uB3C4\uB97C \uC124\uC815\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 782901642219520
+    m_Localized: "\uCD5C\uB300 \uD504\uB808\uC784 \uB808\uC774\uD2B8 \uC81C\uD55C\uC758
+      \uC0AC\uC6A9 \uC5EC\uBD80\uB97C \uC124\uC815\uD569\uB2C8\uB2E4.\n\n\uD504\uB808\uC784
+      \uB808\uC774\uD2B8\uAC00 60 \uC774\uD558 \uC77C \uB54C \uCD5C\uC801\uC758 \uACBD\uD5D8\uC744
+      \uC81C\uACF5\uD558\uBA70, \uD504\uB808\uC784 \uB808\uC774\uD2B8\uC5D0 \uB530\uB77C
+      \uC131\uB2A5\uC5D0 \uC601\uD5A5\uC744 \uB07C\uCE60 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783222300954624
+    m_Localized: "\uCD5C\uB300 \uD504\uB808\uC784 \uB808\uC774\uD2B8\uB97C \uC124\uC815\uD569\uB2C8\uB2E4.\n\n\uD504\uB808\uC784
+      \uB808\uC774\uD2B8\uAC00 60 \uC774\uD558 \uC77C \uB54C \uCD5C\uC801\uC758 \uACBD\uD5D8\uC744
+      \uC81C\uACF5\uD558\uBA70, \uD504\uB808\uC784 \uB808\uC774\uD2B8\uC5D0 \uB530\uB77C
+      \uC131\uB2A5\uC5D0 \uC601\uD5A5\uC744 \uB07C\uCE60 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783536366243840
+    m_Localized: "\uC218\uC9C1 \uB3D9\uAE30\uD654 \uC0AC\uC6A9 \uC5EC\uBD80\uB97C
+      \uC124\uC815\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 784284936261632
+    m_Localized: "\uAC8C\uC784\uC758 \uC804\uCCB4 \uBCFC\uB968 \uC218\uC900\uC744
+      \uC124\uC815\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 785262687244288
+    m_Localized: "\uBC30\uACBD \uC74C\uC545\uC758 \uBCFC\uB968 \uC218\uC900\uC744
+      \uC124\uC815\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 785336435691520
+    m_Localized: "\uD6A8\uACFC\uC74C\uC758 \uBCFC\uB968 \uC218\uC900\uC744 \uC124\uC815\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 785449585430528
+    m_Localized: "\uD14D\uC2A4\uD2B8\uB97C \uD45C\uC2DC\uD560 \uC5B8\uC5B4\uB97C
+      \uC120\uD0DD\uD569\uB2C8\uB2E4."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

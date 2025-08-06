@@ -11,6 +11,7 @@ public abstract class UISettingContent : UIScrollViewContent
 {
     [Header("Common")]
     [SerializeField] TextMeshProUGUI _titleText;
+    [SerializeField] LocalizedString _infoString;
     [SerializeField] GameObject _dim;
     [SerializeField] GameObject _block;
 
@@ -107,6 +108,11 @@ public abstract class UISettingContent : UIScrollViewContent
     public LocalizedString GetTitleLocalizedString()
     {
         return _titleText.GetComponent<LocalizeStringEvent>().StringReference;
+    }
+
+    public LocalizedString GetInfoLocalizedString()
+    {
+        return _infoString;
     }
     #endregion
 }

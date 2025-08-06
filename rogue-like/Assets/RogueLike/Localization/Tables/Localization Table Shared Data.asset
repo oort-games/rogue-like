@@ -143,6 +143,42 @@ MonoBehaviour:
     m_Key: ui-applyChangesInfo
     m_Metadata:
       m_Items: []
+  - m_Id: 782572687151104
+    m_Key: ui-screenModeInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 782773996965888
+    m_Key: ui-resolutionInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 782901642219520
+    m_Key: ui-limitFrameRateInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783222300954624
+    m_Key: ui-targetFrameRateInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783536366243840
+    m_Key: ui-vSyncInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 784284936261632
+    m_Key: ui-masterVolumeInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 785262687244288
+    m_Key: ui-bgmInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 785336435691520
+    m_Key: ui-sfxInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 785449585430528
+    m_Key: ui-textLanguageInfo
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

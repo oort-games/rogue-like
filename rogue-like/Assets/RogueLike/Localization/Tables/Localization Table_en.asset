@@ -149,6 +149,52 @@ MonoBehaviour:
     m_Localized: Reset all settings to default?
     m_Metadata:
       m_Items: []
+  - m_Id: 782572687151104
+    m_Localized: Select the display mode.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 782773996965888
+    m_Localized: Select the display resolution.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 782901642219520
+    m_Localized: 'Turn the maximum frame rate limit on or off.
+
+
+      For the best
+      experience, a frame rate of 60 or lower is recommended. The frame rate may
+      affect the game''s overall performance.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783222300954624
+    m_Localized: 'Set the maximum frame rate.
+
+
+      For the best experience, a
+      frame rate of 60 or lower is recommended. The frame rate may affect the game''s
+      overall performance.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783536366243840
+    m_Localized: Turn V-Sync on or off.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 785449585430528
+    m_Localized: Select which language to display.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 785262687244288
+    m_Localized: Adjust the volume level for background music.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 784284936261632
+    m_Localized: Adjust the game's overall volum level.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 785336435691520
+    m_Localized: Adjust the volume level for sound effects.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

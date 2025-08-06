@@ -13,8 +13,8 @@ public class UISettingPopup : UIPopup
     [SerializeField] Button _resetButton;
 
     [Header("Info")]
-    [SerializeField] TextMeshProUGUI _infoTitleText;
-    [SerializeField] TextMeshProUGUI _infoText;
+    [SerializeField] LocalizeStringEvent _infoTitleStringEvent;
+    [SerializeField] LocalizeStringEvent _infoTextStringEvent;
 
     UISettingContent[] _settingList;
     UISettingContent _selectedContent;
@@ -79,7 +79,8 @@ public class UISettingPopup : UIPopup
     public void Select(UISettingContent content)
     {
         _selectedContent = content;
-        _infoTitleText.GetComponent<LocalizeStringEvent>().StringReference = _selectedContent.GetTitleLocalizedString();
+        _infoTitleStringEvent.StringReference = _selectedContent.GetTitleLocalizedString();
+        _infoTextStringEvent.StringReference = _selectedContent.GetInfoLocalizedString();
     }
 
     void OnClickApply()
