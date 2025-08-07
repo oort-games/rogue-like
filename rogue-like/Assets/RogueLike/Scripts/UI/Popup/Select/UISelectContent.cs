@@ -15,14 +15,17 @@ public class UISelectContent : UIScrollViewContent
     UnityAction<int> _onClickAction;
     UnityAction<int> _onSelectAction;
 
+    UISelectPopup _selectPopup;
+
     protected override void Start()
     {
         base.Start();
         if (Application.isPlaying == false) return;
+        _selectPopup = GetComponentInParent<UISelectPopup>();
         _button.onClick.AddListener(() =>
         {
             _onClickAction.Invoke(_index);
-            _parentPopup.Close();
+            _selectPopup.Close();
         });
     }
 

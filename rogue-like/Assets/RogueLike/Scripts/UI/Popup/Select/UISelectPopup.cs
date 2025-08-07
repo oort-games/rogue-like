@@ -15,8 +15,11 @@ public class UISelectPopup : UIPopup
     int _currentIndex;
     UnityAction<int> _selectAction;
 
-    public void Initialize(string titleLocalizationKey, string[] options, int selectIndex, UnityAction<int> selectAction)
+    GameObject _root;
+
+    public void Initialize(GameObject root, string titleLocalizationKey, string[] options, int selectIndex, UnityAction<int> selectAction)
     {
+        _root = root;
         _titleText.text = LocalizationManager.Instance.GetString(titleLocalizationKey);
         _options = options;
         _currentIndex = selectIndex;
@@ -38,6 +41,12 @@ public class UISelectPopup : UIPopup
         base.OnDestroy();
         if (UIManager.Instance == null) return;
         UIManager.Instance.DeleteConfirmAction(Select);
+    }
+
+    public override void Close()
+    {
+        base.Close();
+        EventSystem.current.SetSelectedGameObject(_root);
     }
 
     void CreatContents()

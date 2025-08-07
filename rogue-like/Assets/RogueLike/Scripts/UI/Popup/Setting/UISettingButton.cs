@@ -80,11 +80,12 @@ public class UISettingButton : UISettingContent
     void Show()
     {
         UISelectPopup selectPopup = UIManager.Instance.OpenPopupUI<UISelectPopup>();
-        selectPopup.Initialize(_titleLocalizationKey, _options, _currentIndex, OnValueChanged);
+        selectPopup.Initialize(gameObject, _titleLocalizationKey, _options, _currentIndex, OnValueChanged);
     }
 
     void Show(InputAction.CallbackContext context)
     {
+        if (EventSystem.current.currentSelectedGameObject != gameObject) return;
         if (UIManager.Instance.IsLastPopup(_settingPopup.gameObject) == false) return;
         Show();
     }
