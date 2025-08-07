@@ -94,8 +94,12 @@ public class DisplayManager : Manager<DisplayManager>
     IEnumerator ApplyDisplayRoutine()
     {
         _isDisplayResoultionChanging = true;
-        yield return null;
-        ApplyDisplay();
+        yield return new WaitForEndOfFrame();
+        FullScreenMode fullScreenMode = _screenMode.ToFullScreenMode();
+        Screen.fullScreenMode = fullScreenMode;
+        yield return new WaitForEndOfFrame();
+        (int width, int height) = _resolution.ToSize();
+        Screen.SetResolution(width, height, fullScreenMode);
         _isDisplayResoultionChanging = false;
     }
 
