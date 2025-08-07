@@ -23,7 +23,6 @@ public class UISelectContent : UIScrollViewContent
         {
             _onClickAction.Invoke(_index);
             _parentPopup.Close();
-            Debug.Log($"Click {_text.text}"); 
         });
     }
 

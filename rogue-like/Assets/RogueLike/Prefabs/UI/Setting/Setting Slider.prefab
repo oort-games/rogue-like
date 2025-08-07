@@ -373,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7429410176144405073, guid: df4a6626aa8f34c439a9524f5afc2762, type: 3}
       propertyPath: m_Name
-      value: Slider Value Text
+      value: Text Value
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -497,12 +497,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7695487731605822411, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
+      propertyPath: m_Name
+      value: Button Next
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695487731605822411, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7840566442394806049, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
       propertyPath: m_Name
       value: Setting Slider
+      objectReference: {fileID: 0}
+    - target: {fileID: 8992905563894125306, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
+      propertyPath: m_Name
+      value: Button Prev
       objectReference: {fileID: 0}
     - target: {fileID: 8992905563894125306, guid: 99aa89b41d901a34db41d125af00178f, type: 3}
       propertyPath: m_IsActive
@@ -586,6 +594,15 @@ MonoBehaviour:
     left: 0
     right: 0
   _titleText: {fileID: 6797579023363575879}
+  _infoString:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   _dim: {fileID: 8780012406787064291}
   _block: {fileID: 1653844984941377483}
   _prevButton: {fileID: 8252681483420503980}
@@ -597,6 +614,9 @@ MonoBehaviour:
   _sliderFillImage: {fileID: 2720672390607912796}
   _defaultColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   _highlightColor: {r: 1, g: 1, b: 1, a: 1}
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &2715534324563729543 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7695487731605822411, guid: 99aa89b41d901a34db41d125af00178f, type: 3}

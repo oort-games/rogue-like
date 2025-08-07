@@ -10,6 +10,7 @@ public class UISettingButton : UISettingContent
     [Header("External Selector")]
     [SerializeField] TextMeshProUGUI _valueText;
     [SerializeField] Button _button;
+    [SerializeField] GameObject _inputKey;
     
     string[] _options;
     int _currentIndex;
@@ -47,6 +48,12 @@ public class UISettingButton : UISettingContent
     {
         _valueText.text = _options[_currentIndex];
     }
+
+    protected override void SetSelectedVisual(bool isSelected)
+    {
+        base.SetSelectedVisual(isSelected);
+        _inputKey.SetActive(isSelected);
+    }
     #endregion
 
     #region Public
@@ -72,7 +79,6 @@ public class UISettingButton : UISettingContent
     #region Private
     void Show()
     {
-        Debug.Log("Show");
         UISelectPopup selectPopup = UIManager.Instance.OpenPopupUI<UISelectPopup>();
         selectPopup.Initialize(_titleLocalizationKey, _options, _currentIndex, OnValueChanged);
     }

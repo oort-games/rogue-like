@@ -29,7 +29,7 @@ public class UISelectPopup : UIPopup
     protected override void Start()
     {
         base.Start();
-        CreatContent();
+        CreatContents();
         UIManager.Instance.AddConfirmAction(Select);
     }
 
@@ -40,7 +40,7 @@ public class UISelectPopup : UIPopup
         UIManager.Instance.DeleteConfirmAction(Select);
     }
 
-    void CreatContent()
+    void CreatContents()
     {
         _contentPrefab.gameObject.SetActive(false);
         for (int i = 0; i < _options.Length; i++)

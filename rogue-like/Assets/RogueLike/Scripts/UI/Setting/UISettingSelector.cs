@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using TMPro;
+using System.Collections.Generic;
 
 public class UISettingSelector : UISettingContent
 {
@@ -16,10 +17,16 @@ public class UISettingSelector : UISettingContent
     [SerializeField] GameObject _change;
     [SerializeField] bool _useLocalization = true;
 
+    [Header("Indicator")]
+    [SerializeField] GameObject _indicatorPrefab;
+    [SerializeField] Color _normalColor;
+    [SerializeField] Color _selectedColor;
+
     string[] _options;
     int _currentIndex;
     int _prevIndex;
     bool _isApplyEventBound;
+    List<Image> _indicators = new();
 
     UnityAction<int> _onValueChanged;
 
@@ -57,6 +64,11 @@ public class UISettingSelector : UISettingContent
             _change.SetActive(IsChanged());
         else
             _change.SetActive(false);
+
+        for (int i = 0; i < _indicators.Count; i++)
+        {
+            _indicators[i].color = (i == _currentIndex) ? _selectedColor : _normalColor;
+        }
     }
 
     protected override void SetSelectedVisual(bool isSelected)
@@ -74,6 +86,7 @@ public class UISettingSelector : UISettingContent
         _currentIndex = index;
         _prevIndex = index;
         _onValueChanged = onValueChanged;
+        CreateIndicators();
     }
 
     public void SetIndexWithoutNotify(int index)
@@ -131,6 +144,17 @@ public class UISettingSelector : UISettingContent
     {
         if (Application.isPlaying == false) return;
         _valueText.text = LocalizationManager.Instance.GetString(_options[_currentIndex]);
+    }
+
+    void CreateIndicators()
+    {
+        _indicatorPrefab.gameObject.SetActive(false);
+        for (int i = 0; i < _options.Length; i++)
+        {
+            Image img = Instantiate(_indicatorPrefab, _indicatorPrefab.transform.parent).GetComponent<Image>();
+            img.gameObject.SetActive(true);
+            _indicators.Add(img);
+        }
     }
     #endregion
 }
