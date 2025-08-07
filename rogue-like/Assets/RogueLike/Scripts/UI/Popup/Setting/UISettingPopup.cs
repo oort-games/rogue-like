@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
@@ -37,6 +38,8 @@ public class UISettingPopup : UIPopup
         }
     }
 
+    UnityAction _closeAction;
+
     protected override void Start()
     {
         base.Start();
@@ -62,7 +65,8 @@ public class UISettingPopup : UIPopup
     {
         if (_applyActionCount == 0)
         {
-
+            base.Close();
+            _closeAction?.Invoke();
         }
         else
         {
@@ -76,6 +80,11 @@ public class UISettingPopup : UIPopup
         }
     }
     
+    public void SetCloseAction(UnityAction closeAction)
+    {
+        _closeAction = closeAction;
+    }
+
     public void Select(UISettingContent content)
     {
         _selectedContent = content;

@@ -17,10 +17,12 @@ public class UIConfirmPopup : UIPopup
     [SerializeField] Button _confirmButton;
 
     UnityAction _confirmAction;
+    UnityAction _closeAction;
 
-    public void Initialize(UnityAction confirmAction, string titleKey, string infoKey, string confirmKey, string closeKey)
+    public void Initialize(UnityAction confirmAction, string titleKey, string infoKey, string confirmKey, string closeKey, UnityAction closeAction = null)
     {
         _confirmAction = confirmAction;
+        _closeAction = closeAction;
 
         _titleText.text = LocalizationManager.Instance.GetString(titleKey);
         _infoText.text = LocalizationManager.Instance.GetString(infoKey);
@@ -42,6 +44,12 @@ public class UIConfirmPopup : UIPopup
         base.OnDestroy();
         if (UIManager.Instance == null) return;
         UIManager.Instance.DeleteConfirmAction(Confirm);
+    }
+
+    public override void Close()
+    {
+        base.Close();
+        _closeAction?.Invoke();
     }
 
     void Confirm(InputAction.CallbackContext context)

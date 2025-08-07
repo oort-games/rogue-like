@@ -13,9 +13,8 @@ public class UITitleButton : Selectable
     [SerializeField] Color _normalColor;
     [SerializeField] Color _selectedColor;
 
-    UnityAction _onClickAction;
-
     UITitleScene _titleScene;
+    UnityAction _onClickAction;
 
     protected override void Awake()
     {
@@ -53,7 +52,7 @@ public class UITitleButton : Selectable
     IEnumerator DelayedDeselectCheck()
     {
         yield return null;
-        if (EventSystem.current.currentSelectedGameObject == null)
+        if (EventSystem.current.currentSelectedGameObject == null && UIManager.Instance.IsHasPopupUI() == false)
         {
             EventSystem.current.SetSelectedGameObject(gameObject);
         }
@@ -69,7 +68,7 @@ public class UITitleButton : Selectable
         _text.color = isSelected ? _selectedColor : _normalColor;
         if (isSelected)
         {
-            _titleScene.SetAction(_onClickAction);
+            _titleScene.SetAction(gameObject, _onClickAction);
         }
     }
     #endregion

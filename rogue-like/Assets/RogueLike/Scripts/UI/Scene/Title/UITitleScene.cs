@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -12,6 +13,7 @@ public class UITitleScene : UIScene
     [SerializeField] UITitleButton exitButton;
 
     UnityAction _onClickAction;
+    GameObject _selectedObject;
 
     private void Start()
     {
@@ -31,8 +33,9 @@ public class UITitleScene : UIScene
         UIManager.Instance.DeleteConfirmAction(Select);
     }
 
-    public void SetAction(UnityAction action)
+    public void SetAction(GameObject gameObject, UnityAction action)
     {
+        _selectedObject = gameObject;
         _onClickAction = action;
     }
 
@@ -59,13 +62,14 @@ public class UITitleScene : UIScene
 
     void Setting()
     {
-        Debug.Log("Setting");
-        UIManager.Instance.OpenPopupUI<UISettingPopup>();
+        SetNavigationMode(Navigation.Mode.None);
+        UISettingPopup settingPopup = UIManager.Instance.OpenPopupUI<UISettingPopup>();
+        settingPopup.SetCloseAction(() => SetNavigationMode(Navigation.Mode.Vertical));
     }
 
     void Exit()
     {
-        Debug.Log("Exit");
+        SetNavigationMode(Navigation.Mode.None);
         UIConfirmPopup confirmPopup = UIManager.Instance.OpenPopupUI<UIConfirmPopup>();
         confirmPopup.Initialize(() => 
         {
@@ -77,6 +81,24 @@ public class UITitleScene : UIScene
         },
         "ui-exitGame",
         "ui-exitGameInfo",
-        "ui-ok", "ui-cancel");
+        "ui-ok", "ui-cancel",
+        () => SetNavigationMode(Navigation.Mode.Vertical));
+    }
+
+    void SetNavigationMode(Navigation.Mode mode)
+    {
+        if (mode == Navigation.Mode.None)
+            EventSystem.current.SetSelectedGameObject(null);
+        else
+            EventSystem.current.SetSelectedGameObject(_selectedObject);
+
+        Navigation navigation = newGameButton.navigation;
+        navigation.mode = mode;
+
+        newGameButton.navigation = navigation;
+        continueButton.navigation = navigation;
+        loadButton.navigation = navigation;
+        settinButton.navigation = navigation;
+        exitButton.navigation = navigation;
     }
 }
