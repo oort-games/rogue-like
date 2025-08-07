@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 494441811968
-    m_Localized: Setting
+    m_Localized: Settings
     m_Metadata:
       m_Items: []
   - m_Id: 3130922586112
@@ -193,6 +193,34 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 785336435691520
     m_Localized: Adjust the volume level for sound effects.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1134846601023488
+    m_Localized: New Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1134899960958976
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1134961512370176
+    m_Localized: Load
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1134989366743040
+    m_Localized: Exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135056198782976
+    m_Localized: Exit Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135144048480256
+    m_Localized: Are you sure you want to exit the game?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135234226016256
+    m_Localized: OK
     m_Metadata:
       m_Items: []
   references:

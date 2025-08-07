@@ -183,6 +183,11 @@ public class UIManager : Manager<UIManager>
         }
     }
 
+    public bool IsHasPopupUI()
+    {
+        return _popupList.Count > 0;
+    }
+
     public void AddConfirmAction(Action<InputAction.CallbackContext> action)
     {
         _confirmActionRef.action.performed += action;

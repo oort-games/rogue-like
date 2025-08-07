@@ -179,6 +179,34 @@ MonoBehaviour:
     m_Key: ui-textLanguageInfo
     m_Metadata:
       m_Items: []
+  - m_Id: 1134846601023488
+    m_Key: ui-newGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1134899960958976
+    m_Key: ui-continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1134961512370176
+    m_Key: ui-load
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1134989366743040
+    m_Key: ui-exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135056198782976
+    m_Key: ui-exitGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135144048480256
+    m_Key: ui-exitGameInfo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1135234226016256
+    m_Key: ui-ok
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
