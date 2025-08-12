@@ -26,5 +26,13 @@ public class SoundChannel
 
 public static class SoundExtensions
 {
+    public static void PlayUIButton()
+    {
+        SoundManager.Instance.Play(SoundType.SFX, "ui_button");
+    }
 
+    public static void PlayUISelect()
+    {
+        SoundManager.Instance.Play(SoundType.SFX, "ui_select");
+    }
 }

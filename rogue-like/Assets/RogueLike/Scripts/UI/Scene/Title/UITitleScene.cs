@@ -13,7 +13,7 @@ public class UITitleScene : UIScene
     [SerializeField] UITitleButton exitButton;
 
     UnityAction _onClickAction;
-    GameObject _selectedObject;
+    UITitleButton _selectedButton;
 
     private void Start()
     {
@@ -23,6 +23,7 @@ public class UITitleScene : UIScene
         settinButton.Initialize(Setting);
         exitButton.Initialize(Exit);
 
+        newGameButton.SetSoundSuppressed(true);
         EventSystem.current.SetSelectedGameObject(newGameButton.gameObject);
         UIManager.Instance.AddConfirmAction(Select);
     }
@@ -33,15 +34,16 @@ public class UITitleScene : UIScene
         UIManager.Instance.DeleteConfirmAction(Select);
     }
 
-    public void SetAction(GameObject gameObject, UnityAction action)
+    public void SetAction(UITitleButton titleButton, UnityAction action)
     {
-        _selectedObject = gameObject;
+        _selectedButton = titleButton;
         _onClickAction = action;
     }
 
     void Select(InputAction.CallbackContext context)
     {
         if (UIManager.Instance.IsHasPopupUI() == true) return;
+        SoundExtensions.PlayUIButton();
         _onClickAction.Invoke();
     }
 
@@ -90,7 +92,10 @@ public class UITitleScene : UIScene
         if (mode == Navigation.Mode.None)
             EventSystem.current.SetSelectedGameObject(null);
         else
-            EventSystem.current.SetSelectedGameObject(_selectedObject);
+        {
+            _selectedButton.SetSoundSuppressed(true);
+            EventSystem.current.SetSelectedGameObject(_selectedButton.gameObject);
+        }
 
         Navigation navigation = newGameButton.navigation;
         navigation.mode = mode;

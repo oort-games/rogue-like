@@ -16,6 +16,8 @@ public class UITitleButton : Selectable
     UITitleScene _titleScene;
     UnityAction _onClickAction;
 
+    bool _isSoundSuppressed;
+
     protected override void Awake()
     {
         base.Awake();
@@ -29,6 +31,7 @@ public class UITitleButton : Selectable
         base.Start();
         _button.onClick.AddListener(() =>
         {
+            SoundExtensions.PlayUIButton();
             _onClickAction.Invoke();
         });
     }
@@ -68,7 +71,15 @@ public class UITitleButton : Selectable
         _text.color = isSelected ? _selectedColor : _normalColor;
         if (isSelected)
         {
-            _titleScene.SetAction(gameObject, _onClickAction);
+            _titleScene.SetAction(this, _onClickAction);
+            if (_isSoundSuppressed == true)
+            {
+                _isSoundSuppressed = false;
+            }
+            else
+            {
+                SoundExtensions.PlayUISelect();
+            }
         }
     }
     #endregion
@@ -104,5 +115,10 @@ public class UITitleButton : Selectable
     public void Initialize(UnityAction onClickAction)
     {
         _onClickAction = onClickAction;
+    }
+
+    public void SetSoundSuppressed(bool isSuppressed)
+    {
+        _isSoundSuppressed = isSuppressed;
     }
 }
