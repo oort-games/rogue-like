@@ -46,6 +46,11 @@ public class UISelectPopup : UIPopup
     public override void Close()
     {
         base.Close();
+        SoundExtensions.PlayUIButton();
+        if (_root.TryGetComponent<UIScrollViewContent>(out var viewContent))
+        {
+            viewContent.SetSoundSuppressed(true);
+        }
         EventSystem.current.SetSelectedGameObject(_root);
     }
 
@@ -61,6 +66,10 @@ public class UISelectPopup : UIPopup
 
             if (i == _currentIndex)
             {
+                if (content.TryGetComponent<UIScrollViewContent>(out var viewContent))
+                {
+                    viewContent.SetSoundSuppressed(true);
+                }
                 EventSystem.current.SetSelectedGameObject(content.gameObject);
             }
         }

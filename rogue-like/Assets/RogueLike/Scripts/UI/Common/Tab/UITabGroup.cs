@@ -22,6 +22,7 @@ public class UITabGroup : MonoBehaviour
 
     private void Start()
     {
+        _pages[0].SetSoundSuppressed(true);
         SetActiveTab(0);
         _parentPopup = GetComponentInParent<UIPopup>();
     }

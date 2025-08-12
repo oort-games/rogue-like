@@ -15,7 +15,6 @@ public class UITitleButton : Selectable
 
     UITitleScene _titleScene;
     UnityAction _onClickAction;
-
     bool _isSoundSuppressed;
 
     protected override void Awake()
@@ -57,6 +56,7 @@ public class UITitleButton : Selectable
         yield return null;
         if (EventSystem.current.currentSelectedGameObject == null && UIManager.Instance.IsHasPopupUI() == false)
         {
+            _isSoundSuppressed = true;
             EventSystem.current.SetSelectedGameObject(gameObject);
         }
         else

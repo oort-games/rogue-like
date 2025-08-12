@@ -66,6 +66,7 @@ public class UISettingPopup : UIPopup
         if (_applyActionCount == 0)
         {
             base.Close();
+            SoundExtensions.PlayUIButton();
             _closeAction?.Invoke();
         }
         else
@@ -96,6 +97,8 @@ public class UISettingPopup : UIPopup
     {
         if (_applyActionCount > 0)
         {
+            if (UIManager.Instance.GetPopupUI<UIConfirmPopup>() == null)
+                SoundExtensions.PlayUIButton();
             _onApply?.Invoke();
             var handlers = _onApply?.GetInvocationList();
             if (handlers != null)
@@ -108,6 +111,7 @@ public class UISettingPopup : UIPopup
 
     void OnClickReset()
     {
+        SoundExtensions.PlayUIButton();
         UIConfirmPopup confirmPopup = UIManager.Instance.OpenPopupUI<UIConfirmPopup>();
         confirmPopup.Initialize(() => {
             SoundManager.Instance.ResetOption();

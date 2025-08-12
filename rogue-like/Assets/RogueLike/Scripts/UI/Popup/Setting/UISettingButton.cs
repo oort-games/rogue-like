@@ -79,6 +79,7 @@ public class UISettingButton : UISettingContent
     #region Private
     void Show()
     {
+        SoundExtensions.PlayUIButton();
         UISelectPopup selectPopup = UIManager.Instance.OpenPopupUI<UISelectPopup>();
         selectPopup.Initialize(gameObject, _titleLocalizationKey, _options, _currentIndex, OnValueChanged);
     }

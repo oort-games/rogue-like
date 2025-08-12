@@ -48,8 +48,9 @@ public class UIConfirmPopup : UIPopup
 
     public override void Close()
     {
-        base.Close();
         _closeAction?.Invoke();
+        SoundExtensions.PlayUIButton();
+        base.Close();
     }
 
     void Confirm(InputAction.CallbackContext context)

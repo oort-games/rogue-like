@@ -106,6 +106,7 @@ public class UISettingSelector : UISettingContent
     void ChangeOption(int delta)
     {
         if (_enable == false) return;
+        SoundExtensions.PlayUISelect();
         _currentIndex = (_currentIndex + delta + _options.Length) % _options.Length;
         
         if (_immediately == true)

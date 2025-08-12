@@ -11,6 +11,7 @@ public abstract class UIScrollViewContent : Selectable
     protected UIPopup _parentPopup;
     RectTransform _rectTransform;
     ScrollRect _scrollRect;
+    bool _isSoundSuppressed;
 
     protected override void Awake()
     {
@@ -51,6 +52,7 @@ public abstract class UIScrollViewContent : Selectable
         yield return null;
         if (EventSystem.current.currentSelectedGameObject == null)
         {
+            _isSoundSuppressed = true;
             EventSystem.current.SetSelectedGameObject(gameObject);
         }
         else
@@ -100,6 +102,22 @@ public abstract class UIScrollViewContent : Selectable
     protected virtual void SetSelectedVisual(bool isSelected)
     {
         _highlight.SetActive(isSelected);
+        if (isSelected)
+        {
+            if (_isSoundSuppressed == true)
+            {
+                _isSoundSuppressed = false;
+            }
+            else
+            {
+                SoundExtensions.PlayUISelect();
+            }
+        }
     }
     #endregion
+
+    public void SetSoundSuppressed(bool isSuppressed)
+    {
+        _isSoundSuppressed = isSuppressed;
+    }
 }

@@ -83,7 +83,10 @@ public class UISettingSlider : UISettingContent
     void ClickDelta(float delta)
     {
         if (_enable == false) return;
+        float preValue = _slider.value;
         _slider.value += delta;
+        if (preValue != _slider.value)
+            SoundExtensions.PlayUISelect();
     }
 
     void OnValueChanged(float value)
