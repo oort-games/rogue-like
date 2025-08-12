@@ -21,7 +21,7 @@ public class UITabPage : MonoBehaviour
             }
             else
             {
-                SoundExtensions.PlayUISelect();
+                SoundExtensions.PlayUITab();
             }
             EventSystem.current.SetSelectedGameObject(_firstSelectObject);
         }

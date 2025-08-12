@@ -35,4 +35,14 @@ public static class SoundExtensions
     {
         SoundManager.Instance.Play(SoundType.SFX, "ui_select");
     }
+
+    public static void PlayUITab()
+    {
+        SoundManager.Instance.Play(SoundType.SFX, "ui_tab");
+    }
+
+    public static void PlayUIOptionChange()
+    {
+        SoundManager.Instance.Play(SoundType.SFX, "ui_select_2");
+    }
 }
