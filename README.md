@@ -40,7 +40,7 @@ Input Key Display 자동 변환
 ---
 
 ## Sound System
-배경음, 효과음, 마스터 볼륨 컨트롤
+마스터, 배경음, 효과음,  볼륨 컨트롤
 
 | InGame | Editor Inspector |
 | --- | --- |
